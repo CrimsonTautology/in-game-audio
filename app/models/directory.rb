@@ -3,4 +3,9 @@ class Directory < ActiveRecord::Base
   has_many :subdirectories, class_name: "Directory", foreign_key: "parent_id", dependent: :destroy
 
   belongs_to :parent, class_name: "Directory"
+
+  def self.root
+    where(root: true).first
+  end
+
 end
