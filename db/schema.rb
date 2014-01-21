@@ -11,6 +11,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 20140117182804) do
+
+  create_table "directories", force: true do |t|
+    t.boolean  "root",       default: false
+    t.string   "name",                       null: false
+    t.integer  "parent_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "songs", force: true do |t|
+    t.string   "name",           null: false
+    t.integer  "directory_id",   null: false
+    t.string   "title"
+    t.string   "album"
+    t.string   "artist"
+    t.integer  "duration"
+    t.integer  "uploader_id"
+    t.integer  "play_count"
+    t.string   "file_hash"
+    t.boolean  "map_themeable"
+    t.boolean  "user_themeable"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
 end

@@ -1,9 +1,9 @@
 class CreateDirectories < ActiveRecord::Migration
   def change
     create_table :directories do |t|
-      t.bool :root
-      t.string :name
-      t.directory :parent
+      t.boolean :root, default: false
+      t.string :name, null: false
+      t.integer :parent_id
 
       t.timestamps
     end

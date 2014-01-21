@@ -5,3 +5,10 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+unless Directory.exists?(root: true)
+  root = Directory.new
+  root.root = true
+  root.name = "/"
+  root.save!
+end
