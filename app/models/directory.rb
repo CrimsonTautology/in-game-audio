@@ -6,6 +6,14 @@ class Directory < ActiveRecord::Base
 
   validates :name, uniqueness: { scope: :parent_id, message: "A directory cannot have two immediate subdirectories of the same name", case_sensitive: false}
 
+  def full_path
+    if root?
+      ""
+    else
+      "#{parent.full_path}#{name}/"
+    end
+  end
+
   def self.root
     where(root: true).first
   end

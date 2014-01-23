@@ -4,15 +4,7 @@ class Song < ActiveRecord::Base
   validates :name, uniqueness: { scope: :directory_id, message: "A directory cannot have two songs of the same name", case_sensitive: false}
 
   def full_path
-    parent = directory
-    path = name
-
-    while !parent.root? do
-      path = "#{parent.name}/#{path}" 
-      parent = parent.parent
-    end
-
-    path
+    "#{directory.full_path}#{name}"
   end
 
   def self.create_from_full_path full_path
