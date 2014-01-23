@@ -4,6 +4,8 @@ class Directory < ActiveRecord::Base
 
   belongs_to :parent, class_name: "Directory"
 
+  validates :name, uniqueness: { scope: :parent_id, message: "A directory cannot have two immediate subdirectories of the same name", case_sensitive: false}
+
   def self.root
     where(root: true).first
   end
