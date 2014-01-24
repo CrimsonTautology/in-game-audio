@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140124194713) do
+ActiveRecord::Schema.define(version: 20140124205313) do
 
   create_table "directories", force: true do |t|
     t.boolean  "root",       default: false
@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(version: 20140124194713) do
     t.string   "sound_content_type"
     t.integer  "sound_file_size"
     t.datetime "sound_updated_at"
+    t.string   "sound_fingerprint"
   end
 
 end
