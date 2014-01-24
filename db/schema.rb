@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140124190520) do
+ActiveRecord::Schema.define(version: 20140124194713) do
 
   create_table "directories", force: true do |t|
     t.boolean  "root",       default: false
@@ -22,12 +22,12 @@ ActiveRecord::Schema.define(version: 20140124190520) do
   end
 
   create_table "songs", force: true do |t|
-    t.string   "name",               null: false
-    t.integer  "directory_id",       null: false
+    t.string   "name",                             null: false
+    t.integer  "directory_id",                     null: false
     t.string   "title"
     t.string   "album"
     t.string   "artist"
-    t.integer  "duration"
+    t.float    "duration",           default: 0.0
     t.integer  "uploader_id"
     t.integer  "play_count"
     t.string   "file_hash"

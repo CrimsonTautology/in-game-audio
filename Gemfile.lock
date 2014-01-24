@@ -192,6 +192,7 @@ GEM
       rspec-core (~> 2.14.0)
       rspec-expectations (~> 2.14.0)
       rspec-mocks (~> 2.14.0)
+    ruby-mp3info (0.8)
     ruby-openid (2.3.0)
     ruby-progressbar (1.4.0)
     sass (3.2.13)
@@ -274,6 +275,7 @@ DEPENDENCIES
   rails_12factor
   rake
   rspec-rails
+  ruby-mp3info
   sass-rails (~> 4.0.0)
   simple_form
   sqlite3
