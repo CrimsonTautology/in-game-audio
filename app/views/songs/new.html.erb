@@ -1,0 +1,4 @@
+<%= form_for Song.new, url: songs_path, html: { multipart: true } do |form| %>
+  <%= form.text_field :name %>
+  <%= form.file_field :sound %>
+<% end %>

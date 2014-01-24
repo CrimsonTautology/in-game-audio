@@ -19,8 +19,8 @@ class Song < ActiveRecord::Base
     path: "public/attachments/:name/"
 
   validates :sound,
-    attachment_presence: true,
-    size: { in: 0..6.megabytes }
+    attachment_presence: true
+    #size: { in: 0..6.megabytes }
 
   before_save :extract_sound_details
 
