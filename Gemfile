@@ -29,6 +29,9 @@ gem 'omniauth-openid'
 gem 'omniauth-steam'
 gem 'steam-condenser', '~> 1.3.5'
 
+gem "paperclip", "~> 3.0"
+gem "paperclip_mp3", "~> 0.3.0"
+
 # Gems used only for assets and not required
 # in production environments by default.
 gem 'sass-rails', '~> 4.0.0'

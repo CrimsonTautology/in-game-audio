@@ -3,6 +3,8 @@ class Song < ActiveRecord::Base
 
   validates :name, uniqueness: { scope: :directory_id, message: "A directory cannot have two songs of the same name", case_sensitive: false}
 
+  has_attached_file :sound, styles: { format: :mp3, convert_options: { ar: '44100', ac: '2', ab: '192000' }, processors: [:mp3] }
+
   def full_path
     "#{directory.full_path}#{name}"
   end
