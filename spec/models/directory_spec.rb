@@ -4,6 +4,34 @@ describe Directory do
   let!(:root) {FactoryGirl.create(:root)}
   let!(:sub) {FactoryGirl.create(:directory, name: "foo", parent: root)}
 
+  describe "validations" do
+    it "prevents multiple sibling directories of the same name" do
+      FactoryGirl.create(:directory, name: "baz", parent: sub.parent)
+      sub.name = "bAz"
+      expect(sub).to_not be_valid
+    end
+
+    it "prevents slashes in name" do
+      sub.name = "crap/crap"
+      expect(sub).to_not be_valid
+    end
+
+    it "allows underscores, letters and numbers" do
+      sub.name = "crap_CRAP2"
+      expect(sub).to be_valid
+    end
+
+    it "only let's one directory be root" do
+      sub.root = true
+      expect(sub).to_not be_valid
+    end
+
+    it "won't let not root directories be parentless" do
+      sub.parent = nil
+      expect(sub).to_not be_valid
+    end
+  end
+
   describe "#full_path" do
     let!(:sub2) {FactoryGirl.create(:directory, name: "bar", parent: sub)}
     specify { expect(root.full_path).to be_empty}

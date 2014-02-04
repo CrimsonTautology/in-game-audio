@@ -4,7 +4,13 @@ class Directory < ActiveRecord::Base
 
   belongs_to :parent, class_name: "Directory"
 
-  validates :name, uniqueness: { scope: :parent_id, message: "A directory cannot have two immediate subdirectories of the same name", case_sensitive: false}
+  validates :name,
+    uniqueness: { scope: :parent_id, message: "A directory cannot have two immediate subdirectories of the same name", case_sensitive: false},
+    format: { with: /\A[a-zA-Z0-9_]+\z/, unless: :root?, message: "Only numbers, letters or underscores" }
+
+  validates_presence_of :parent_id, unless: :root?
+  validates_uniqueness_of :root, if: :root?
+  
 
   def full_path
     if root?
