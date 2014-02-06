@@ -3,13 +3,9 @@ require 'spec_helper'
 describe Song do
   let!(:root) {FactoryGirl.create(:root)}
   let!(:sub) {FactoryGirl.create(:directory, name: "foo", parent: root)}
+  let(:song) {FactoryGirl.build(:song, name: "jazz", directory: sub)}
 
-  before do
-    @song = Song.new
-    @song.name = "jazz"
-    @song.directory = sub
-  end
-  subject { @song }
+  subject { song }
   it { should have_attached_file(:sound) }
   pending { should validate_attachment_presence(:sound) }
   it { should validate_attachment_content_type(:sound).
@@ -25,8 +21,8 @@ describe Song do
   describe "#extract_sound_details" do
     before do
       @file = File.new(Rails.root.join('spec', 'songs', 'test.mp3'))
-      @song.sound = @file
-      @song.send(:extract_sound_details) 
+      song.sound = @file
+      song.send(:extract_sound_details) 
     end
 
     after do
@@ -39,17 +35,21 @@ describe Song do
     its(:duration) { should be_within(0.1).of(348.0) }
   end
 
-  it "prevents multiple sibling songs of the same name" do
-    Song.any_instance.stub(extract_sound_details: nil)
-    FactoryGirl.create(:song, name: "baz", directory: sub)
-    @song.name = "bAz"
-    expect(@song).to_not be_valid
-  end
+  context "with multiple songs" do
+    before do
+      Song.any_instance.stub(extract_sound_details: nil)
+      FactoryGirl.create(:song, name: "baz", directory: sub)
+    end
 
-  it "allows multiple songs of the same name if they are not siblings" do
-    Song.any_instance.stub(extract_sound_details: nil)
-    FactoryGirl.create(:song, name: "baz", directory: root)
-    @song.name = "bAz"
-    expect(@song).to be_valid
+    it "prevents sibling with same name" do
+      song.name = "bAz"
+      expect(song).to_not be_valid
+    end
+
+    it "allows same name if they are not siblings" do
+      song.directory = root
+      song.name = "bAz"
+      expect(song).to be_valid
+    end
   end
 end
