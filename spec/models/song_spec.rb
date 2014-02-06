@@ -39,11 +39,17 @@ describe Song do
     its(:duration) { should be_within(0.1).of(348.0) }
   end
 
-
   it "prevents multiple sibling songs of the same name" do
     Song.any_instance.stub(extract_sound_details: nil)
     FactoryGirl.create(:song, name: "baz", directory: sub)
     @song.name = "bAz"
     expect(@song).to_not be_valid
+  end
+
+  it "allows multiple songs of the same name if they are not siblings" do
+    Song.any_instance.stub(extract_sound_details: nil)
+    FactoryGirl.create(:song, name: "baz", directory: root)
+    @song.name = "bAz"
+    expect(@song).to be_valid
   end
 end
