@@ -38,7 +38,7 @@ describe Song do
   context "with multiple songs" do
     before do
       Song.any_instance.stub(extract_sound_details: nil)
-      FactoryGirl.create(:song, name: "baz", directory: sub)
+      FactoryGirl.create(:song, name: "baz", directory: sub, sound_fingerprint: "test_fingerprint")
     end
 
     it "prevents sibling with same name" do
@@ -50,6 +50,11 @@ describe Song do
       song.directory = root
       song.name = "bAz"
       expect(song).to be_valid
+    end
+
+    it "prevents same file from beign uploaded twice" do
+      song.sound_fingerprint = "test_fingerprint"
+      expect(song).to_not be_valid
     end
   end
 end
