@@ -7,7 +7,7 @@ describe Directory do
   describe "validations" do
     it "prevents multiple sibling directories of the same name" do
       FactoryGirl.create(:directory, name: "baz", parent: sub.parent)
-      sub.name = "bAz"
+      sub.name = "baz"
       expect(sub).to_not be_valid
     end
 
@@ -17,7 +17,7 @@ describe Directory do
     end
 
     it "allows underscores, letters and numbers" do
-      sub.name = "crap_CRAP2"
+      sub.name = "crap_crap2"
       expect(sub).to be_valid
     end
 

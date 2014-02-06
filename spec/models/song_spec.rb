@@ -42,13 +42,13 @@ describe Song do
     end
 
     it "prevents sibling with same name" do
-      song.name = "bAz"
+      song.name = "baz"
       expect(song).to_not be_valid
     end
 
     it "allows same name if they are not siblings" do
       song.directory = root
-      song.name = "bAz"
+      song.name = "baz"
       expect(song).to be_valid
     end
 

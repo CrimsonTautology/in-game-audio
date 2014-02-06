@@ -3,7 +3,9 @@ require "mp3info"
 class Song < ActiveRecord::Base
   belongs_to :directory
 
-  validates :name, uniqueness: { scope: :directory_id, message: "A directory cannot have two songs of the same name", case_sensitive: false}
+  validates :name,
+    uniqueness: { scope: :directory_id, message: "A directory cannot have two songs of the same name", case_sensitive: false},
+    format: { with: /\A[a-z0-9_]+\z/, message: "Only numbers, letters or underscores" }
   validate  :name_does_not_match_directory
   validates :sound_fingerprint, uniqueness: {message: "File has already been uploaded"}
 
