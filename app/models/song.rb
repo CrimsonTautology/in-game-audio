@@ -4,6 +4,7 @@ class Song < ActiveRecord::Base
   belongs_to :directory
 
   validates :name, uniqueness: { scope: :directory_id, message: "A directory cannot have two songs of the same name", case_sensitive: false}
+  validate  :name_does_not_match_directory
   validates :sound_fingerprint, uniqueness: {message: "File has already been uploaded"}
 
   has_attached_file :sound,
@@ -53,5 +54,9 @@ class Song < ActiveRecord::Base
       self.artist = mp3.tag.artist
       self.duration =  mp3.length
     end
+  end
+
+  def name_does_not_match_directory
+    errors.add(:base, 'Directory already exists with same name') if Directory.exists?(parent: directory, name: name)
   end
 end

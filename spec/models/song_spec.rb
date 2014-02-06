@@ -56,5 +56,13 @@ describe Song do
       song.sound_fingerprint = "test_fingerprint"
       expect(song).to_not be_valid
     end
+
+  end
+
+  it "prevents a song from having same name as sibling directory" do
+    FactoryGirl.create(:directory, name: "bar", parent: sub)
+    song.directory = sub
+    song.name = "bar"
+    expect(song).to_not be_valid
   end
 end
