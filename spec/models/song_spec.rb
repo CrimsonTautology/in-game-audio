@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Song do
   let!(:root) {FactoryGirl.create(:root)}
   let!(:sub) {FactoryGirl.create(:directory, name: "foo", parent: root)}
-  let(:song) {FactoryGirl.build(:song, name: "jazz", directory: sub)}
+  let!(:song) {FactoryGirl.build(:song, name: "jazz", directory: sub)}
 
   subject { song }
   it { should have_attached_file(:sound) }
@@ -33,6 +33,24 @@ describe Song do
     its(:album) { should eq "Ninja Tuna" }
     its(:artist) { should eq "Mr. Scruff" }
     its(:duration) { should be_within(0.1).of(348.0) }
+  end
+
+  describe ".create_from_full_path" do
+    before do
+      Song.any_instance.stub(extract_sound_details: nil)
+      @file = File.new(Rails.root.join('spec', 'songs', 'test.mp3'))
+      @new_song = Song.create_from_full_path "a/b/c"
+    end
+
+    after do
+      @file.close
+    end
+
+    specify { expect(@new_song.name).to eq "c" }
+    specify { expect(@new_song.directory.name).to eq "b" }
+    specify { expect(@new_song.directory.parent.name).to eq "a" }
+    specify { expect(@new_song.directory.parent.parent).to be_root }
+
   end
 
   context "with multiple songs" do
