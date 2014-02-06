@@ -15,15 +15,14 @@ class Song < ActiveRecord::Base
         ab: '192000'
       },
       processors: [:mp3]
-    },
-    url:  "public/attachments/:name/",
-    path: "public/attachments/:name/"
+    }
 
-  validates :sound,
-    attachment_presence: true
-    #size: { in: 0..6.megabytes }
+  validates_attachment :sound,
+    attachment_presence: true,
+    content_type: { content_type: "audio/mp3" },
+    size: { in: (0..10.megabytes) }
 
-  before_save :extract_sound_details
+  #before_save :extract_sound_details
 
   def full_path
     "#{directory.full_path}#{name}"
