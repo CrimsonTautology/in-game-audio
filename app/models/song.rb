@@ -22,7 +22,7 @@ class Song < ActiveRecord::Base
     content_type: { content_type: "audio/mp3" },
     size: { in: (0..10.megabytes) }
 
-  #before_save :extract_sound_details
+  before_save :extract_sound_details
 
   def full_path
     "#{directory.full_path}#{name}"
