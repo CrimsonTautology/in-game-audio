@@ -8,14 +8,7 @@ describe Song do
     @song = Song.new
     @song.name = "jazz"
     @song.directory = sub
-    @file = File.new(Rails.root.join('spec', 'songs', 'test.mp3'))
-    @song.sound = @file
   end
-
-  after do
-    @file.close
-  end
-
   subject { @song }
   it { should have_attached_file(:sound) }
   pending { should validate_attachment_presence(:sound) }
@@ -30,8 +23,16 @@ describe Song do
   its(:directory) { should eq sub }
 
   describe "#extract_sound_details" do
-    before { @song.send(:extract_sound_details) }
-    its(:sound_file_name) { should eq "jazz.mp3" }
+    before do
+      @file = File.new(Rails.root.join('spec', 'songs', 'test.mp3'))
+      @song.sound = @file
+      @song.send(:extract_sound_details) 
+    end
+
+    after do
+      @file.close
+    end
+
     its(:title) { should eq "Kalimba" }
     its(:album) { should eq "Ninja Tuna" }
     its(:artist) { should eq "Mr. Scruff" }
@@ -40,6 +41,7 @@ describe Song do
 
 
   it "prevents multiple sibling songs of the same name" do
+    Song.any_instance.stub(extract_sound_details: nil)
     FactoryGirl.create(:song, name: "baz", directory: sub)
     @song.name = "bAz"
     expect(@song).to_not be_valid
