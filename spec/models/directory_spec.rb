@@ -62,4 +62,18 @@ describe Directory do
     end
 
   end
+
+  context "with sibling songs" do
+    before do
+      Song.any_instance.stub(extract_sound_details: nil)
+      FactoryGirl.create(:song, name: "baz", directory: root)
+    end
+
+    it "prevents having same name as sibling song" do
+      sub.name = "baz"
+      expect(sub).to_not be_valid
+    end
+
+  end
+
 end

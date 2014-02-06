@@ -7,6 +7,7 @@ class Directory < ActiveRecord::Base
   validates :name,
     uniqueness: { scope: :parent_id, message: "A directory cannot have two immediate subdirectories of the same name", case_sensitive: false},
     format: { with: /\A[a-zA-Z0-9_]+\z/, unless: :root?, message: "Only numbers, letters or underscores" }
+  validate :name_does_not_match_song
 
   validates_presence_of :parent_id, unless: :root?
   validates_uniqueness_of :root, if: :root?
@@ -35,5 +36,12 @@ class Directory < ActiveRecord::Base
     
     sub
   end
+  
+  private
+  def name_does_not_match_song
+    errors.add(:base, 'Song already exists with same name') if Song.exists?(directory_id: parent, name: name)
+  end
+
+  
 
 end
