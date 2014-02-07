@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140124205313) do
+ActiveRecord::Schema.define(version: 20140207150906) do
 
   create_table "directories", force: true do |t|
     t.boolean  "root",       default: false
@@ -19,7 +19,12 @@ ActiveRecord::Schema.define(version: 20140124205313) do
     t.integer  "parent_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "full_path"
   end
+
+  add_index "directories", ["full_path"], name: "index_directories_on_full_path"
+  add_index "directories", ["parent_id", "name"], name: "index_directories_on_parent_id_and_name"
+  add_index "directories", ["root"], name: "index_directories_on_root"
 
   create_table "songs", force: true do |t|
     t.string   "name",                             null: false
@@ -30,7 +35,6 @@ ActiveRecord::Schema.define(version: 20140124205313) do
     t.float    "duration",           default: 0.0
     t.integer  "uploader_id"
     t.integer  "play_count"
-    t.string   "file_hash"
     t.boolean  "map_themeable"
     t.boolean  "user_themeable"
     t.datetime "created_at"
@@ -40,6 +44,11 @@ ActiveRecord::Schema.define(version: 20140124205313) do
     t.integer  "sound_file_size"
     t.datetime "sound_updated_at"
     t.string   "sound_fingerprint"
+    t.string   "full_path"
   end
+
+  add_index "songs", ["directory_id", "name"], name: "index_songs_on_directory_id_and_name"
+  add_index "songs", ["full_path"], name: "index_songs_on_full_path"
+  add_index "songs", ["title", "album", "artist"], name: "index_songs_on_title_and_album_and_artist"
 
 end

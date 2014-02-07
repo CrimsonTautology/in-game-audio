@@ -12,14 +12,7 @@ class Directory < ActiveRecord::Base
   validates_presence_of :parent_id, unless: :root?
   validates_uniqueness_of :root, if: :root?
   
-
-  def full_path
-    if root?
-      ""
-    else
-      "#{parent.full_path}#{name}/"
-    end
-  end
+  before_save :update_full_path
 
   def self.root
     where(root: true).first
@@ -40,6 +33,14 @@ class Directory < ActiveRecord::Base
   private
   def name_does_not_match_song
     errors.add(:base, 'Song already exists with same name') if Song.exists?(directory_id: parent, name: name)
+  end
+
+  def update_full_path
+    if root?
+      self.full_path = ""
+    else
+      self.full_path = "#{parent.full_path}#{name}/"
+    end
   end
 
   

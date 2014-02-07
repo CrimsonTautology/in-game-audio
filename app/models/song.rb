@@ -1,7 +1,7 @@
 require "mp3info"
 
 class Song < ActiveRecord::Base
-  belongs_to :directory
+  belongs_to :directory, touch: true
 
   validates :name,
     uniqueness: { scope: :directory_id, message: "A directory cannot have two songs of the same name", case_sensitive: false},
@@ -26,13 +26,11 @@ class Song < ActiveRecord::Base
     size: { in: (0..10.megabytes) }
 
   before_save :extract_sound_details
+  before_save :update_full_path
 
-  def full_path
-    "#{directory.full_path}#{name}"
-  end
 
-  def self.create_from_full_path full_path
-    directories = full_path.gsub(/\A\s*\//, "").gsub(/\/\s*\z/, "").split("/")
+  def self.create_from_full_path path
+    directories = path.gsub(/\A\s*\//, "").gsub(/\/\s*\z/, "").split("/")
     name = directories.pop
 
     parent = Directory.root
@@ -60,5 +58,9 @@ class Song < ActiveRecord::Base
 
   def name_does_not_match_directory
     errors.add(:base, 'Directory already exists with same name') if Directory.exists?(parent: directory, name: name)
+  end
+
+  def update_full_path
+    self.full_path = "#{directory.full_path}#{name}"
   end
 end
