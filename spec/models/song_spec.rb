@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Song do
   let!(:root) {FactoryGirl.create(:root)}
   let!(:sub) {FactoryGirl.create(:directory, name: "foo", parent: root)}
-  let!(:song) {FactoryGirl.build(:song, name: "jazz", directory: sub)}
+  let!(:song) {FactoryGirl.create(:song, name: "jazz", directory: sub)}
 
   subject { song }
   it { should have_attached_file(:sound) }
@@ -17,12 +17,27 @@ describe Song do
   its(:name) { should eq "jazz" }
   it { should respond_to :directory }
   its(:directory) { should eq sub }
+  its(:full_path) { should eq "foo/jazz"}
 
-  describe "#extract_sound_details" do
+  it "updates full_path if parent directory changes name" do
+    sub.name = "bar"
+    sub.save
+    expect(song.full_path).to eq "bar/jazz"
+  end
+
+  it "updates full_path if parent directory changes" do
+    sub2 = FactoryGirl.create(:directory, name: "baz", parent: sub)
+    song.directory = sub2
+    song.save
+    expect(song.full_path).to eq "foo/baz/jazz"
+  end
+
+  pending "extracing mp3 details" do
     before do
-      @file = File.new(Rails.root.join('spec', 'songs', 'test.mp3'))
+      @file = File.new(Rails.root.join('spec', 'fixtures', 'files', 'test.mp3'))
       song.sound = @file
       song.send(:extract_sound_details) 
+      song.save
     end
 
     after do
@@ -33,17 +48,12 @@ describe Song do
     its(:album) { should eq "Ninja Tuna" }
     its(:artist) { should eq "Mr. Scruff" }
     its(:duration) { should be_within(0.1).of(348.0) }
+
   end
 
-  describe ".create_from_full_path" do
+  pending ".create_from_full_path" do
     before do
-      Song.any_instance.stub(extract_sound_details: nil)
-      @file = File.new(Rails.root.join('spec', 'songs', 'test.mp3'))
       @new_song = Song.create_from_full_path "a/b/c"
-    end
-
-    after do
-      @file.close
     end
 
     specify { expect(@new_song.name).to eq "c" }
@@ -55,7 +65,6 @@ describe Song do
 
   context "with multiple songs" do
     before do
-      Song.any_instance.stub(extract_sound_details: nil)
       FactoryGirl.create(:song, name: "baz", directory: sub, sound_fingerprint: "test_fingerprint")
     end
 

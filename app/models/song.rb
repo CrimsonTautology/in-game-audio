@@ -1,13 +1,13 @@
 require "mp3info"
 
 class Song < ActiveRecord::Base
-  belongs_to :directory, touch: true
+  belongs_to :directory
 
   validates :name,
     uniqueness: { scope: :directory_id, message: "A directory cannot have two songs of the same name", case_sensitive: false},
     format: { with: /\A[a-z0-9_]+\z/, message: "Only numbers, letters or underscores" }
   validate  :name_does_not_match_directory
-  validates :sound_fingerprint, uniqueness: {message: "File has already been uploaded"}
+  validates :sound_fingerprint, uniqueness: {allow_blank: true, message: "File has already been uploaded"}
 
   has_attached_file :sound,
     styles: { 
@@ -21,7 +21,6 @@ class Song < ActiveRecord::Base
     }
 
   validates_attachment :sound,
-    attachment_presence: true,
     content_type: { content_type: "audio/mp3" },
     size: { in: (0..10.megabytes) }
 
@@ -44,8 +43,14 @@ class Song < ActiveRecord::Base
     end.save
   end
 
+  def update_full_path
+    self.full_path = "#{directory.full_path}#{name}"
+  end
+
   private
   def extract_sound_details
+    return true unless sound_fingerprint_changed? && !sound.present?
+
     path = sound.queued_for_write[:original].path
     opts = { encoding: 'utf-8' }
     Mp3Info.open(path, opts) do |mp3|
@@ -60,7 +65,4 @@ class Song < ActiveRecord::Base
     errors.add(:base, 'Directory already exists with same name') if Directory.exists?(parent: directory, name: name)
   end
 
-  def update_full_path
-    self.full_path = "#{directory.full_path}#{name}"
-  end
 end

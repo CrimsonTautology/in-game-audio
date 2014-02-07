@@ -32,11 +32,29 @@ describe Directory do
     end
   end
 
-  describe "#full_path" do
-    let!(:sub2) {FactoryGirl.create(:directory, name: "bar", parent: sub)}
+  describe "full_path" do
+    let!(:sub2) {FactoryGirl.create(:directory, name: "baz", parent: sub)}
     specify { expect(root.full_path).to be_empty}
     specify { expect(sub.full_path).to eql "foo/"}
-    specify { expect(sub2.full_path).to eql "foo/bar/"}
+    specify { expect(sub2.full_path).to eql "foo/baz/"}
+
+    it "changes full_path if directory name chagnes" do
+      sub.name = "bar"
+      sub.save
+      expect(sub.full_path).to eq "bar/"
+    end
+
+    it "updates full_path if parent directory changes name" do
+      sub.name = "bar"
+      sub.save
+      expect(sub2.full_path).to eq "bar/baz/"
+    end
+
+    it "updates full_path if parent directory changes" do
+      sub2.parent = root
+      sub2.save
+      expect(sub2.full_path).to eq "baz/"
+    end
   end
 
   describe ".root" do
