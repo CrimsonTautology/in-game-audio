@@ -39,10 +39,6 @@ class Directory < ActiveRecord::Base
     end
   end
 
-  def to_param
-    full_path
-  end
-
   private
   def name_does_not_match_song
     errors.add(:base, 'Song already exists with same name') if Song.exists?(directory_id: parent, name: name)

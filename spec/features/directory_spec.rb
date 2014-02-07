@@ -8,13 +8,13 @@ describe "Song Directories" do
     let!(:sub) {FactoryGirl.create(:directory, name: "foo", parent: root)}
 
     before do
-      visit "/directories/#{root.full_path}"
+      visit "/directories/#{root.id}"
     end
 
     its(:status_code) { should eq 200}
     it { should have_link(sub.full_path, href: directory_path(sub))}
 
-    pending "subdirectories" do
+    describe "subdirectories" do
       let!(:sub2) {FactoryGirl.create(:directory, name: "bar", parent: sub)}
       let!(:sub3) {FactoryGirl.create(:directory, name: "baz", parent: sub2)}
       before do

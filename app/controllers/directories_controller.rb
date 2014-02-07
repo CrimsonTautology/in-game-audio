@@ -15,11 +15,10 @@ class DirectoriesController < ApplicationController
 
   private
   def find_directory
-    if params[:id].blank?
+    if params[:id].nil?
       @directory = Directory.includes(:subdirectories, :songs).root
     else
-      full_path = params[:id].chomp("/") + "/"
-      @directory = Directory.includes(:subdirectories, :songs).find_by(full_path: full_path)
+      @directory = Directory.includes(:subdirectories, :songs).find(params[:id])
     end
     @subdirectories = @directory.subdirectories
     @songs = @directory.songs
