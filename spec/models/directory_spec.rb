@@ -45,9 +45,10 @@ describe Directory do
     end
 
     it "updates full_path if parent directory changes name" do
+      sub.reload
       sub.name = "bar"
       sub.save
-      expect(sub2.full_path).to eq "bar/baz/"
+      expect(sub2.reload.full_path).to eq "bar/baz/"
     end
 
     it "updates full_path if parent directory changes" do

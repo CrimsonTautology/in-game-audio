@@ -20,9 +20,10 @@ describe Song do
   its(:full_path) { should eq "foo/jazz"}
 
   it "updates full_path if parent directory changes name" do
-    sub.name = "bar"
+    sub.reload
+    sub.name = "bax"
     sub.save
-    expect(song.full_path).to eq "bar/jazz"
+    expect(song.reload.full_path).to eq "bax/jazz"
   end
 
   it "updates full_path if parent directory changes" do
