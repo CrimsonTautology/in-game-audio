@@ -10,7 +10,7 @@ class Song < ActiveRecord::Base
   validate  :name_does_not_match_directory
   validates :sound_fingerprint, uniqueness: {allow_blank: true, message: "File has already been uploaded"}
 
-  before_save :extract_sound_details
+  #before_save :extract_sound_details
   before_save :update_full_path
 
 
