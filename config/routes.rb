@@ -1,6 +1,5 @@
 InGameAudio::Application.routes.draw do
 
-  resources :directories do
-
-  end
+  resources :songs
+  resources :directories
 end
