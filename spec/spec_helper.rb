@@ -4,7 +4,6 @@ require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'capybara/rspec'
 require 'rspec/autorun'
-require "paperclip/matchers"
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
@@ -74,7 +73,4 @@ RSpec.configure do |config|
 
   config.include AuthMacros
   config.include Requests::JsonHelpers, type: :request
-
-  #paperclip matchers
-  config.include Paperclip::Shoulda::Matchers
 end

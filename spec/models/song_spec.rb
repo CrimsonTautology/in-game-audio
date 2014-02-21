@@ -6,11 +6,9 @@ describe Song do
   let!(:song) {FactoryGirl.create(:song, name: "jazz", directory: sub)}
 
   subject { song }
-  it { should have_attached_file(:sound) }
+  #it { should have_attached_file(:sound) }
   pending { should validate_attachment_presence(:sound) }
-  it { should validate_attachment_content_type(:sound).
-                allowing('audio/mp3').
-                rejecting('image/png', 'image/gif' 'text/plain', 'text/xml') }
+  #it { should validate_attachment_content_type(:sound).  allowing('audio/mp3').  rejecting('image/png', 'image/gif' 'text/plain', 'text/xml') }
   pending { should validate_attachment_size(:sound).less_than(10.megabytes) }
 
   it { should respond_to :name }
