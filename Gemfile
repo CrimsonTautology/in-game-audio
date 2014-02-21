@@ -29,9 +29,8 @@ gem 'omniauth-openid'
 gem 'omniauth-steam'
 gem 'steam-condenser', '~> 1.3.5'
 
-#gem "paperclip", "~> 3.0"
-#gem "paperclip_mp3", "~> 0.3.0"
 gem 'carrierwave'
+gem 'streamio-ffmpeg'
 gem 'ruby-mp3info'
 
 # Gems used only for assets and not required
