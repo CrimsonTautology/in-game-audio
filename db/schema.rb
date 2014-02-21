@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140207150906) do
+ActiveRecord::Schema.define(version: 20140221154433) do
 
   create_table "directories", force: true do |t|
     t.boolean  "root",       default: false
@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(version: 20140207150906) do
     t.datetime "sound_updated_at"
     t.string   "sound_fingerprint"
     t.string   "full_path"
+    t.string   "sound"
   end
 
   add_index "songs", ["directory_id", "name"], name: "index_songs_on_directory_id_and_name"
