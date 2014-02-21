@@ -26,7 +26,7 @@ class Song < ActiveRecord::Base
     Song.create do |s|
       s.name = name
       s.directory = parent
-    end.save
+    end
   end
 
   def update_full_path

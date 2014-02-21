@@ -27,7 +27,7 @@ describe Song do
     expect(song.full_path).to eq "foo/baz/jazz"
   end
 
-  pending ".create_from_full_path" do
+  describe ".create_from_full_path" do
     before do
       @new_song = Song.create_from_full_path "a/b/c"
     end
