@@ -27,25 +27,6 @@ describe Song do
     expect(song.full_path).to eq "foo/baz/jazz"
   end
 
-  pending "extracing mp3 details" do
-    before do
-      @file = File.new(Rails.root.join('spec', 'fixtures', 'files', 'test.mp3'))
-      song.sound = @file
-      song.send(:extract_sound_details) 
-      song.save
-    end
-
-    after do
-      @file.close
-    end
-
-    its(:title) { should eq "Kalimba" }
-    its(:album) { should eq "Ninja Tuna" }
-    its(:artist) { should eq "Mr. Scruff" }
-    its(:duration) { should be_within(0.1).of(348.0) }
-
-  end
-
   pending ".create_from_full_path" do
     before do
       @new_song = Song.create_from_full_path "a/b/c"

@@ -10,7 +10,6 @@ class Song < ActiveRecord::Base
   validate  :name_does_not_match_directory
   validates :sound_fingerprint, uniqueness: {allow_blank: true, message: "File has already been uploaded"}
 
-  #before_save :extract_sound_details
   before_save :update_full_path
 
 
@@ -34,18 +33,6 @@ class Song < ActiveRecord::Base
   end
 
   private
-  def extract_sound_details
-    return true unless sound_fingerprint_changed? && !sound.present?
-
-    path = sound.queued_for_write[:original].path
-    opts = { encoding: 'utf-8' }
-    Mp3Info.open(path, opts) do |mp3|
-      self.title = mp3.tag.title
-      self.album = mp3.tag.album
-      self.artist = mp3.tag.artist
-      self.duration =  mp3.length
-    end
-  end
 
   def name_does_not_match_directory
     errors.add(:base, 'Directory already exists with same name') if Directory.exists?(parent: directory, name: name)
