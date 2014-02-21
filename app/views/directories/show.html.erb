@@ -1,3 +1,18 @@
-<% @subdirectories.each do |sub| %>
-  <%= link_to sub.full_path, sub %>
-<% end %>
+<h1><%= @directory.full_path %></h1>
+<ul>
+  <% unless @directory.root? %>
+    <li>
+      <%= link_to "..", @directory.parent %>
+    </li>
+  <% end %>
+  <% @subdirectories.each do |sub| %>
+    <li>
+      <%= link_to sub.name + "/", sub %>
+    </li>
+  <% end %>
+  <% @songs.each do |song| %>
+    <li>
+      <%= link_to song.name, song %>
+    </li>
+  <% end %>
+</ul>
