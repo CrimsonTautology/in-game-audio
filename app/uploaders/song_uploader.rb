@@ -1,6 +1,7 @@
-# encoding: utf-8
+require 'carrierwave/processing/mime_types'
 
 class SongUploader < CarrierWave::Uploader::Base
+  include CarrierWave::MimeTypes
   # Choose what kind of storage to use for this uploader:
   storage :file
   # storage :fog
