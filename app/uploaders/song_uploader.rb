@@ -1,4 +1,5 @@
 require 'carrierwave/processing/mime_types'
+require 'mp3info'
 
 class SongUploader < CarrierWave::Uploader::Base
   include CarrierWave::MimeTypes

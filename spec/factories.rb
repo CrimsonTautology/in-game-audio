@@ -17,7 +17,7 @@ FactoryGirl.define do
   factory :song do
     name "baz"
     directory :root
-    #sound { fixture_file_upload(Rails.root.join("spec", "songs", "test.mp3"), "audio/mp3") }
+    sound "crap"
     sound_file_name
     sound_content_type "audio/mp3"
     sound_file_size 320214

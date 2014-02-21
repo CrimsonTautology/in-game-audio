@@ -1,5 +1,3 @@
-require "mp3info"
-
 class Song < ActiveRecord::Base
   belongs_to :directory
   mount_uploader :sound, SongUploader
@@ -9,6 +7,9 @@ class Song < ActiveRecord::Base
     format: { with: /\A[a-z0-9_]+\z/, message: "Only numbers, letters or underscores" }
   validate  :name_does_not_match_directory
   validates :sound_fingerprint, uniqueness: {allow_blank: true, message: "File has already been uploaded"}
+  validates :sound_content_type, inclusion: {in: %w(audio/mp3) }
+  validates :sound_file_size, inclusion: { in: 0..10.megabytes }
+
 
   before_save :update_full_path
 
