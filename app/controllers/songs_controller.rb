@@ -3,6 +3,7 @@ class SongsController < ApplicationController
   end
 
   def show
+    @song = Song.find(params[:id])
   end
 
   def new
@@ -12,10 +13,14 @@ class SongsController < ApplicationController
   end
 
   def create
-    @song = Song.create( song_params )
+    @song = Song.create_from_full_path(params[:song][:full_path])
+    @song.sound = params[:song][:sound]
+    if @song.save
+      flash[:notice] = "Successfully uploaded song."
+      redirect_to @song
+    else
+      render :action => 'new'
+    end
   end
 
-  def song_params
-    params.require(:song).permit(:sound)
-  end
 end

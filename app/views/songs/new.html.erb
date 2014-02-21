@@ -1,5 +1,5 @@
-<%= form_for Song.new, url: songs_path, html: { multipart: true } do |form| %>
-  <%= form.text_field :name %>
-  <%= form.file_field :sound %>
-  <%= form.submit %>
+<%= simple_form_for Song.new, url: songs_path, html: { multipart: true } do |f| %>
+  <%= f.input :full_path %>
+  <%= f.input :sound %>
+  <%= f.button :submit %>
 <% end %>
