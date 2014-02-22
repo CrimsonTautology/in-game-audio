@@ -7,7 +7,7 @@
   <% end %>
   <% @subdirectories.each do |sub| %>
     <li>
-      <%= link_to sub.name + "/", sub %>
+      <%= link_to sub.path_name, sub %>
     </li>
   <% end %>
   <% @songs.each do |song| %>

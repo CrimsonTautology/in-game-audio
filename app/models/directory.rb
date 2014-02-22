@@ -31,11 +31,15 @@ class Directory < ActiveRecord::Base
     sub
   end
   
+  def path_name
+    name + "/"
+  end
+
   def update_full_path
     if root?
       self.full_path = ""
     else
-      self.full_path = "#{parent.full_path}#{name}/"
+      self.full_path = "#{parent.full_path}#{path_name}"
     end
   end
 
