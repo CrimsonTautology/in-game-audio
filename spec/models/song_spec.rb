@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Song do
   let!(:root) {FactoryGirl.create(:root)}
   let!(:sub) {FactoryGirl.create(:directory, name: "foo", parent: root)}
-  let!(:song) {FactoryGirl.create(:song, name: "jazz", directory: sub)}
+  let!(:song) {FactoryGirl.create(:song, name: "jazz", directory: sub, duration: 1234.5)}
 
   subject { song }
 
@@ -12,6 +12,7 @@ describe Song do
   it { should respond_to :directory }
   its(:directory) { should eq sub }
   its(:full_path) { should eq "foo/jazz"}
+  its(:duration_formated) { should eq "00:20:34"}
 
   it "updates full_path if parent directory changes name" do
     sub.reload

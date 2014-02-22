@@ -33,6 +33,10 @@ class Song < ActiveRecord::Base
     self.full_path = "#{directory.full_path}#{name}"
   end
 
+  def duration_formated
+    Time.at(duration).gmtime.strftime("%R:%S")
+  end
+
   private
 
   def name_does_not_match_directory
