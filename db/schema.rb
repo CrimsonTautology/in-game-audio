@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140221154433) do
+ActiveRecord::Schema.define(version: 20140222182350) do
 
   create_table "directories", force: true do |t|
     t.boolean  "root",       default: false
@@ -27,12 +27,12 @@ ActiveRecord::Schema.define(version: 20140221154433) do
   add_index "directories", ["root"], name: "index_directories_on_root", using: :btree
 
   create_table "songs", force: true do |t|
-    t.string   "name",                            null: false
-    t.integer  "directory_id",                    null: false
+    t.string   "name",                             null: false
+    t.integer  "directory_id",                     null: false
     t.string   "title"
     t.string   "album"
     t.string   "artist"
-    t.float    "duration",          default: 0.0
+    t.float    "duration",           default: 0.0
     t.integer  "uploader_id"
     t.integer  "play_count"
     t.boolean  "map_themeable"
@@ -42,6 +42,9 @@ ActiveRecord::Schema.define(version: 20140221154433) do
     t.string   "sound_fingerprint"
     t.string   "full_path"
     t.string   "sound"
+    t.string   "sound_file_name"
+    t.string   "sound_file_size"
+    t.string   "sound_contnet_type"
   end
 
   add_index "songs", ["directory_id", "name"], name: "index_songs_on_directory_id_and_name", using: :btree
