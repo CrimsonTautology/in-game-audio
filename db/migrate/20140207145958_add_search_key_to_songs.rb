@@ -5,7 +5,5 @@ class AddSearchKeyToSongs < ActiveRecord::Migration
     add_index :songs, :full_path
     add_index :songs, [:title, :album, :artist]
     add_index :songs, [:directory_id, :name]
-
-    remove_column :songs, :file_hash
   end
 end

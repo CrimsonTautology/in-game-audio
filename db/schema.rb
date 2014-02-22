@@ -22,34 +22,30 @@ ActiveRecord::Schema.define(version: 20140221154433) do
     t.string   "full_path"
   end
 
-  add_index "directories", ["full_path"], name: "index_directories_on_full_path"
-  add_index "directories", ["parent_id", "name"], name: "index_directories_on_parent_id_and_name"
-  add_index "directories", ["root"], name: "index_directories_on_root"
+  add_index "directories", ["full_path"], name: "index_directories_on_full_path", using: :btree
+  add_index "directories", ["parent_id", "name"], name: "index_directories_on_parent_id_and_name", using: :btree
+  add_index "directories", ["root"], name: "index_directories_on_root", using: :btree
 
   create_table "songs", force: true do |t|
-    t.string   "name",                             null: false
-    t.integer  "directory_id",                     null: false
+    t.string   "name",                            null: false
+    t.integer  "directory_id",                    null: false
     t.string   "title"
     t.string   "album"
     t.string   "artist"
-    t.float    "duration",           default: 0.0
+    t.float    "duration",          default: 0.0
     t.integer  "uploader_id"
     t.integer  "play_count"
     t.boolean  "map_themeable"
     t.boolean  "user_themeable"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "sound_file_name"
-    t.string   "sound_content_type"
-    t.integer  "sound_file_size"
-    t.datetime "sound_updated_at"
     t.string   "sound_fingerprint"
     t.string   "full_path"
     t.string   "sound"
   end
 
-  add_index "songs", ["directory_id", "name"], name: "index_songs_on_directory_id_and_name"
-  add_index "songs", ["full_path"], name: "index_songs_on_full_path"
-  add_index "songs", ["title", "album", "artist"], name: "index_songs_on_title_and_album_and_artist"
+  add_index "songs", ["directory_id", "name"], name: "index_songs_on_directory_id_and_name", using: :btree
+  add_index "songs", ["full_path"], name: "index_songs_on_full_path", using: :btree
+  add_index "songs", ["title", "album", "artist"], name: "index_songs_on_title_and_album_and_artist", using: :btree
 
 end
