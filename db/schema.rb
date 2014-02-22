@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(version: 20140222182350) do
     t.float    "duration",           default: 0.0
     t.integer  "uploader_id"
     t.integer  "play_count"
+    t.string   "file_hash"
     t.boolean  "map_themeable"
     t.boolean  "user_themeable"
     t.datetime "created_at"
@@ -43,8 +44,8 @@ ActiveRecord::Schema.define(version: 20140222182350) do
     t.string   "full_path"
     t.string   "sound"
     t.string   "sound_file_name"
-    t.string   "sound_file_size"
-    t.string   "sound_contnet_type"
+    t.integer  "sound_file_size"
+    t.string   "sound_content_type"
   end
 
   add_index "songs", ["directory_id", "name"], name: "index_songs_on_directory_id_and_name", using: :btree
