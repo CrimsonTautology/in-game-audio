@@ -6,6 +6,7 @@ describe "Song Directories" do
   shared_examples_for "a directory page" do
     its(:status_code) { should eq 200}
     it { should have_content(directory.full_path)}
+    it { should have_link("", new_song_path) }
   end
 
   describe "GET /directories" do

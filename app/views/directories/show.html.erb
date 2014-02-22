@@ -1,4 +1,7 @@
 <h1><%= @directory.full_path %></h1>
+
+<%= link_to "Add a new song...", new_song_path %>
+
 <ul>
   <% unless @directory.root? %>
     <li>
