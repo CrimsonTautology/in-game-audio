@@ -55,7 +55,7 @@ describe "Song Pages" do
       before do
         visit new_song_path
         fill_in "Full path", with: "n/pop/yay"
-        attach_file "", "spec/fixtures/files/test.mp3"
+        attach_file "Sound", Rails.root.join('spec', 'fixtures', 'files', 'test.mp3')
         click_button "Create Song"
       end
 
