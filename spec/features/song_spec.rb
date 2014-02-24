@@ -2,8 +2,9 @@ require 'spec_helper'
 describe "Song Pages" do
   subject { page }
 
+  let!(:root) {FactoryGirl.create(:root)}
+
   describe "GET /songs/:id" do
-    let!(:root) {FactoryGirl.create(:root)}
     let!(:sub) {FactoryGirl.create(:directory, name: "foo", parent: root)}
     let!(:song) do
       FactoryGirl.create(:song,
