@@ -34,6 +34,9 @@ class SongUploader < CarrierWave::Uploader::Base
       model.artist = mp3.tag.artist
       model.duration =  mp3.length
     end
+
+    model.sound_content_type = file.content_type if file.content_type
+    model.sound_file_size = file.size
   end
 
 end

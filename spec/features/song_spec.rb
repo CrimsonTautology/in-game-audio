@@ -51,5 +51,18 @@ describe "Song Pages" do
       specify { expect(current_path).to eq new_song_path }
     end
 
+    context "submiting a valid song file" do
+      before do
+        visit new_song_path
+        fill_in "Full path", with: "n/pop/yay"
+        attach_file "", "spec/fixtures/files/test.mp3"
+        click_button "Create Song"
+      end
+
+      specify { expect(Song.find_by_full_path "n/pop/yay").to exist }
+      specify { expect(Directory.find_by_full_path "n/pop/").to exist }
+      specify { expect(current_path).to eq song_path(Song.find_by_full_path "n/pop/yay") }
+    end
+
   end
 end
