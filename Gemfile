@@ -2,13 +2,9 @@ source 'https://rubygems.org'
 
 gem 'rails', '4.0.0'
 
-gem 'protected_attributes' #NOTE this is until we switch to strong_parameters
-
 gem 'pg'
 
 gem 'thin'
-
-gem 'statistics2'
 
 gem "font-awesome-rails"
 gem 'jquery-rails'
