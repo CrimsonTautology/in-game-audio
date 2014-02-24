@@ -14,21 +14,6 @@ class Song < ActiveRecord::Base
   before_save :update_full_path
 
 
-  def self.create_from_full_path path
-    directories = path.gsub(/\A\s*\//, "").gsub(/\/\s*\z/, "").split("/")
-    name = directories.pop
-
-    parent = Directory.root
-    directories.each do |dir|
-      parent = parent.find_or_create_subdirectory dir
-    end
-
-    Song.create do |s|
-      s.name = name
-      s.directory = parent
-    end
-  end
-
   def update_full_path
     self.full_path = "#{directory.full_path}#{name}"
   end

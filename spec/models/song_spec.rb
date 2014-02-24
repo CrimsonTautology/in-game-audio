@@ -28,18 +28,6 @@ describe Song do
     expect(song.full_path).to eq "foo/baz/jazz"
   end
 
-  describe ".create_from_full_path" do
-    before do
-      @new_song = Song.create_from_full_path "a/b/c"
-    end
-
-    specify { expect(@new_song.name).to eq "c" }
-    specify { expect(@new_song.directory.name).to eq "b" }
-    specify { expect(@new_song.directory.parent.name).to eq "a" }
-    specify { expect(@new_song.directory.parent.parent).to be_root }
-
-  end
-
   context "with multiple songs" do
     before do
       FactoryGirl.create(:song, name: "baz", directory: sub, sound_fingerprint: "test_fingerprint")

@@ -14,12 +14,25 @@ class SongsController < ApplicationController
   end
 
   def create
-    path = params[:song][:full_path]
-    directories = path.gsub(/\A\s*\//, "").gsub(/\/\s*\z/, "").split("/")
-    name = directories.pop
     @song = Song.new(song_params)
-    @song.name = name
-    @song.directory = Directory.root
+
+    #FIXME Move this to a model
+    Directory.transaction do
+      path = params[:song][:full_path]
+      directories = path.gsub(/\A\s*\//, "").gsub(/\/\s*\z/, "").split("/")
+      name = directories.pop
+
+      parent = Directory.root
+      directories.each do |dir|
+        parent = parent.find_or_create_subdirectory dir
+      end
+
+      @song.name = name
+      @song.directory = parent
+
+      raise ActiveRecord::Rollback if @song.invalid?
+    end
+
 
     if @song.save
       flash[:notice] = "Successfully uploaded #{@song.full_path}."
