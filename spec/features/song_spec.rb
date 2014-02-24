@@ -38,6 +38,16 @@ describe "Song Pages" do
   end
 
   describe "GET /songs/new" do
+    context "not submiting a song file" do
+      before do
+        visit new_song_path
+        fill_in "Full path", with: "n/pop/yay"
+        click_button "Create Song"
+      end
+
+      specify { expect(Song.find_by_full_path "n/pop/yay").to be_nil }
+      specify { expect(Directory.find_by_full_path "n/pop/").to be_nil }
+    end
 
   end
 end
