@@ -48,6 +48,7 @@ describe "Song Pages" do
 
       specify { expect(Song.find_by_full_path "n/pop/yay").to be_nil }
       specify { expect(Directory.find_by_full_path "n/pop/").to be_nil }
+      specify { expect(current_path).to eq new_song_path }
     end
 
   end
