@@ -37,6 +37,7 @@ class SongUploader < CarrierWave::Uploader::Base
 
     model.sound_content_type = file.content_type if file.content_type
     model.sound_file_size = file.size
+    model.sound_fingerprint = Digest::MD5.hexdigest(self.file.read)
   end
 
 end
