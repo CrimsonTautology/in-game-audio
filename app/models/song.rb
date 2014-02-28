@@ -28,13 +28,35 @@ class Song < ActiveRecord::Base
     Time.at(duration).gmtime.strftime("%R:%S")
   end
 
-  def self.search(query)
+  def self.search(query, type=nil)
     #Use postgre text search
     if query.present?
       if Rails.configuration.database_configuration[Rails.env]["database"].eql? "postgresql"
-        where("name @@ :q OR title @@ :q OR album @@ :q OR artist @@ :q", q: query)
+        case type
+        when :name
+          where("name @@ :q", q: query)
+        when :title
+          where("title @@ :q", q: query)
+        when :album
+          where("album @@ :q", q: query)
+        when :artist
+          where("artist @@ :q", q: query)
+        else
+          where("name @@ :q OR title @@ :q OR album @@ :q OR artist @@ :q", q: query)
+        end
       else
-        where("name like :q OR title like :q OR album like :q OR artist like :q", q: "%#{query}%")
+        case type
+        when :name
+          where("name like :q", q: "%#{query}%")
+        when :title
+          where("title like :q", q: "%#{query}%")
+        when :album
+          where("album like :q", q: "%#{query}%")
+        when :artist
+          where("artist like :q", q: "%#{query}%")
+        else
+          where("name like :q OR title like :q OR album like :q OR artist like :q", q: "%#{query}%")
+        end
       end
     else
       scoped
