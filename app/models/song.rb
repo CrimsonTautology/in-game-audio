@@ -6,9 +6,15 @@ class Song < ActiveRecord::Base
     uniqueness: { scope: :directory_id, message: "A directory cannot have two songs of the same name", case_sensitive: false},
     format: { with: /\A[a-z0-9_]+\z/, message: "Only numbers, letters or underscores" }
   validate  :name_does_not_match_directory
-  validates :sound_fingerprint, uniqueness: {allow_blank: true, message: "File has already been uploaded"}
-  validates :sound_content_type, inclusion: {in: %w(audio/mp3) }
-  validates :sound_file_size, inclusion: { in: 0..10.megabytes }
+  validates :sound_fingerprint,
+    uniqueness: { allow_blank: true, message: "File has already been uploaded"}
+  validates :sound_content_type,
+    presence: true,
+    inclusion: {in: %w(audio/mp3) , message: "Invalid Filetype (%{value})" }
+  validates :sound_file_size,
+    presence: true,
+    numericality: { less_than_or_equal_to: 10.megabytes, message: "File too large; must be less than %{count / 1.megabyte} megabytes" }
+
 
 
   before_save :update_full_path

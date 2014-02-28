@@ -39,6 +39,14 @@ describe "Song Pages" do
   end
 
   describe "GET /songs/new" do
+    before do
+      SongUploader.enable_processing = true
+    end
+
+    after do
+      SongUploader.enable_processing = false
+    end
+
     context "not submiting a song file" do
       before do
         visit new_song_path
