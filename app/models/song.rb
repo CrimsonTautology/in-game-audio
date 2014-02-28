@@ -28,6 +28,20 @@ class Song < ActiveRecord::Base
     Time.at(duration).gmtime.strftime("%R:%S")
   end
 
+  def self.search(query)
+    #Use postgre text search
+    if query.present?
+      if Rails.configuration.database_configuration[Rails.env]["database"].eql? "postgresql"
+        where("name @@ :q OR title @@ :q OR album @@ :q OR artist @@ :q", q: query)
+      else
+        where("name like :q OR title like :q OR album like :q OR artist like :q", q: "%#{query}%")
+      end
+    else
+      scoped
+    end
+  end
+  
+
   private
 
   def name_does_not_match_directory
