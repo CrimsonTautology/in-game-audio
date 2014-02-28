@@ -38,6 +38,7 @@ class SongsController < ApplicationController
       flash[:notice] = "Successfully uploaded #{@song.full_path}."
       redirect_to @song
     else
+      flash[:error] = @song.errors.full_messages.to_sentence
       redirect_to new_song_path
     end
   end

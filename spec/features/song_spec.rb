@@ -67,6 +67,7 @@ describe "Song Pages" do
       end
 
       it_behaves_like "a failed upload"
+      it { should have_content "Sound content type is invalid" }
 
     end
 
@@ -79,6 +80,7 @@ describe "Song Pages" do
       end
 
       it_behaves_like "a failed upload"
+      it { should have_content "Sound content type is invalid" }
 
     end
 
@@ -94,6 +96,7 @@ describe "Song Pages" do
       end
 
       it_behaves_like "a failed upload"
+      it { should have_content "has already been uploaded" }
 
     end
 
