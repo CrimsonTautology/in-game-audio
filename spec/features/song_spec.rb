@@ -82,6 +82,21 @@ describe "Song Pages" do
 
     end
 
+    context "submitting the same file again" do
+      before do
+        same = FactoryGirl.create(:song, directory: root, sound_fingerprint: "fingerprint")
+        Digest::MD5.stub(:hexdigest) { "fingerprint" }
+        visit new_song_path
+        fill_in "Full path", with: "n/pop/yay"
+        attach_file "Sound", Rails.root.join('spec', 'fixtures', 'files', 'test.mp3')
+        click_button "Create Song"
+        same.destroy
+      end
+
+      it_behaves_like "a failed upload"
+
+    end
+
     context "submiting a valid song file" do
       before do
         visit new_song_path
