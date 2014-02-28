@@ -48,6 +48,17 @@ describe "Song Pages" do
       CarrierWave.clean_cached_files!
     end
 
+    shared_examples_for "a successful upload" do |full_path|
+      specify { expect(Song.find_by_full_path full_path).to_not be_nil }
+      specify { expect(Directory.find_by_full_path full_path.gsub(%r{/[^/]*$}, '/')).to_not be_nil }
+      specify { expect(current_path).to eq song_path(Song.find_by_full_path full_path) }
+    end
+    shared_examples_for "a failed upload" do
+      specify { expect( Song.count ).to eq 0 }
+      specify { expect( Directory.count ).to eq 1}
+      specify { expect(current_path).to eq new_song_path }
+    end
+
     context "not submiting a song file" do
       before do
         visit new_song_path
@@ -55,9 +66,20 @@ describe "Song Pages" do
         click_button "Create Song"
       end
 
-      specify { expect(Song.find_by_full_path "n/pop/yay").to be_nil }
-      specify { expect(Directory.find_by_full_path "n/pop/").to be_nil }
-      specify { expect(current_path).to eq new_song_path }
+      it_behaves_like "a failed upload"
+
+    end
+
+    context "submitting an invalid file type" do
+      before do
+        visit new_song_path
+        fill_in "Full path", with: "n/pop/yay"
+        attach_file "Sound", Rails.root.join('spec', 'fixtures', 'files', 'dangerous_file.exe')
+        click_button "Create Song"
+      end
+
+      it_behaves_like "a failed upload"
+
     end
 
     context "submiting a valid song file" do
@@ -68,9 +90,8 @@ describe "Song Pages" do
         click_button "Create Song"
       end
 
-      specify { expect(Song.find_by_full_path "n/pop/yay").to_not be_nil }
-      specify { expect(Directory.find_by_full_path "n/pop/").to_not be_nil }
-      specify { expect(current_path).to eq song_path(Song.find_by_full_path "n/pop/yay") }
+      it_behaves_like "a successful upload", "n/pop/yay"
+
     end
 
   end
