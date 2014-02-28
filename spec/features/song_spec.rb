@@ -39,12 +39,13 @@ describe "Song Pages" do
   end
 
   describe "GET /songs/new" do
-    before do
+    before :all do
       SongUploader.enable_processing = true
     end
 
-    after do
+    after :all do
       SongUploader.enable_processing = false
+      CarrierWave.clean_cached_files!
     end
 
     context "not submiting a song file" do
@@ -67,8 +68,8 @@ describe "Song Pages" do
         click_button "Create Song"
       end
 
-      specify { expect(Song.find_by_full_path "n/pop/yay").to exist }
-      specify { expect(Directory.find_by_full_path "n/pop/").to exist }
+      specify { expect(Song.find_by_full_path "n/pop/yay").to_not be_nil }
+      specify { expect(Directory.find_by_full_path "n/pop/").to_not be_nil }
       specify { expect(current_path).to eq song_path(Song.find_by_full_path "n/pop/yay") }
     end
 
