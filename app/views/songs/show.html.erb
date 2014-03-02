@@ -1,4 +1,7 @@
 <h1><%= @song.full_path %></h1>
+<audio src="<%= @song.sound.url %>" controls autoplay >
+  <p>Browser does not support this audio player</p>
+</audio>
 <p><%= @song.title %></p>
 <p><%= @song.album %></p>
 <p><%= @song.artist %></p>
