@@ -17,14 +17,9 @@ class SongUploader < CarrierWave::Uploader::Base
 
   # Add a white list of extensions which are allowed to be uploaded.
   def extension_white_list
-    %w(mp3)
+    %w(mp3 ogg)
   end
 
-  # Override the filename of the uploaded files:
-  # Avoid using model.id or version_name here, see uploader/store.rb for details.
-  def filename
-    "#{model.name}.mp3" if original_filename
-  end
 
   def extract_sound_details
     opts = { encoding: 'utf-8' }

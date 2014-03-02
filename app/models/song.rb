@@ -10,7 +10,7 @@ class Song < ActiveRecord::Base
     uniqueness: { allow_blank: true, message: "matches a song that has already been uploaded"}
   validates :sound_content_type,
     presence: true,
-    inclusion: {in: %w(audio/mp3 audio/mp4 audio/mpeg) , message: "is invalid (%{value})" }
+    inclusion: {in: %w(audio/mp3 audio/mp4 audio/mpeg audio/ogg) , message: "is invalid (%{value})" }
   validates :sound_file_size,
     presence: true,
     numericality: { less_than_or_equal_to: (10.megabytes), message: "is too large; must be less than 10 megabytes" }
