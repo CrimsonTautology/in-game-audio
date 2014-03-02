@@ -13,7 +13,7 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
 
 gem "analytics-ruby"
-gem "bcrypt-ruby"
+gem "bcrypt"
 gem "bourbon"
 gem "cancan"
 gem 'simple_form'
