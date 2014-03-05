@@ -11,7 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140222182350) do
+ActiveRecord::Schema.define(version: 20140305201201) do
+
+  create_table "api_keys", force: true do |t|
+    t.string   "name"
+    t.string   "access_token"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "directories", force: true do |t|
     t.boolean  "root",       default: false

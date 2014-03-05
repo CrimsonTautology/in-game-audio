@@ -32,4 +32,7 @@ FactoryGirl.define do
     "fingerprint#{n}"
   end
 
+  factory :api_key do
+    name "Test Server"
+  end
 end
