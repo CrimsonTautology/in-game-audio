@@ -7,9 +7,9 @@ class SongUploader < CarrierWave::Uploader::Base
   storage :file
   # storage :fog
 
-  process :extract_sound_details
+  process :extract_original_file_details
   process :convert_to_ogg
-  process :extract_file_details
+  process :extract_converted_file_details
 
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:
@@ -23,11 +23,11 @@ class SongUploader < CarrierWave::Uploader::Base
   end
 
   def full_filename(for_file)
-    super.chomp(File.extname(super)) + '.ogg'
+    model.name + '.ogg'
   end
 
 
-  def extract_sound_details
+  def extract_original_file_details
     AudioInfo.open(file.path) do |audio|
       model.title = audio.title
       model.album = audio.album
@@ -36,11 +36,11 @@ class SongUploader < CarrierWave::Uploader::Base
     end
 
     model.sound_content_type = file.content_type if file.content_type
+    model.sound_fingerprint = Digest::MD5.hexdigest(self.file.read)
   end
 
-  def extract_file_details
+  def extract_converted_file_details
     model.sound_file_size = file.size
-    model.sound_fingerprint = Digest::MD5.hexdigest(self.file.read)
   end
 
   def convert_to_ogg
