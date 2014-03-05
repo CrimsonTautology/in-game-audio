@@ -1,7 +1,5 @@
 class User < ActiveRecord::Base
-    attr_accessible :avatar_url, :avatar_icon_url, :nickname, :provider, :uid
-
-  has_many :songs
+  has_many :songs, foreign_key: "uploader_id"
 
   scope :admins, -> {where admin: true}
 

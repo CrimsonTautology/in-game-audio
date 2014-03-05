@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  authorize_resource
+  #authorize_resource
   before_filter :find_user, only: [:show, :ban, :edit, :unban, :update]
 
   def show
@@ -11,7 +11,7 @@ class UsersController < ApplicationController
   end
   def update
     @user.admin = params[:user][:admin]
-    @user.moderator = params[:user][:moderator]
+    @user.uploader = params[:user][:uploader]
     if @user.save
       redirect_to(@user)
     else
