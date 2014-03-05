@@ -13,7 +13,7 @@ describe SongUploader do
     SongUploader.enable_processing = false
   end
 
-  describe "extracing file details" do
+  describe "extracing mp3 file details" do
     subject { song }
     before do
       @file = File.new(Rails.root.join('spec', 'fixtures', 'files', 'test.mp3'))
@@ -33,6 +33,29 @@ describe SongUploader do
     its(:sound_fingerprint) { should_not be_blank }
     its(:sound_file_size) { should > (1) }
     its(:sound_content_type) { should eq "audio/mp3" }
+
+  end
+
+  describe "extracing ogg file details" do
+    subject { song }
+    before do
+      @file = File.new(Rails.root.join('spec', 'fixtures', 'files', 'test.ogg'))
+      uploader.store! @file
+    end
+
+    after do
+      @file.close
+      uploader.remove!
+    end
+
+    its(:title) { should eq "Hydrate - Kenny Beltrey" }
+    its(:album) { should eq "Favorite Things" }
+    its(:artist) { should eq "Kenny Beltrey" }
+    its(:duration) { should be_within(0.1).of(264.0) }
+
+    its(:sound_fingerprint) { should_not be_blank }
+    its(:sound_file_size) { should > (1) }
+    its(:sound_content_type) { should eq "audio/ogg" }
 
   end
 end

@@ -27,7 +27,7 @@ gem 'steam-condenser', '~> 1.3.5'
 
 gem 'carrierwave'
 gem 'streamio-ffmpeg'
-gem 'ruby-mp3info'
+gem "ruby-audioinfo", "~> 0.4"
 
 # Gems used only for assets and not required
 # in production environments by default.
