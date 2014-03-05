@@ -8,6 +8,7 @@ class SongUploader < CarrierWave::Uploader::Base
   # storage :fog
 
   process :extract_sound_details
+  process :convert_to_ogg
   process :extract_file_details
 
   # Override the directory where uploaded files will be stored.
@@ -21,6 +22,10 @@ class SongUploader < CarrierWave::Uploader::Base
     %w(mp3 mp4 ogg)
   end
 
+  def full_filename(for_file)
+    super.chomp(File.extname(super)) + '.ogg'
+  end
+
 
   def extract_sound_details
     AudioInfo.open(file.path) do |audio|
@@ -29,12 +34,35 @@ class SongUploader < CarrierWave::Uploader::Base
       model.artist = audio.artist
       model.duration =  audio.length
     end
+
+    model.sound_content_type = file.content_type if file.content_type
   end
 
   def extract_file_details
-    model.sound_content_type = file.content_type if file.content_type
     model.sound_file_size = file.size
     model.sound_fingerprint = Digest::MD5.hexdigest(self.file.read)
+  end
+
+  def convert_to_ogg
+    #ffmpeg -y -i @file -acodec libvorbis -vn -sn -aq 6 -ar 44100 -ac 2 @out.ogg
+    cache_stored_file! if !cached?
+
+    directory = File.dirname current_path
+    tmp_path  = File.join directory, "tmpfile"
+    File.rename current_path,  tmp_path
+
+    file = FFMPEG::Movie.new(tmp_path)
+    opts={
+      audio_codec: "libvorbis",
+      audio_bitrate: 32,
+      audio_sample_rate: 22050,
+      audio_channels: 1,
+      custom: "-vn -sn -f ogg"
+    }
+    file.transcode(current_path, opts)
+
+    File.delete tmp_path
+
   end
 
 end
