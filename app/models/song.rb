@@ -28,6 +28,23 @@ class Song < ActiveRecord::Base
     Time.at(duration).gmtime.strftime("%R:%S")
   end
 
+  #Return a song by it's path or a random sub song if path matches a directory
+  def self.path_search path
+    key = path.strip.gsub %r{^/|/$}, ""
+    song = Song.find_by_full_path key
+    if song
+      return song
+    elsif key == ""
+      songs = Song.all
+      return songs[rand songs.length]
+    elsif Directory.exists?(full_path: key + "/")
+      songs = Song.where("full_path like :q", q: "#{key}%")
+      return songs[rand songs.length]
+    else 
+      return nil
+    end
+  end
+
   def self.search(query, type=nil)
     #Use postgre text search
     if query.present?

@@ -57,4 +57,16 @@ describe Song do
     song.name = "bar"
     expect(song).to_not be_valid
   end
+
+  describe "#path_search" do
+    specify { expect(Song.path_search "foo").to eq song}
+    specify { expect(Song.path_search "foo/").to eq song}
+    specify { expect(Song.path_search "/foo").to eq song}
+    specify { expect(Song.path_search "foo/jazz").to eq song}
+    specify { expect(Song.path_search "").to eq song}
+    specify { expect(Song.path_search "foo/nope").to be_nil}
+    specify { expect(Song.path_search "fo").to be_nil}
+    specify { expect(Song.path_search "nope").to be_nil}
+
+  end
 end
