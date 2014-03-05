@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140305201201) do
+ActiveRecord::Schema.define(version: 20140305212220) do
 
   create_table "api_keys", force: true do |t|
     t.string   "name"
@@ -58,5 +58,18 @@ ActiveRecord::Schema.define(version: 20140305201201) do
   add_index "songs", ["directory_id", "name"], name: "index_songs_on_directory_id_and_name"
   add_index "songs", ["full_path"], name: "index_songs_on_full_path"
   add_index "songs", ["title", "album", "artist"], name: "index_songs_on_title_and_album_and_artist"
+
+  create_table "users", force: true do |t|
+    t.string   "provider"
+    t.string   "uid"
+    t.string   "nickname"
+    t.string   "avatar_url"
+    t.string   "avatar_icon_url"
+    t.boolean  "uploader",        default: false
+    t.boolean  "admin",           default: false
+    t.datetime "banned_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
 end

@@ -1,5 +1,6 @@
 class Song < ActiveRecord::Base
   belongs_to :directory
+  belongs_to :user
   mount_uploader :sound, SongUploader
 
   validates :name,

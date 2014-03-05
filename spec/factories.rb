@@ -35,4 +35,23 @@ FactoryGirl.define do
   factory :api_key do
     name "Test Server"
   end
+
+  factory :user do
+    nickname "FooBar"
+    sequence :uid do |n|
+      "123#{n}"
+    end
+    provider "steam"
+
+    factory :admin do
+      admin true
+    end
+    factory :uploader do
+      uploader true
+    end
+    factory :banned do
+      banned_at Time.now
+    end
+  end
+
 end
