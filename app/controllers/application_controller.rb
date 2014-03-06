@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
   private
 
   def current_ability
-    #@current_ability ||= Ability.new(current_user, params[:access_token])
+    @current_ability ||= Ability.new(current_user, params[:access_token])
   end
   def current_user
     @current_user ||= User.find(session[:user_id]) if session[:user_id]

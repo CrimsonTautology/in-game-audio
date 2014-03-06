@@ -1,4 +1,6 @@
 class SongsController < ApplicationController
+  authorize_resource
+
   def index
   end
 
