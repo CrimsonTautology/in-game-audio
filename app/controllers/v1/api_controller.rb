@@ -2,21 +2,23 @@ module V1
   class ApiController < ApplicationController
     #authorize_resource class: false
     before_filter :check_api_key
-    before_filter :check_path, only: [:song_query]
+    before_filter :check_path, only: [:query_song]
     respond_to :json
 
-    def song_query
+    def query_song
       song = Song.path_search @path
+      pall = params["pall"] || false
       if song.nil?
         out = {
           found: false,
-          command: "song_query"
+          command: "query_song"
         }
       else
         out = {
           found: true,
-          command: "song_query",
-          song_id: song.id,
+          command: "query_song",
+          pall: pall,
+          song_id: song.id.to_s,
           full_path: song.full_path,
           title: song.title,
           album: song.album,

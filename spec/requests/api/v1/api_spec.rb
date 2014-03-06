@@ -32,11 +32,11 @@ end
 describe "POST /v1/api" do
   subject { response }
 
-  describe "/song_query" do
+  describe "/query_song" do
     let!(:root) {FactoryGirl.create(:root)}
     let!(:sub) {FactoryGirl.create(:directory, name: "foo", parent: root)}
     let!(:song) {FactoryGirl.create(:song, name: "jazz", directory: sub)}
-    route = "/v1/api/song_query"
+    route = "/v1/api/query_song"
 
     it_should_behave_like "ApiController", route, {
       path: "foo/bar",
@@ -49,13 +49,13 @@ describe "POST /v1/api" do
         post route,
           access_token: api_key.access_token,
           path: "foo/jazz"
-        expect(json['song_id']).to eq song.id
+        expect(json['song_id']).to eq song.id.to_s
       end
       it "returns a random sub song if it maches a directory" do
         post route,
           access_token: api_key.access_token,
           path: "foo"
-        expect(json['song_id']).to eq song.id
+        expect(json['song_id']).to eq song.id.to_s
       end
 
       it "returns false if a match was not found" do
