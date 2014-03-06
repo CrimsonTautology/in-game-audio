@@ -39,11 +39,12 @@ describe "Song Pages" do
   end
 
   describe "GET /songs/new" do
-    before :all do
+    before do
       SongUploader.enable_processing = true
+      SongUploader.any_instance.stub(:convert_to_ogg).and_return(nil)
     end
 
-    after :all do
+    after do
       SongUploader.enable_processing = false
       CarrierWave.clean_cached_files!
     end
