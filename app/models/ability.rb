@@ -11,7 +11,7 @@ class Ability
 
       can :read, User, id: user.id
 
-      if user.uploader?
+      if user.uploader? && !user.banned?
         can :create, Song
         can [:destroy, :update], Song, user_id: user.id
       end
