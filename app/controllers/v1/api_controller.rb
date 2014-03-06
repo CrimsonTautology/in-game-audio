@@ -1,6 +1,6 @@
 module V1
   class ApiController < ApplicationController
-    #authorize_resource class: false
+    authorize_resource class: false
     before_filter :check_api_key
     before_filter :check_path, only: [:query_song]
     respond_to :json

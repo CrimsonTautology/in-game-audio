@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  #authorize_resource
+  authorize_resource
   before_filter :find_user, only: [:show, :ban, :edit, :unban, :update]
 
   def show

@@ -8,9 +8,11 @@ describe SongUploader do
 
   before do
     SongUploader.enable_processing = true
+    SongUploader.any_instance.stub(:convert_to_ogg).and_return(nil)
   end
   after do
     SongUploader.enable_processing = false
+    CarrierWave.clean_cached_files!
   end
 
   describe "extracing mp3 file details" do
@@ -32,7 +34,7 @@ describe SongUploader do
 
     its(:sound_fingerprint) { should_not be_blank }
     its(:sound_file_size) { should > (1) }
-    its(:sound_content_type) { should eq "audio/mp3" }
+    its(:sound_content_type) { should eq "audio/mpeg" }
 
   end
 
