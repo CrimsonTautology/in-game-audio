@@ -9,6 +9,7 @@ class SongsController < ApplicationController
   end
 
   def play
+    @volume = params[:volume] || 1.0
     @song = Song.find(params[:id])
   end
 
