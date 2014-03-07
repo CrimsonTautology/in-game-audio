@@ -8,8 +8,8 @@ module V1
 
     def query_song
       song = Song.path_search @path
-      pall = params["pall"] || false
-      force = params["force"] || false
+      pall = params["pall"] == 1
+      force = params["force"] == 1
       if song.nil?
         out = {
           found: false,
