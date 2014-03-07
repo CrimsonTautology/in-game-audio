@@ -37,6 +37,7 @@ class SongsController < ApplicationController
 
       @song.name = name
       @song.directory = parent
+      @song.uploader_id = current_user.id
 
       raise ActiveRecord::Rollback if @song.invalid?
     end

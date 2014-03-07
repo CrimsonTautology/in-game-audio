@@ -7,6 +7,8 @@ class Song < ActiveRecord::Base
     uniqueness: { scope: :directory_id, message: "A directory cannot have two songs of the same name", case_sensitive: false},
     format: { with: /\A[a-z0-9_]+\z/, message: "can only be numbers, letters or underscores" }
   validate  :name_does_not_match_directory
+  validates :uploader_id,
+    presence: true
   validates :sound_fingerprint,
     uniqueness: { allow_blank: true, message: "matches a song that has already been uploaded"}
   validates :sound_content_type,
