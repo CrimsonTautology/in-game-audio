@@ -6,13 +6,8 @@ class ApiKeysController < ApplicationController
   end
 
   def create
-    @api_key = ApiKey.new(params[:api_key])
-
-    if @api_key.save
-      flash[:notice] = "New Key Added"
-    else
-      flash[:alert] = "Could not add key"
-    end
+    @api_key = ApiKey.create(api_key_params)
+    flash[:notice] = "New Key Added"
     redirect_to api_keys_path
   end
 
@@ -20,5 +15,10 @@ class ApiKeysController < ApplicationController
     ApiKey.find(params[:id]).destroy
     flash[:notice] = "Key Deleted!"
     redirect_to api_keys_path
+  end
+
+  private
+  def api_key_params
+    params.require(:api_key).permit(:name)
   end
 end

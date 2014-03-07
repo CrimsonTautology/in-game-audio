@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140305212220) do
+ActiveRecord::Schema.define(version: 20140307192849) do
 
   create_table "api_keys", force: true do |t|
     t.string   "name"
@@ -21,30 +21,31 @@ ActiveRecord::Schema.define(version: 20140305212220) do
   end
 
   create_table "directories", force: true do |t|
-    t.boolean  "root",       default: false
-    t.string   "name",                       null: false
+    t.boolean  "root",        default: false
+    t.string   "name",                        null: false
     t.integer  "parent_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "full_path"
+    t.string   "description"
   end
 
-  add_index "directories", ["full_path"], name: "index_directories_on_full_path", using: :btree
-  add_index "directories", ["parent_id", "name"], name: "index_directories_on_parent_id_and_name", using: :btree
-  add_index "directories", ["root"], name: "index_directories_on_root", using: :btree
+  add_index "directories", ["full_path"], name: "index_directories_on_full_path"
+  add_index "directories", ["parent_id", "name"], name: "index_directories_on_parent_id_and_name"
+  add_index "directories", ["root"], name: "index_directories_on_root"
 
   create_table "songs", force: true do |t|
-    t.string   "name",                             null: false
-    t.integer  "directory_id",                     null: false
+    t.string   "name",                               null: false
+    t.integer  "directory_id",                       null: false
     t.string   "title"
     t.string   "album"
     t.string   "artist"
     t.float    "duration",           default: 0.0
     t.integer  "uploader_id"
-    t.integer  "play_count"
+    t.integer  "play_count",         default: 0
     t.string   "file_hash"
-    t.boolean  "map_themeable"
-    t.boolean  "user_themeable"
+    t.boolean  "map_themeable",      default: false
+    t.boolean  "user_themeable",     default: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "sound_fingerprint"
@@ -55,9 +56,9 @@ ActiveRecord::Schema.define(version: 20140305212220) do
     t.string   "sound_content_type"
   end
 
-  add_index "songs", ["directory_id", "name"], name: "index_songs_on_directory_id_and_name", using: :btree
-  add_index "songs", ["full_path"], name: "index_songs_on_full_path", using: :btree
-  add_index "songs", ["title", "album", "artist"], name: "index_songs_on_title_and_album_and_artist", using: :btree
+  add_index "songs", ["directory_id", "name"], name: "index_songs_on_directory_id_and_name"
+  add_index "songs", ["full_path"], name: "index_songs_on_full_path"
+  add_index "songs", ["title", "album", "artist"], name: "index_songs_on_title_and_album_and_artist"
 
   create_table "users", force: true do |t|
     t.string   "provider"

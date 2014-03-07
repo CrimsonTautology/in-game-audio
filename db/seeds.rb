@@ -10,5 +10,6 @@ unless Directory.exists?(root: true)
   root = Directory.new
   root.root = true
   root.name = ""
+  root.description = "Root Directory"
   root.save!
 end
