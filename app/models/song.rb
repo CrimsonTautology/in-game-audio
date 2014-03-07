@@ -19,6 +19,7 @@ class Song < ActiveRecord::Base
 
 
   before_save :update_full_path
+  #before_save :check_user_themable
 
 
   def update_full_path
@@ -106,6 +107,10 @@ class Song < ActiveRecord::Base
 
   def name_does_not_match_directory
     errors.add(:base, 'Directory already exists with same name') if Directory.exists?(parent: directory, name: name)
+  end
+
+  def check_user_themable
+    user_themeable = (duration <= 10.seconds) if user_themeable.nil?
   end
 
 end
