@@ -7,6 +7,10 @@ describe "Song Directories" do
     its(:status_code) { should eq 200}
     it { should have_content(directory.full_path)}
     it { should have_link("", new_song_path) }
+
+    pending { should_not have_link("", edit_directory_path(directory)) }
+    pending { should_not have_link("", destroy_directory_path(directory)) }
+
   end
 
   describe "GET /directories" do
@@ -30,6 +34,16 @@ describe "Song Directories" do
 
     it_behaves_like "a directory page" do
       let!(:directory) { root }
+    end
+
+    pending "as admin" do
+      before do
+        login FactoryGirl.create(:admin)
+        visit current_path
+      end
+
+      it { should have_link("", edit_directory_path(directory)) }
+      it { should have_link("", delete_directory_path(directory)) }
     end
 
     context "with subdirectories" do

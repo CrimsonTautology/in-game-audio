@@ -1,4 +1,5 @@
 class DirectoriesController < ApplicationController
+  authorize_resource
   before_filter :find_directory
 
   def index
@@ -11,6 +12,17 @@ class DirectoriesController < ApplicationController
   end
 
   def update
+  end
+
+  def destroy
+    unless @directory.root?
+      @directory.destroy
+      flash[:notice] = "Delted #{@directory.full_path}"
+      redirec_to directory_path(@directory.parent)
+    else
+      flash[:error] = "Cannot delete root directory"
+      redirec_to directories_path
+    end
   end
 
   private
