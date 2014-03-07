@@ -9,6 +9,7 @@ module V1
     def query_song
       song = Song.path_search @path
       pall = params["pall"] || false
+      force = params["force"] || false
       if song.nil?
         out = {
           found: false,
@@ -19,11 +20,13 @@ module V1
           found: true,
           command: "query_song",
           pall: pall,
+          force: force,
           song_id: song.id.to_s,
           full_path: song.full_path,
           title: song.title,
           album: song.album,
           artist: song.artist,
+          description: song.to_s,
           duration: song.duration,
           duration_formated: song.duration_formated
         }

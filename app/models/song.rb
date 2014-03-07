@@ -29,6 +29,26 @@ class Song < ActiveRecord::Base
     Time.at(duration).gmtime.strftime("%R:%S")
   end
 
+  def to_s
+    if title.present?
+      if artist.present?
+        "#{title} - #{artist}"
+      elsif album.present?
+        "#{title} - #{album}"
+      else
+        title
+      end
+    else
+      if artist.present?
+        "#{full_path} - #{artist}"
+      elsif album.present?
+        "#{full_path} - #{album}"
+      else
+        full_path
+      end
+    end
+  end
+
   #Return a song by it's path or a random sub song if path matches a directory
   def self.path_search path
     key = path.strip.gsub %r{^/|/$}, ""

@@ -69,4 +69,14 @@ describe Song do
     specify { expect(Song.path_search "nope").to be_nil}
 
   end
+
+  describe ".to_s" do
+    specify { expect(Song.new().to_s).to be_blank }
+    specify { expect(Song.new(title: "My Title").to_s).to eq "My Title" }
+    specify { expect(Song.new(title: "My Title", artist: "Bob", album: "Bob's Album").to_s).to eq "My Title - Bob" }
+    specify { expect(Song.new(title: "My Title", album: "Bob's Album").to_s).to eq "My Title - Bob's Album" }
+    specify { expect(Song.new(full_path: "g/bob").to_s).to eq "g/bob" }
+    specify { expect(Song.new(full_path: "g/bob", artist: "Bob", album: "Bob's Album").to_s).to eq "g/bob - Bob" }
+    specify { expect(Song.new(full_path: "g/bob", album: "Bob's Album").to_s).to eq "g/bob - Bob's Album" }
+  end
 end
