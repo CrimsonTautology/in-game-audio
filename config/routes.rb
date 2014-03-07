@@ -1,6 +1,8 @@
 InGameAudio::Application.routes.draw do
 
-  resources :songs
+  resources :songs do
+    get 'play', on: :member
+  end
   resources :directories
   resources :api_keys
 

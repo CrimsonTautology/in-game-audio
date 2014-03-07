@@ -1,9 +1,13 @@
 <h1><%= @song.full_path %></h1>
+
 <% if can?(:play, @song) %>
-<audio src="<%= @song.sound.url %>" controls autoplay >
-  <p>Browser does not support this audio player</p>
-</audio>
+  <%= link_to "Listen to this song", play_song_path(@song)%>
 <% end %>
+
+<% if can?(:edit, @song) %>
+  <%= link_to "Edit this song", edit_song_path(@song)%>
+<% end %>
+
 <p><%= @song.title %></p>
 <p><%= @song.album %></p>
 <p><%= @song.artist %></p>
