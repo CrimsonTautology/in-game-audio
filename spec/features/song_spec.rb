@@ -18,23 +18,42 @@ describe "Song Pages" do
       )
     end
 
-    before do
-      visit song_path song
+    shared_examples_for "valid access rights" do
+      its(:status_code) { should eq 200}
+      it { should have_content(song.full_path) }
+      it { should have_content(song.title) }
+      it { should have_content(song.album) }
+      it { should have_content(song.artist) }
+      it { should have_content(song.duration_formated) }
+      it { should have_content("Song has been played #{song.play_count} times") }
     end
 
-    its(:status_code) { should eq 200}
-    it { should have_content(song.full_path) }
-    it { should have_content(song.title) }
-    it { should have_content(song.album) }
-    it { should have_content(song.artist) }
-    it { should have_content(song.duration_formated) }
-    it { should have_content("Song has been played #{song.play_count} times") }
-    pending "As admin" do
+    context "not logged in" do
       before do
-        visit current_path
+        visit song_path song
       end
 
+      its(:status_code) { should eq 403}
+    end
+
+    context "logged in" do
+      before do
+        login FactoryGirl.create(:user)
+        visit song_path song
+      end
+      it_behaves_like "valid access rights"
+    end
+
+
+    context "logged in as admin" do
+      before do
+        login FactoryGirl.create(:admin)
+        visit song_path song
+      end
+
+      it_behaves_like "valid access rights"
       it { should have_link("Edit this song", edit_song_path(song)) }
+      it { should have_link("Listen to this song", play_song_path(song)) }
     end
   end
 
@@ -49,6 +68,62 @@ describe "Song Pages" do
       CarrierWave.clean_cached_files!
     end
 
+    shared_examples_for "valid access rights" do
+      context "not submiting a song file" do
+        before do
+          visit new_song_path
+          fill_in "Full path", with: "n/pop/yay"
+          click_button "Create Song"
+        end
+
+        it_behaves_like "a failed upload"
+        it { should have_content "Sound content type is invalid" }
+
+      end
+
+      context "submitting an invalid file type" do
+        before do
+          visit new_song_path
+          fill_in "Full path", with: "n/pop/yay"
+          attach_file "Sound", Rails.root.join('spec', 'fixtures', 'files', 'dangerous_file.exe')
+          click_button "Create Song"
+        end
+
+        it_behaves_like "a failed upload"
+        it { should have_content "Sound content type is invalid" }
+
+      end
+
+      context "submitting the same file again" do
+        before do
+          same = FactoryGirl.create(:song, directory: root, sound_fingerprint: "fingerprint")
+          Digest::MD5.stub(:hexdigest) { "fingerprint" }
+          visit new_song_path
+          fill_in "Full path", with: "n/pop/yay"
+          attach_file "Sound", Rails.root.join('spec', 'fixtures', 'files', 'test.mp3')
+          click_button "Create Song"
+          same.destroy
+        end
+
+        it_behaves_like "a failed upload"
+        it { should have_content "has already been uploaded" }
+
+      end
+
+      context "submiting a valid song file" do
+        before do
+          visit new_song_path
+          fill_in "Full path", with: "n/pop/yay"
+          attach_file "Sound", Rails.root.join('spec', 'fixtures', 'files', 'test.mp3')
+          click_button "Create Song"
+        end
+
+        it_behaves_like "a successful upload", "n/pop/yay"
+
+      end
+
+    end
+
     shared_examples_for "a successful upload" do |full_path|
       specify { expect(Song.find_by_full_path full_path).to_not be_nil }
       specify { expect(Directory.find_by_full_path full_path.gsub(%r{/[^/]*$}, '/')).to_not be_nil }
@@ -60,58 +135,41 @@ describe "Song Pages" do
       specify { expect(current_path).to eq new_song_path }
     end
 
-    context "not submiting a song file" do
+    context "not logged in" do
       before do
         visit new_song_path
-        fill_in "Full path", with: "n/pop/yay"
-        click_button "Create Song"
       end
 
-      it_behaves_like "a failed upload"
-      it { should have_content "Sound content type is invalid" }
-
+      its(:status_code) { should eq 403}
     end
 
-    context "submitting an invalid file type" do
+    context "logged in" do
       before do
+        login FactoryGirl.create(:user)
         visit new_song_path
-        fill_in "Full path", with: "n/pop/yay"
-        attach_file "Sound", Rails.root.join('spec', 'fixtures', 'files', 'dangerous_file.exe')
-        click_button "Create Song"
       end
-
-      it_behaves_like "a failed upload"
-      it { should have_content "Sound content type is invalid" }
-
+      its(:status_code) { should eq 403}
     end
 
-    context "submitting the same file again" do
+
+    context "logged in as uploader" do
       before do
-        same = FactoryGirl.create(:song, directory: root, sound_fingerprint: "fingerprint")
-        Digest::MD5.stub(:hexdigest) { "fingerprint" }
+        login FactoryGirl.create(:admin)
         visit new_song_path
-        fill_in "Full path", with: "n/pop/yay"
-        attach_file "Sound", Rails.root.join('spec', 'fixtures', 'files', 'test.mp3')
-        click_button "Create Song"
-        same.destroy
       end
 
-      it_behaves_like "a failed upload"
-      it { should have_content "has already been uploaded" }
-
+      it_behaves_like "valid access rights"
     end
 
-    context "submiting a valid song file" do
+    context "logged in as admin" do
       before do
+        login FactoryGirl.create(:admin)
         visit new_song_path
-        fill_in "Full path", with: "n/pop/yay"
-        attach_file "Sound", Rails.root.join('spec', 'fixtures', 'files', 'test.mp3')
-        click_button "Create Song"
       end
 
-      it_behaves_like "a successful upload", "n/pop/yay"
-
+      it_behaves_like "valid access rights"
     end
+
 
   end
 end
