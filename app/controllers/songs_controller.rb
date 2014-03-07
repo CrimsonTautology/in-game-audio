@@ -2,6 +2,7 @@ class SongsController < ApplicationController
   authorize_resource
 
   def index
+    @songs = Song.search(params[:search])
   end
 
   def show
