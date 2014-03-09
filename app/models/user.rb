@@ -10,6 +10,8 @@ class User < ActiveRecord::Base
   validates :uid, uniqueness: true
   validates :provider, presence: true
 
+  before_save :check_if_head_admin
+
   def self.random
     offset(rand count).first
   end
@@ -61,5 +63,12 @@ class User < ActiveRecord::Base
 
   def to_param
     uid.parameterize
+  end
+
+  private
+  def check_if_head_admin
+    if provider == "steam" && uid == ENV['STEAM_HEAD_ADMIN_ID']
+      self.admin = true
+    end
   end
 end
