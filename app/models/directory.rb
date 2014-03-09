@@ -19,12 +19,13 @@ class Directory < ActiveRecord::Base
     where(root: true).first
   end
 
-  def find_or_create_subdirectory name
+  def find_or_create_subdirectory name, description=nil
     sub = Directory.find_by(parent: self, name: name)
     unless sub
       sub = Directory.new
       sub.parent = self
       sub.name = name
+      sub.description=nil
       sub.save
     end
     
