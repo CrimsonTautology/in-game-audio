@@ -15,7 +15,7 @@ The back website for the [In Game Audio](https://github.com/CrimsonTautology/sm_
 ## Instalation
 * Make sure you have the requirements
 * Add your steam API key to your system's environment: `STEAM_API_KEY=[your api key]`
-* Add your Google storage access key id and secret access key to your system's environment: `GOOGLE_STORAGE_ACCESS_KEY_ID=[your key] GOOGLE_STORAGE_SECRET_ACCESS_KEY=[your key]`
+* Add your Google storage directory, access key id and secret access key to your system's environment: `GOOGLE_STORAGE_DIRECTORY=[your key] GOOGLE_STORAGE_ACCESS_KEY_ID=[your key] GOOGLE_STORAGE_SECRET_ACCESS_KEY=[your key]`
 * Add the [steam ID 64](http://steamidconverter.com/) for the head admin in to your system's environment: `STEAM_HEAD_ADMIN_ID=[your steamid 64]`
 * Setup your database config in `config/database.yml`
 * Install bundler and all required gems: `gem install bundler && bundle`

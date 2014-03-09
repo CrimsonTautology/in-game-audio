@@ -4,7 +4,7 @@ require 'audioinfo'
 class SongUploader < CarrierWave::Uploader::Base
   include CarrierWave::MimeTypes
   # Choose what kind of storage to use for this uploader:
-  storage :file
+  # storage :file
   # storage :fog
 
   process :extract_original_file_details
