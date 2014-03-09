@@ -25,7 +25,7 @@ class Directory < ActiveRecord::Base
       sub = Directory.new
       sub.parent = self
       sub.name = name
-      sub.description=nil
+      sub.description=description
       sub.save
     end
     
