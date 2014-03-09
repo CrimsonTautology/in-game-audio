@@ -30,9 +30,9 @@ ActiveRecord::Schema.define(version: 20140307192849) do
     t.string   "description"
   end
 
-  add_index "directories", ["full_path"], name: "index_directories_on_full_path"
-  add_index "directories", ["parent_id", "name"], name: "index_directories_on_parent_id_and_name"
-  add_index "directories", ["root"], name: "index_directories_on_root"
+  add_index "directories", ["full_path"], name: "index_directories_on_full_path", using: :btree
+  add_index "directories", ["parent_id", "name"], name: "index_directories_on_parent_id_and_name", using: :btree
+  add_index "directories", ["root"], name: "index_directories_on_root", using: :btree
 
   create_table "songs", force: true do |t|
     t.string   "name",                               null: false
@@ -56,9 +56,9 @@ ActiveRecord::Schema.define(version: 20140307192849) do
     t.string   "sound_content_type"
   end
 
-  add_index "songs", ["directory_id", "name"], name: "index_songs_on_directory_id_and_name"
-  add_index "songs", ["full_path"], name: "index_songs_on_full_path"
-  add_index "songs", ["title", "album", "artist"], name: "index_songs_on_title_and_album_and_artist"
+  add_index "songs", ["directory_id", "name"], name: "index_songs_on_directory_id_and_name", using: :btree
+  add_index "songs", ["full_path"], name: "index_songs_on_full_path", using: :btree
+  add_index "songs", ["title", "album", "artist"], name: "index_songs_on_title_and_album_and_artist", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "provider"
