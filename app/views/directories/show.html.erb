@@ -8,12 +8,13 @@
   <% end %>
   <% @subdirectories.each do |sub| %>
     <li>
-      <%= link_to sub.path_name, sub %>
+      <%= link_to sub.path_name, sub %><% unless sub.description.blank? %> (<%= sub.description %>)<%end%>
     </li>
   <% end %>
   <% @songs.each do |song| %>
     <li>
-      <%= link_to song.name, song %>
-    </li>
+      <div><%= link_to song.name, song %> | <%= song.to_s %></div>
+      <div>Uploaded <%= song.created_at %> | Duration <%= song.duration_formated %> | <%= number_to_human_size song.sound_file_size %>
+  </div>    </li>
   <% end %>
 </ul>

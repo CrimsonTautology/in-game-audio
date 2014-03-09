@@ -8,6 +8,8 @@
   <%= link_to "Edit this song", edit_song_path(@song)%>
 <% end %>
 
+<p>Uploaded <%= @song.created_at %> by <%= link_to @song.uploader.nickname, @song.uploader.profile_url %>
+<p><%= number_to_human_size @song.sound_file_size %></p>
 <p><%= @song.title %></p>
 <p><%= @song.album %></p>
 <p><%= @song.artist %></p>

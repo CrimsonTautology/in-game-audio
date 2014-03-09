@@ -47,7 +47,7 @@ describe "Song Directories" do
     end
 
     context "with subdirectories" do
-      let!(:sub) {FactoryGirl.create(:directory, name: "foo", parent: root)}
+      let!(:sub) {FactoryGirl.create(:directory, name: "foo", parent: root, description: "Foo Files")}
       before do
         visit current_path
       end
@@ -56,6 +56,7 @@ describe "Song Directories" do
         let(:directory) { root }
       end
       it { should have_link(sub.path_name, href: directory_path(sub))}
+      it { should have_content(sub.description)}
 
       describe "visiting subdirectories" do
         let!(:sub2) {FactoryGirl.create(:directory, name: "bar", parent: sub)}
