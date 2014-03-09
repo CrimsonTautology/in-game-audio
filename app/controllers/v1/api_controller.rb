@@ -27,7 +27,7 @@ module V1
           album: song.album,
           artist: song.artist,
           description: song.to_s,
-          duration: song.duration,
+          duration: song.duration.to_i,
           duration_formated: song.duration_formated
         }
 
