@@ -1,6 +1,10 @@
 <%= simple_form_for @song, url: songs_path, html: { multipart: true } do |f| %>
-  <%= f.input :full_path, label: "Name" %>
-  <%= f.input :directory, collection: @categories, label: "Category", prompt: "Select a category", label_method: :to_label %>
-  <%= f.input :sound %>
+  <%= f.input :sound, required: true %>
+  <%= f.hint "File must be less than 10 megabytes and must be mp3 or ogg format." %>
+
+  <%= f.input :full_path, label: "Name", required: true %>
+  <%= f.hint "This is the name that will be used, along with the category, as the name of the in-game trigger. Keep it short and descriptive.  You may only use letters, numbers and underscores.  You may use a number of forward slashes, '/', to create a subdirectory structure.  Do not add the file extension, such as \".mp3\" to the name" %>
+
+  <%= f.input :directory, collection: @categories, label: "Category", prompt: "Select a category", label_method: :to_label, required: true %>
   <%= f.button :submit %>
 <% end %>
