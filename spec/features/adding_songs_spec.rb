@@ -3,6 +3,7 @@ describe "adding songs" do
   subject { page }
 
   let!(:root) {FactoryGirl.create(:root)}
+  let!(:sub) {FactoryGirl.create(:directory, name: "n", parent: root)}
 
   describe "GET /songs/new" do
     before do
@@ -19,7 +20,8 @@ describe "adding songs" do
       context "not submiting a song file" do
         before do
           visit new_song_path
-          fill_in "Full path", with: "n/pop/yay"
+          fill_in "Name", with: "pop/yay"
+          select "n/", from: "Category"
           click_button "Create Song"
         end
 
@@ -31,7 +33,8 @@ describe "adding songs" do
       context "submitting an invalid file type" do
         before do
           visit new_song_path
-          fill_in "Full path", with: "n/pop/yay"
+          fill_in "Name", with: "pop/yay"
+          select "n/", from: "Category"
           attach_file "Sound", Rails.root.join('spec', 'fixtures', 'files', 'dangerous_file.exe')
           click_button "Create Song"
         end
@@ -46,7 +49,8 @@ describe "adding songs" do
           same = FactoryGirl.create(:song, directory: root, sound_fingerprint: "fingerprint")
           Digest::MD5.stub(:hexdigest) { "fingerprint" }
           visit new_song_path
-          fill_in "Full path", with: "n/pop/yay"
+          fill_in "Name", with: "pop/yay"
+          select "n/", from: "Category"
           attach_file "Sound", Rails.root.join('spec', 'fixtures', 'files', 'test.mp3')
           click_button "Create Song"
           same.destroy
@@ -60,7 +64,8 @@ describe "adding songs" do
       context "submiting a valid song file" do
         before do
           visit new_song_path
-          fill_in "Full path", with: "n/pop/yay"
+          fill_in "Name", with: "pop/yay"
+          select "n/", from: "Category"
           attach_file "Sound", Rails.root.join('spec', 'fixtures', 'files', 'test.mp3')
           click_button "Create Song"
         end
@@ -78,7 +83,7 @@ describe "adding songs" do
     end
     shared_examples_for "a failed upload" do
       specify { expect( Song.count ).to eq 0 }
-      specify { expect( Directory.count ).to eq 1}
+      specify { expect( Directory.count ).to eq 2}
       specify { expect(current_path).to eq new_song_path }
     end
 

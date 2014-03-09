@@ -16,6 +16,7 @@ class SongsController < ApplicationController
 
   def new
     @song = Song.new
+    @categories = Directory.root.subdirectories
   end
 
   def edit
@@ -26,11 +27,13 @@ class SongsController < ApplicationController
 
     #FIXME Move this to a model
     Directory.transaction do
+      raise ActiveRecord::Rollback if params[:song][:directory].blank?
+      parent = Directory.find(params[:song][:directory])
+
       path = params[:song][:full_path]
       directories = path.gsub(/\A\s*\//, "").gsub(/\/\s*\z/, "").split("/")
       name = directories.pop
 
-      parent = Directory.root
       directories.each do |dir|
         parent = parent.find_or_create_subdirectory dir
       end

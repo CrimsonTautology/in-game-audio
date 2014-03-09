@@ -36,6 +36,10 @@ class Directory < ActiveRecord::Base
     name + "/"
   end
 
+  def to_label
+    "#{path_name} (#{description})"
+  end
+
   def update_full_path
     if root?
       self.full_path = ""

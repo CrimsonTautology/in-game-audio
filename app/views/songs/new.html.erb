@@ -1,5 +1,6 @@
 <%= simple_form_for @song, url: songs_path, html: { multipart: true } do |f| %>
-  <%= f.input :full_path %>
+  <%= f.input :full_path, label: "Name" %>
+  <%= f.input :directory, collection: @categories, label: "Category", prompt: "Select a category", label_method: :to_label %>
   <%= f.input :sound %>
   <%= f.button :submit %>
 <% end %>
