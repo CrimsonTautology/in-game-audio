@@ -30,7 +30,6 @@ module V1
           duration: song.duration.to_i,
           duration_formated: song.duration_formated
         }
-
       end
       render json: out
     end
