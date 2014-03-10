@@ -37,7 +37,11 @@ class Directory < ActiveRecord::Base
   end
 
   def to_label
-    "#{path_name} (#{description})"
+    if description.blank?
+      full_path
+    else
+      "#{full_path} (#{description})"
+    end
   end
 
   def update_full_path

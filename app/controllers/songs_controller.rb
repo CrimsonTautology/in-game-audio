@@ -20,6 +20,8 @@ class SongsController < ApplicationController
   end
 
   def edit
+    @song = Song.find(params[:id])
+    @directories = Directory.where(root: false).order(full_path: :asc)
   end
 
   def create
@@ -38,6 +40,19 @@ class SongsController < ApplicationController
   end
 
   def update
+    @song = Song.find(params[:id])
+    @song.name = params[:song][:name]
+    @song.directory = params[:song][:directory]
+    @song.save
+    
+    if @song.save
+      @song.reload
+      flash[:notice] = "Successfully updated #{@song.full_path}."
+      redirect_to @song
+    else
+      flash[:error] = @song.errors.full_messages.to_sentence
+      redirect_to edit_song_path @song
+    end
 
   end
 

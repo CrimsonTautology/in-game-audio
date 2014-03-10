@@ -1,5 +1,6 @@
-<%= form_for @song, url: songs_path, html: { multipart: true } do |form| %>
-  <%= form.text_field :name %>
-  <%= form.text_field :album %>
-  <%= form.text_field :artist %>
+<%= simple_form_for @song, url: songs_path, html: { multipart: true } do |f| %>
+  <%= f.input :name, required: true, input_html: { value: @song.name }  %>
+
+  <%= f.input :directory, collection: @directories, label_method: :to_label, required: true, input_html: { value: @song.directory_id } %>
+  <%= f.button :submit %>
 <% end %>
