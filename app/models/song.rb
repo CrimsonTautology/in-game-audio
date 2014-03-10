@@ -105,6 +105,25 @@ class Song < ActiveRecord::Base
       scoped
     end
   end
+
+  def set_with_path_and_category path, category
+    Directory.transaction do
+      raise ActiveRecord::Rollback if category.blank?
+      parent = Directory.find(category)
+
+      directories = path.gsub(/\A\s*\//, "").gsub(/\/\s*\z/, "").split("/")
+      name = directories.pop
+
+      directories.each do |dir|
+        parent = parent.find_or_create_subdirectory dir
+      end
+
+      self.name = name
+      self.directory = parent
+
+      raise ActiveRecord::Rollback if invalid?
+    end
+  end
   
 
   private

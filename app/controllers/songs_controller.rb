@@ -24,26 +24,8 @@ class SongsController < ApplicationController
 
   def create
     @song = Song.new(song_params)
-
-    #FIXME Move this to a model
-    Directory.transaction do
-      raise ActiveRecord::Rollback if params[:song][:directory].blank?
-      parent = Directory.find(params[:song][:directory])
-
-      path = params[:song][:full_path]
-      directories = path.gsub(/\A\s*\//, "").gsub(/\/\s*\z/, "").split("/")
-      name = directories.pop
-
-      directories.each do |dir|
-        parent = parent.find_or_create_subdirectory dir
-      end
-
-      @song.name = name
-      @song.directory = parent
-      @song.uploader_id = current_user.id
-
-      raise ActiveRecord::Rollback if @song.invalid?
-    end
+    @song.uploader_id = current_user.id
+    @song.set_with_path_and_category params[:song][:full_path], params[:song][:directory]
 
 
     if @song.save
@@ -53,6 +35,10 @@ class SongsController < ApplicationController
       flash[:error] = @song.errors.full_messages.to_sentence
       redirect_to new_song_path
     end
+  end
+
+  def update
+
   end
 
   def destroy
