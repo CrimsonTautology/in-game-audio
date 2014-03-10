@@ -1,0 +1,49 @@
+- Add Rake task to clean up tmp cache files
+    - Find way to automate this
+
+-Authorize Uploader
+    -Api call to authorize_user with uid of user
+    -Will create user if doesn't exist already
+    -set uploader flag to true
+    -will let user upload songs
+    -Called from server
+    -Purpose is to make sure only regulars of a server can upload; may need to add recent play time check in future
+
+-User Themes
+    -Api call to query_song with uid of user
+    -If user theme exists for uid, return it, else return not found which will not play
+    -Donator check is handled plugin side
+    - < 10 seconds
+    - One theme or multiple?
+
+-Map Themes
+    -Api call to query_song with name of map
+    -If map_theme exists play that one, else play random map themeable song
+    - > 2 minutes
+
+-Touch up New Song controller
+    -It's a mess
+
+-Edit Directory page
+    -be able to move to new parent?
+    -change description
+
+-Edit Song Page
+    -be able to change directory
+    -set map themeable
+    -description?
+
+-Admin Page
+    -Add/remove admins
+    -Add/remove uploaders
+    -Add/remove bans
+    -Add/remove map themes
+
+-User Page
+    -List of songs that have been uploaded
+    -Place to add/remove user themes
+
+-Stop song page
+    -blank page to act as way to stop music from playing in game
+
+-Pagination
