@@ -3,6 +3,8 @@ class Song < ActiveRecord::Base
   belongs_to :uploader, class_name: "User"
   mount_uploader :sound, SongUploader
 
+  has_many :themes
+
   validates :name,
     uniqueness: { scope: :directory_id, message: "A directory cannot have two songs of the same name", case_sensitive: false},
     format: { with: /\A[a-z0-9_]+\z/, message: "can only be numbers, letters or underscores" }
@@ -23,7 +25,7 @@ class Song < ActiveRecord::Base
 
 
   before_save :update_full_path
-  #before_save :check_user_themable
+  before_save :check_if_user_themable
 
 
   def update_full_path
@@ -52,6 +54,19 @@ class Song < ActiveRecord::Base
         full_path
       end
     end
+  end
+
+  def to_json_api
+    {
+      song_id: id.to_s,
+      full_path: full_path,
+      title: title,
+      album: album,
+      artist: artist,
+      description: to_s,
+      duration: duration.to_i,
+      duration_formated: duration_formated
+    }
   end
 
   #Return a song by it's path or a random sub song if path matches a directory
@@ -132,8 +147,11 @@ class Song < ActiveRecord::Base
     errors.add(:base, 'Directory already exists with same name') if Directory.exists?(parent: directory, name: name)
   end
 
-  def check_user_themable
-    user_themeable = (duration <= 10.seconds) if user_themeable.nil?
+  def check_if_user_themable
+    unless user_themeable
+      self.user_themeable = duration <= 10.0
+    end
+    true
   end
 
 end

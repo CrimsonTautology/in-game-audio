@@ -10,6 +10,7 @@ class Ability
     if user
 
       can :read, User, id: user.id
+      can [:read, :create, :destroy], Theme, user_id: user.id
 
       if user.uploader? && !user.banned?
         can :create, Song

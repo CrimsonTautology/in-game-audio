@@ -18,6 +18,7 @@ FactoryGirl.define do
     name "baz"
     directory :root
     association :uploader, factory: :user
+    duration 500
     sound "crap"
     sound_file_name
     sound_content_type "audio/mp3"
@@ -53,6 +54,11 @@ FactoryGirl.define do
     factory :banned do
       banned_at Time.now
     end
+  end
+
+  factory :theme do
+    user
+    song
   end
 
 end

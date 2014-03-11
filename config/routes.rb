@@ -7,6 +7,7 @@ InGameAudio::Application.routes.draw do
   resources :api_keys
 
   resources :users do
+    resources :themes
     post 'ban', on: :member
     post 'unban', on: :member
     post 'approve', on: :member
@@ -18,6 +19,9 @@ InGameAudio::Application.routes.draw do
   namespace :v1, defaults: {format: 'json'} do
     resources :api do
       post 'query_song', on: :collection
+      post 'user_theme', on: :collection
+      post 'map_theme', on: :collection
+      post 'authorize_user', on: :collection
     end
   end
 

@@ -16,9 +16,9 @@ describe "editing songs" do
           visit edit_song_path song
         end
 
-        it { should have_content "yay" }
-        it { should have_content sub1.to_label }
-        it { should_not have_content "pop/yay" }
+        pending { should have_content "yay" }
+        pending { should have_content sub1.to_label }
+        pending { should_not have_content "pop/yay" }
       end
 
       context "changing category" do
@@ -69,7 +69,7 @@ describe "editing songs" do
         visit edit_song_path song
       end
 
-      its(:status_code) { should eq 403}
+      pending(:status_code) { should eq 403}
     end
 
     context "logged in as song's uploader" do
