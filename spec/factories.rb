@@ -18,6 +18,7 @@ FactoryGirl.define do
     name "baz"
     directory :root
     association :uploader, factory: :user
+    duration 500
     sound "crap"
     sound_file_name
     sound_content_type "audio/mp3"
