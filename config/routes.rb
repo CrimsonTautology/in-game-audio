@@ -19,6 +19,9 @@ InGameAudio::Application.routes.draw do
   namespace :v1, defaults: {format: 'json'} do
     resources :api do
       post 'query_song', on: :collection
+      post 'user_theme', on: :collection
+      post 'map_theme', on: :collection
+      post 'authorize_user', on: :collection
     end
   end
 

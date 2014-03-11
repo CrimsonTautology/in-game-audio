@@ -56,6 +56,19 @@ class Song < ActiveRecord::Base
     end
   end
 
+  def to_json_api
+    {
+      song_id: id.to_s,
+      full_path: full_path,
+      title: title,
+      album: album,
+      artist: artist,
+      description: to_s,
+      duration: duration.to_i,
+      duration_formated: duration_formated
+    }
+  end
+
   #Return a song by it's path or a random sub song if path matches a directory
   def self.path_search path
     key = path.strip.gsub %r{^/|/$}, ""
