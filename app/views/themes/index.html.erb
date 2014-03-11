@@ -1,2 +1,39 @@
-<h1>Themes#index</h1>
-<p>Find me in app/views/themes/index.html.erb</p>
+<%= simple_form_for [current_user, Theme.new] do |f| %>
+  <%= f.input :full_path %>
+  <%= f.hint "The full path of the song you use with !p (e.g. g/sub/song)" %>
+  <%= f.hint "Your theme will play when you join the server.  NOTE: you may have to be a donator for it to play on some servers." %>
+  <%= f.hint "The duration of the song must be 10 or fewer seconds in length." %>
+  <%= f.hint "Multiple songs can be uploaded; one will be chosen randomly when you join." %>
+  <%= f.submit "Add New Theme" %>
+<% end %>
+
+<% if @themes.count > 0 %>
+<table class="table table-hover table-striped" >
+  <thead>
+    <tr>
+      <th>Full Path</th>
+      <th>Description</th>
+      <th>Duration</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @themes.each do |theme| %>
+      <tr>
+        <td>
+          <%= link_to theme.song.full_path, song_path(theme.song) %>
+        </td>
+        <td>
+          <%= theme.song.to_s %>
+        </td>
+        <td>
+          <%= theme.song.duration_formated %>
+        </td>
+        <td>
+          <%= button_to "delete", [current_user, theme], method: :delete, data: {confirm: "Are you sure?"} %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<% end %>

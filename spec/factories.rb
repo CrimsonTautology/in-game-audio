@@ -55,4 +55,9 @@ FactoryGirl.define do
     end
   end
 
+  factory :theme do
+    user
+    song
+  end
+
 end

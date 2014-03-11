@@ -3,6 +3,8 @@ class Song < ActiveRecord::Base
   belongs_to :uploader, class_name: "User"
   mount_uploader :sound, SongUploader
 
+  has_many :themes
+
   validates :name,
     uniqueness: { scope: :directory_id, message: "A directory cannot have two songs of the same name", case_sensitive: false},
     format: { with: /\A[a-z0-9_]+\z/, message: "can only be numbers, letters or underscores" }
