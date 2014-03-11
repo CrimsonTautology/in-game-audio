@@ -7,6 +7,7 @@ InGameAudio::Application.routes.draw do
   resources :api_keys
 
   resources :users do
+    resources :themes
     post 'ban', on: :member
     post 'unban', on: :member
     post 'approve', on: :member
