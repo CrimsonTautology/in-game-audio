@@ -3,7 +3,7 @@
     document.getElementById('audio_player').volume = <%= @volume %>;
   });
 </script>
-<audio id="audio_player" src="<%= @song.sound.url %>" controls autoplay >
+<audio id="audio_player" src="<%= @song.sound.url %>" controls autoplay preload="auto">
   <p>Browser does not support this audio player</p>
 </audio>
 
