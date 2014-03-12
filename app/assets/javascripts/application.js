@@ -15,4 +15,5 @@
 //= require turbolinks
 //= require bootstrap
 //= require id3
+//= require songs
 //= require_tree .
