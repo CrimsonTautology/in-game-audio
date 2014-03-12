@@ -86,7 +86,7 @@ $( document ).ready(function(){
         'Gothic': { dir: null, sub: null },
         'Darkwave': { dir: null, sub: null },
         'Techno-Industrial': { dir: null, sub: null },
-        'Electronic': { dir: null, sub: null },
+        'Electronic': { dir: "e/", sub: null },
         'Pop-Folk': { dir: "f/", sub: "pop/" },
         'Eurodance': { dir: null, sub: null },
         'Dream': { dir: null, sub: null },
