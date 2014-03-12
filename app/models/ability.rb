@@ -14,7 +14,7 @@ class Ability
 
       if user.uploader? && !user.banned?
         can :create, Song
-        can [:destroy, :update], Song, user_id: user.id
+        #can [:destroy, :update], Song, user_id: user.id
       end
 
       if user.admin?
