@@ -29,3 +29,7 @@ doc/
 .DB_Store
 bundler_stubs/
 tags
+
+public/public/
+public/uploads/
+
