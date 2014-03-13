@@ -7,11 +7,8 @@ describe "user theme song manager" do
   subject { page }
 
   describe "GET /users/:id/themes" do
-    before do
-      login user
-    end
 
-    context "as different user" do
+    context "not logged in" do
       before do
         visit user_themes_path(FactoryGirl.create(:user))
       end
@@ -20,8 +17,20 @@ describe "user theme song manager" do
 
     end
 
+    context "as different user" do
+      before do
+        login user
+        other = FactoryGirl.create(:user)
+        visit user_themes_path(other)
+      end
+
+      its(:status_code) { should eq 403}
+
+    end
+
     context "with no themes" do
       before do
+        login user
         visit user_themes_path(user)
       end
 
@@ -32,6 +41,7 @@ describe "user theme song manager" do
       let!(:song) {FactoryGirl.create(:song, directory: root, user_themeable: true)}
       let!(:theme) { FactoryGirl.create(:theme, song: song, user: user) }
       before do
+        login user
         visit user_themes_path(user)
       end
 
@@ -52,6 +62,7 @@ describe "user theme song manager" do
         let!(:sub) {FactoryGirl.create(:directory, name: "bop", parent: root)}
         let!(:song) {FactoryGirl.create(:song, name: "beep", directory: sub, user_themeable: true)}
         before do
+          login user
           visit user_themes_path(user)
           fill_in "Full path", with: song.full_path
           click_on "Add New Theme"
@@ -66,6 +77,7 @@ describe "user theme song manager" do
         let!(:sub) {FactoryGirl.create(:directory, name: "bop", parent: root)}
         let!(:song) {FactoryGirl.create(:song, name: "beep", directory: sub, user_themeable: false)}
         before do
+          login user
           visit user_themes_path(user)
           fill_in "Full path", with: song.full_path
           click_on "Add New Theme"

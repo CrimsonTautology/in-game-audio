@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  authorize_resource
+  load_and_authorize_resource
   before_filter :find_user, only: [:show, :ban, :edit, :unban, :update]
 
   def show
@@ -40,7 +40,7 @@ class UsersController < ApplicationController
 
   private
   def find_user
-    @user = User.includes(:votes).find_by(uid: params[:id])
+    @user = User.find(params[:id])
   end
 end
 

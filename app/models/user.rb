@@ -63,10 +63,6 @@ class User < ActiveRecord::Base
     banned_at
   end
 
-  def to_param
-    uid.parameterize
-  end
-
   private
   def check_if_head_admin
     if provider == "steam" && uid == ENV['STEAM_HEAD_ADMIN_ID']

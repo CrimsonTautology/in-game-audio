@@ -40,9 +40,7 @@ FactoryGirl.define do
 
   factory :user do
     nickname "FooBar"
-    sequence :uid do |n|
-      "123#{n}"
-    end
+    uid
     provider "steam"
 
     factory :admin do
@@ -54,6 +52,10 @@ FactoryGirl.define do
     factory :banned do
       banned_at Time.now
     end
+  end
+
+  sequence :uid do |n|
+    "12345#{n}"
   end
 
   factory :theme do
