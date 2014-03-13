@@ -1,5 +1,17 @@
 <h1><%= @directory.full_path %></h1>
 
+<% if can?(:update, @directory) %>
+  <div><%= link_to "Edit this directory", edit_directory_path(@directory)%></div>
+<% end %>
+
+<% if can?(:create, @directory) %>
+  <div><%= link_to "Create new directory", new_directory_path %></div>
+<% end %>
+
+<% if false %>
+  <div><%= link_to "Delete this directory", @directory, method: :delete, data: {confirm: "Are you sure?"} %></div>
+<% end %>
+
 <ul>
   <% unless @directory.root? %>
     <li>

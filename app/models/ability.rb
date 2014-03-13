@@ -22,6 +22,7 @@ class Ability
 
       if user.admin?
         can :manage, :all
+        cannot [:update, :destroy], Directory, root: true
       end
     end
 
