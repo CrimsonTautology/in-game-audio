@@ -58,10 +58,6 @@ describe "playing a song" do
       end
 
       it_behaves_like "valid access rights"
-      it "sets the volume" do
-        audio = find("#audio_player")
-        expect(audio["volume"]).to eq "0.66"
-      end
     end
   end
 end
