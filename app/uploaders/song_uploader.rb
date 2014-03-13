@@ -14,16 +14,16 @@ class SongUploader < CarrierWave::Uploader::Base
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:
   def store_dir
-    "public/uploads/#{model.directory.full_path}#{model.sound_fingerprint}"
+    "public/uploads/#{model.sound_fingerprint[0, 2]}/#{model.sound_fingerprint}"
   end
 
   # Add a white list of extensions which are allowed to be uploaded.
   def extension_white_list
-    %w(mp3 mp4 ogg)
+    %w(mp3 mp4 ogg flac)
   end
 
   def full_filename(for_file)
-    model.name + '.ogg'
+    model.sound_file_name + '.ogg'
   end
 
 
@@ -37,6 +37,7 @@ class SongUploader < CarrierWave::Uploader::Base
 
     model.sound_content_type = file.content_type if file.content_type
     model.sound_fingerprint = Digest::MD5.hexdigest(self.file.read)
+    model.sound_file_name = File.basename(file.path, ".*").parameterize
   end
 
   def extract_converted_file_details
