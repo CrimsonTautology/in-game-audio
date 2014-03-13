@@ -109,8 +109,20 @@ describe "editing songs" do
       it_behaves_like "valid access rights"
       it { should have_content "Map themeable" }
       it { should have_content "User themeable" }
+
+      describe "setting themeables" do
+        before do
+          check "Map themeable"
+          check "User themeable"
+          click_button "Update Song"
+          song.reload
+        end
+
+        specify { expect(song).to be_map_themeable }
+        specify { expect(song).to be_user_themeable }
+      end
+
+
     end
-
-
   end
 end
