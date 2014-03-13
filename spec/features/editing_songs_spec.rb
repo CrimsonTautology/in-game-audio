@@ -5,45 +5,61 @@ describe "editing songs" do
   let!(:root) {FactoryGirl.create(:root)}
   let!(:sub1) {FactoryGirl.create(:directory, name: "n", description: "test description", parent: root)}
   let!(:sub2) {FactoryGirl.create(:directory, name: "pop", parent: sub1)}
-  let!(:song) {FactoryGirl.create(:song, name: "yay", directory: sub2)}
+  let!(:song) {FactoryGirl.create(:song, name: "yay", directory: sub2, title: "old title", artist: "old title", album: "old album")}
 
   describe "GET /songs/edit" do
+    before do
+      User.destroy_all
+    end
 
     shared_examples_for "valid access rights" do
 
-      context "auto fill" do
+      describe "changing song info" do
         before do
           visit edit_song_path song
+          fill_in "Title", with: "new title"
+          fill_in "Artist", with: "new artist"
+          fill_in "Album", with: "new album"
+          click_button "Update Song"
+          song.reload
         end
 
-        pending { should have_content "yay" }
-        pending { should have_content sub1.to_label }
-        pending { should_not have_content "pop/yay" }
-      end
-
-      context "changing category" do
-        before do
-          visit edit_song_path song
-          fill_in "Name", with: "pop/yay"
-          select "n/", from: "Category"
-          click_button "Edit Song"
-        end
-
-        #it_behaves_like "a successful upload", "n/pop/yay"
+        specify { expect(song.title).to eq "new title" }
+        specify { expect(song.artist).to eq "new artist" }
+        specify { expect(song.album).to eq "new album" }
 
       end
 
-    end
+      describe "changing category" do
+        before do
+          visit edit_song_path song
+          fill_in "Name", with: "new"
+          select "n/pop/", from: "Directory"
+          click_button "Update Song"
+        end
 
-    shared_examples_for "a successful upload" do |full_path|
-      specify { expect(Song.find_by_full_path full_path).to_not be_nil }
-      specify { expect(Directory.find_by_full_path full_path.gsub(%r{/[^/]*$}, '/')).to_not be_nil }
-      specify { expect(current_path).to eq song_path(Song.find_by_full_path full_path) }
-    end
-    shared_examples_for "a failed upload" do
-      specify { expect( Song.count ).to eq 0 }
-      specify { expect( Directory.count ).to eq 2}
-      specify { expect(current_path).to eq new_song_path }
+        specify { expect(Song.find_by_full_path "n/pop/new").to_not be_nil }
+        specify { expect(Song.find_by_full_path "n/pop/yay").to be_nil }
+        specify { expect(Song.find_by_full_path "n/pop/new").to eq song }
+
+      end
+
+      context "song already existing" do
+        let!(:existing_song) {FactoryGirl.create(:song, name: "new", directory: sub2)}
+        before do
+          visit edit_song_path song
+          fill_in "Name", with: "new"
+          select "n/pop/", from: "Directory"
+          click_button "Update Song"
+        end
+
+        specify { expect(Song.find_by_full_path "n/pop/new").to_not be_nil }
+        specify { expect(Song.find_by_full_path "n/pop/yay").to_not be_nil }
+        specify { expect(Song.find_by_full_path "n/pop/new").to_not eq song }
+        specify { expect(Song.find_by_full_path "n/pop/new").to eq existing_song }
+
+      end
+
     end
 
     context "not logged in" do
@@ -65,31 +81,34 @@ describe "editing songs" do
 
     context "logged in as different uploader" do
       before do
-        login FactoryGirl.create(:uploader, id: song.uploader_id + 1)
+        login FactoryGirl.create(:uploader, id: (song.uploader_id + 1))
         visit edit_song_path song
       end
 
-      pending(:status_code) { should eq 403}
+      its(:status_code) { should eq 403}
     end
 
     context "logged in as song's uploader" do
       before do
-        user = FactoryGirl.create(:uploader)
-        song.uploader_id = user.id
-        login user
+        login FactoryGirl.create(:uploader, id: song.uploader_id)
         visit edit_song_path song
       end
 
       it_behaves_like "valid access rights"
+      it { should_not have_content "Map themeable" }
+      it { should_not have_content "User themeable" }
     end
 
     context "logged in as admin" do
       before do
-        login FactoryGirl.create(:admin)
+        FactoryGirl.create(:user, id: song.uploader_id )
+        login FactoryGirl.create(:admin, id: song.uploader_id + 1)
         visit edit_song_path song
       end
 
       it_behaves_like "valid access rights"
+      it { should have_content "Map themeable" }
+      it { should have_content "User themeable" }
     end
 
 

@@ -1,6 +1,18 @@
-<%= simple_form_for @song, url: songs_path, html: { multipart: true } do |f| %>
-  <%= f.input :name, required: true, input_html: { value: @song.name }  %>
+<%= simple_form_for @song do |f| %>
+  <%= f.input :name, required: true  %>
 
-  <%= f.input :directory, collection: @directories, label_method: :to_label, required: true, input_html: { value: @song.directory_id } %>
+  <%= f.input :directory_id, collection: @directories, label_method: :to_label, required: true, input_html: { value: @song.directory_id } %>
+
+  <%= f.input :title %>
+  <%= f.input :artist %>
+  <%= f.input :album %>
+
+  <% if can? :map_themeable, @song %>
+    <%= f.input :map_themeable %>
+  <% end %>
+  <% if can? :user_themeable, @song %>
+    <%= f.input :user_themeable %>
+  <% end %>
+
   <%= f.button :submit %>
 <% end %>

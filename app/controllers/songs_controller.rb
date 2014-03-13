@@ -1,17 +1,17 @@
 class SongsController < ApplicationController
-  authorize_resource
+  load_and_authorize_resource
+
+  before_filter :find_song, only: [:show, :play, :edit, :update, :destroy]
 
   def index
     @songs = Song.search(params[:search])
   end
 
   def show
-    @song = Song.find(params[:id])
   end
 
   def play
     @volume = params[:volume] || 1.0
-    @song = Song.find(params[:id])
   end
 
   def new
@@ -20,12 +20,11 @@ class SongsController < ApplicationController
   end
 
   def edit
-    @song = Song.find(params[:id])
     @directories = Directory.where(root: false).order(full_path: :asc)
   end
 
   def create
-    @song = Song.new(song_params)
+    @song = Song.new(create_params)
     @song.uploader_id = current_user.id
     @song.set_with_path_and_category params[:song][:full_path], params[:song][:directory]
 
@@ -40,12 +39,7 @@ class SongsController < ApplicationController
   end
 
   def update
-    @song = Song.find(params[:id])
-    @song.name = params[:song][:name]
-    @song.directory = params[:song][:directory]
-    @song.save
-    
-    if @song.save
+    if @song.update_attributes(update_params)
       @song.reload
       flash[:notice] = "Successfully updated #{@song.full_path}."
       redirect_to @song
@@ -57,14 +51,23 @@ class SongsController < ApplicationController
   end
 
   def destroy
-    @song = Song.find(params[:id])
     @song.destroy
     redirect_to songs_path, notice: "Deleted #{@song.full_path}"
   end
 
   private
-  def song_params
+  def create_params
     params.require(:song).permit(:full_path, :sound)
+  end
+
+  def update_params
+    authorize! :map_themeable, @song unless params[:song][:map_themeable].nil?
+    authorize! :user_themeable, @song unless params[:song][:user_themeable].nil?
+    params.require(:song).permit(:name, :directory_id, :title, :artist, :album, :map_themeable, :user_themeable)
+  end
+
+  def find_song
+    @song = Song.find(params[:id])
   end
 
 end

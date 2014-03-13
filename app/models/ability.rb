@@ -7,14 +7,17 @@ class Ability
     can :read, Song
 
     #Checks for logged in users
-    if user
+    if user && !user.banned?
 
       can :read, User, id: user.id
-      can [:read, :create, :destroy], Theme, user_id: user.id
+      can :manage, Theme, user_id: user.id
 
-      if user.uploader? && !user.banned?
+      if user.uploader?
         can :create, Song
-        can [:destroy, :update], Song, uploader_id: user.id
+        can :manage, Song, uploader_id: user.id
+        cannot :map_themeable, Song
+        cannot :user_themeable, Song
+        #cannot :update, Song, :user_themeable
       end
 
       if user.admin?
