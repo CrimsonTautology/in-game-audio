@@ -1,24 +1,3 @@
-<script>
-  $( document ).ready(function() {
-    //document.getElementById('audio_player').volume = <%= @volume %>;
-
-    var url = $("#jquery_jplayer_1").data('url');
-    var vol = $("#jquery_jplayer_1").data('volume');
-
-    $("#jquery_jplayer_1").jPlayer({
-      ready: function(event) {
-        $(this).jPlayer("setMedia", {
-          oga: url
-        }).jPlayer("play");
-      },
-      supplied: "oga",
-      volume: vol,
-      preload: "auto"
-    });
-  });
-</script>
-
-
 
 <div class="container">
   <div id="jquery_jplayer_1" class="jp-jplayer" data-url="<%= @song.sound.url %>" data-volume="<%= @volume %>"></div>

@@ -1,5 +1,22 @@
 $( document ).ready(function(){
 
+    //Audio player
+    var url = $("#jquery_jplayer_1").data('url');
+    var vol = $("#jquery_jplayer_1").data('volume');
+
+    $("#jquery_jplayer_1").jPlayer({
+      ready: function(event) {
+        $(this).jPlayer("setMedia", {
+          oga: url
+        }).jPlayer("play");
+      },
+      supplied: "oga",
+      volume: vol,
+      preload: "auto"
+    });
+
+
+    //Uploading songs
     $("input#song_sound").change(function(){
         console.log(this.files[0]);
         id3(this.files[0], function(err, tags) {
