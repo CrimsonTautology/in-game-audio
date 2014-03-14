@@ -34,7 +34,7 @@ describe SongUploader do
 
     its(:sound_fingerprint) { should_not be_blank }
     its(:sound_file_size) { should > (1) }
-    its(:sound_content_type) { should eq "audio/mpeg" }
+    its(:sound_content_type) { should eq "audio/ogg" }
 
   end
 
