@@ -9,6 +9,7 @@ class SongUploader < CarrierWave::Uploader::Base
 
   process :extract_original_file_details
   process :convert_to_ogg
+  process :set_content_type
   process :extract_converted_file_details
 
   # Override the directory where uploaded files will be stored.
@@ -35,12 +36,12 @@ class SongUploader < CarrierWave::Uploader::Base
       model.duration =  audio.length
     end
 
-    model.sound_content_type = file.content_type if file.content_type
     model.sound_fingerprint = Digest::MD5.hexdigest(self.file.read)
     model.sound_file_name = File.basename(file.path, ".*").parameterize
   end
 
   def extract_converted_file_details
+    model.sound_content_type = file.content_type if file.content_type
     model.sound_file_size = file.size
   end
 
@@ -63,7 +64,11 @@ class SongUploader < CarrierWave::Uploader::Base
     file.transcode(current_path, opts)
 
     File.delete tmp_path
+  end
 
+  def set_content_type(*args)
+    #FIXME Is there a better way to do this?
+    self.file.instance_variable_set(:@content_type, "audio/ogg")
   end
 
 end
