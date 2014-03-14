@@ -10,7 +10,7 @@
  *
  *= require bootstrap
  *= require font-awesome
- *= require jplayer.pink.flag.css
+ *= require jplayer
  *= require_self
  *= require_tree .
  */
