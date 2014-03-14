@@ -31,6 +31,10 @@ gem 'fog'
 gem 'streamio-ffmpeg'
 gem "ruby-audioinfo", "~> 0.4"
 
+gem 'pry'
+gem 'pry-doc'
+gem 'pry-rails'
+
 # Gems used only for assets and not required
 # in production environments by default.
 gem 'sass-rails', '~> 4.0.0'
@@ -45,9 +49,6 @@ group :development do
   gem 'fuubar'
   gem 'rspec-rails'
   gem 'guard-rspec'
-  gem 'pry'
-  gem 'pry-doc'
-  gem 'pry-rails'
   gem 'better_errors'
 end
 
