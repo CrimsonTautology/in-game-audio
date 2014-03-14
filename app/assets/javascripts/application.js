@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery.jplayer
 //= require turbolinks
 //= require bootstrap
 //= require id3
