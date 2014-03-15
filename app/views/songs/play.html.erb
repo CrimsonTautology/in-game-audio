@@ -4,6 +4,7 @@ $( document ).ready(function(){
     //Audio player
     var url = $("#jquery_jplayer_1").data('url');
     var vol = $("#jquery_jplayer_1").data('volume');
+    var swf = $("#jquery_jplayer_1").data('swf');
 
     $("#jquery_jplayer_1").jPlayer({
       ready: function(event) {
@@ -12,7 +13,7 @@ $( document ).ready(function(){
         }).jPlayer("play");
       },
       supplied: "mp3",
-      swfPath: "http://jplayer.org/latest/js",
+      swfPath: swf,
       volume: vol,
       preload: "auto"
     });
@@ -20,7 +21,12 @@ $( document ).ready(function(){
 </script>
 
 <div class="container">
-  <div id="jquery_jplayer_1" class="jp-jplayer" data-url="<%= @song.sound.url %>" data-volume="<%= @volume %>"></div>
+  <div id="jquery_jplayer_1" class="jp-jplayer"
+    data-url="<%= @song.sound.url %>"
+    data-volume="<%= @volume %>"
+    data-swf="<%= asset_path('Jplayer.swf') %>"
+    >
+  </div>
 
   <div id="jp_container_1" class="jp-audio">
     <div class="jp-type-playlist">
