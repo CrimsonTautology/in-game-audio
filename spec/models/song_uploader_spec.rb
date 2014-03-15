@@ -9,6 +9,7 @@ describe SongUploader do
   before do
     SongUploader.enable_processing = true
     SongUploader.any_instance.stub(:convert_to_ogg).and_return(nil)
+    SongUploader.any_instance.stub(:convert_to_mp3).and_return(nil)
   end
   after do
     SongUploader.enable_processing = false
@@ -34,7 +35,7 @@ describe SongUploader do
 
     its(:sound_fingerprint) { should_not be_blank }
     its(:sound_file_size) { should > (1) }
-    its(:sound_content_type) { should eq "audio/ogg" }
+    its(:sound_content_type) { should eq "audio/mp3" }
 
   end
 
@@ -57,7 +58,7 @@ describe SongUploader do
 
     its(:sound_fingerprint) { should_not be_blank }
     its(:sound_file_size) { should > (1) }
-    its(:sound_content_type) { should eq "audio/ogg" }
+    its(:sound_content_type) { should eq "audio/mp3" }
 
   end
 end

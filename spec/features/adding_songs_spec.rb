@@ -9,6 +9,7 @@ describe "adding songs" do
     before do
       SongUploader.enable_processing = true
       SongUploader.any_instance.stub(:convert_to_ogg).and_return(nil)
+      SongUploader.any_instance.stub(:convert_to_mp3).and_return(nil)
     end
 
     after do
