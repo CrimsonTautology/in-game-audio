@@ -8,7 +8,8 @@ class SongUploader < CarrierWave::Uploader::Base
   # storage :fog
 
   process :extract_original_file_details
-  process :convert_to_ogg
+  #process :convert_to_ogg
+  process :convert_to_mp3
   process :set_content_type
   process :extract_converted_file_details
 
@@ -24,7 +25,7 @@ class SongUploader < CarrierWave::Uploader::Base
   end
 
   def full_filename(for_file)
-    model.sound_file_name + '.ogg'
+    model.sound_file_name + '.mp3'
   end
 
 
@@ -66,9 +67,29 @@ class SongUploader < CarrierWave::Uploader::Base
     File.delete tmp_path
   end
 
+  def convert_to_mp3
+    #ffmpeg -y -i @file -vn -sn -aq 6 -ar 44100 -ac 2 @out.mp3
+    cache_stored_file! if !cached?
+
+    directory = File.dirname current_path
+    tmp_path  = File.join directory, "tmpfile"
+    File.rename current_path,  tmp_path
+
+    file = FFMPEG::Movie.new(tmp_path)
+    opts={
+      audio_bitrate: 32,
+      audio_sample_rate: 22050,
+      audio_channels: 1,
+      custom: "-vn -sn -f mp3"
+    }
+    file.transcode(current_path, opts)
+
+    File.delete tmp_path
+  end
+
   def set_content_type(*args)
     #FIXME Is there a better way to do this?
-    self.file.instance_variable_set(:@content_type, "audio/ogg")
+    self.file.instance_variable_set(:@content_type, "audio/mp3")
   end
 
 end
