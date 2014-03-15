@@ -16,7 +16,7 @@ class SongsController < ApplicationController
 
   def new
     @song = Song.new
-    @categories = Directory.root.subdirectories
+    @categories = Directory.where(parent: Directory.root).order(full_path: :asc)
   end
 
   def edit
