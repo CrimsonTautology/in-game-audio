@@ -77,6 +77,7 @@ class SongUploader < CarrierWave::Uploader::Base
 
     file = FFMPEG::Movie.new(tmp_path)
     opts={
+      audio_codec: "libmp3lame",
       audio_bitrate: 32,
       audio_sample_rate: 22050,
       audio_channels: 1,
