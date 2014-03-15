@@ -81,7 +81,7 @@ class SongUploader < CarrierWave::Uploader::Base
       audio_bitrate: 32,
       audio_sample_rate: 22050,
       audio_channels: 1,
-      custom: "-vn -sn -f mp3"
+      custom: "-vn -aq 4 -sn -f mp3"
     }
     file.transcode(current_path, opts)
 

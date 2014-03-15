@@ -15,7 +15,6 @@ $( document ).ready(function(){
       preload: "auto"
     });
 
-
     //Uploading songs
     $("input#song_sound").change(function(){
         console.log(this.files[0]);
