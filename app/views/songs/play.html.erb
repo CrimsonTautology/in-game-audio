@@ -8,10 +8,10 @@ $( document ).ready(function(){
     $("#jquery_jplayer_1").jPlayer({
       ready: function(event) {
         $(this).jPlayer("setMedia", {
-          oga: url
+          mp3: url
         }).jPlayer("play");
       },
-      supplied: "oga",
+      supplied: "mp3",
       volume: vol,
       preload: "auto"
     });
