@@ -69,6 +69,49 @@ class Song < ActiveRecord::Base
     }
   end
 
+  def self.filter attributes
+    attributes.inject(self) do |scope, (key, value)|
+      return scope if value.blank?
+      case key.to_sym
+      when :search
+        scope.search(value)
+      when :name
+        scope.search(value, :name)
+      when :title
+        scope.search(value, :title)
+      when :artist
+        scope.search(value, :artist)
+      when :album
+        scope.search(value, :album)
+      when :user_themeable
+        scope.where(user_themeable: true)
+      when :map_themeable
+        scope.where(map_themeable: true)
+      when :sort
+        case value.to_sym
+        when :file_size
+          scope.order(sound_file_size: :desc)
+        when :duration
+          scope.order(duration: :desc)
+        when :play_count
+          scope.order(play_count: :desc)
+        when :uploader
+          scope.order(uploader_id: :desc)
+        when :name
+          scope.order(name: :desc)
+        when :full_path
+          scope.order(full_path: :desc)
+        when :title
+          scope.order(title: :desc)
+        when :artist
+          scope.order(artist: :desc)
+        when :album
+          scope.order(album: :desc)
+        end
+      end
+    end
+  end
+
   #Return a song by it's path or a random sub song if path matches a directory
   def self.path_search path
     key = path.strip.gsub %r{^/|/$}, ""
