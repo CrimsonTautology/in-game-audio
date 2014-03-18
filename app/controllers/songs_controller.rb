@@ -4,7 +4,7 @@ class SongsController < ApplicationController
   before_filter :find_song, only: [:show, :play, :edit, :update, :destroy]
 
   def index
-    @songs = Song.filter(params)
+    @songs = Song.search(params[:search])
   end
 
   def show
