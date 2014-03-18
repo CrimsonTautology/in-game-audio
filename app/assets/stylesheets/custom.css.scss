@@ -1,14 +1,13 @@
-@import "bootstrap";
-@import "font-awesome";
-
 /* mixins, variables, etc. */
  
-$grayMediumLight: #eaeaea;
+$gray-medium-light: #eaeaea;
 
 $good: #008000;
 $bad: #FF0000;
 $gold-star: #ffd700;
 $comment-counter: #1ef9ff;
+$footer-text: #FFF;
+$footer-background: #222;
  
 @mixin box_sizing {
   -moz-box-sizing: border-box;
@@ -17,43 +16,18 @@ $comment-counter: #1ef9ff;
 }
 
 
-.thumbnail-wrapper {
-    position: relative;
-    float: left;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 5px;
-}
-
-.thumbnail-wrapper  .thumbnail-text {
-    display: none;
-    position: absolute;
-    bottom: 10px;
-    left: 0px;
-    width: 100%;
-    background: rgba(0,0,0,0.7);
-    text-align: center;
-    font-size: x-small;
-}
-.thumbnail-wrapper:hover .thumbnail-text {
-    display: block;
-}
-
 
 body {
-    padding-top: 75px;
+    padding-top: 40px;
 }
-
 
 footer {
-    color: #666;
-    background: #222;
     margin: 50px 0;
-    border-top: 1px solid #000;
-}
-
-footer .row {
-    padding: 35px;
+    border-top: 1px solid $gray-medium-light;
+    p {
+        text-align: center;
+        font-size: 85%;
+    }
 }
 
 .wrapper {
@@ -69,23 +43,10 @@ footer .row {
 /* miscellaneous */
 
 .debug_dump {
-    background-color: $grayMediumLight;
+    background-color: $gray-medium-light;
     clear: both;
     float: left;
     width: 100%;
     margin-top: 45px;
     @include box_sizing;
-}
-
-.up-vote {
-    color: $good;
-}
-.down-vote {
-    color: $bad;
-}
-.favorite-btn {
-    color: $gold-star;
-}
-.comment-counter {
-    color: $comment-counter;
 }

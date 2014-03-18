@@ -12,21 +12,14 @@
   <div><%= link_to "Delete this directory", @directory, method: :delete, data: {confirm: "Are you sure?"} %></div>
 <% end %>
 
-<ul>
-  <% unless @directory.root? %>
-    <li>
-      <%= link_to "..", @directory.parent %>
-    </li>
-  <% end %>
-  <% @subdirectories.each do |sub| %>
-    <li>
-      <%= link_to sub.path_name, sub %><% unless sub.description.blank? %> (<%= sub.description %>)<%end%>
-    </li>
-  <% end %>
-  <% @songs.each do |song| %>
-    <li>
-      <div><%= link_to song.name, song %> | <%= song.to_s %></div>
-      <div>Uploaded <%= song.created_at %> | Duration <%= song.duration_formated %> | <%= number_to_human_size song.sound_file_size %>
-  </div>    </li>
-  <% end %>
-</ul>
+<% unless @directory.root? %>
+  <%= render 'directories/directory_info', {path_name: "..", description: "Go up a level", directory: @directory.parent } %>
+<% end %>
+
+<% @subdirectories.each do |sub| %>
+  <%= render 'directories/directory_info', {path_name: sub.path_name, description: sub.description, directory: sub } %>
+<% end %>
+
+<% @songs.each do |song| %>
+  <%= render 'songs/song_info', {song: song} %>
+<% end %>
