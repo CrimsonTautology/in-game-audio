@@ -5,11 +5,11 @@ class Ability
   def initialize(user, access_token=nil)
     can :read, Directory
     can :read, Song
+    can :read, User
 
     #Checks for logged in users
     if user && !user.banned?
 
-      can :read, User, id: user.id
       can :manage, Theme, user_id: user.id
 
       if user.uploader?
