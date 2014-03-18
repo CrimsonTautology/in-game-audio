@@ -19,6 +19,18 @@ describe "Song Directories" do
       end
 
       it { should have_link(song.name, href: song_path(song))}
+      it { should_not have_link("Edit", edit_song_path(song)) }
+      it { should_not have_link("Play", play_song_path(song)) }
+
+      context "as admin" do
+        before do
+          login FactoryGirl.create(:admin)
+          visit directory_path(directory)
+        end
+
+        it { should have_link("Edit", edit_song_path(song)) }
+        it { should have_link("Play", play_song_path(song)) }
+      end
     end
 
     context "with subdirectories" do

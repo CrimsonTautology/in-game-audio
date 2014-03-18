@@ -18,17 +18,17 @@ describe "searching for songs" do
     end
 
     specify{ expect(current_path).to eq songs_path }
-    it { should_not have_link "", href: song_path(song1)}
-    it { should_not have_content song1.to_s }
+    it { should_not have_link song1.to_s, href: song_path(song1)}
+    it { should_not have_content song1.full_path }
 
-    it { should have_link song2.full_path, href: song_path(song2) }
-    it { should have_content song2.to_s }
+    it { should have_link song2.to_s, href: song_path(song2) }
+    it { should have_content song2.full_path }
 
-    it { should have_link song3.full_path, href: song_path(song3) }
-    it { should have_content song3.to_s }
+    it { should have_link song3.to_s, href: song_path(song3) }
+    it { should have_content song3.full_path }
 
-    pending { should have_link song4.full_path, href: song_path(song2) }
-    it { should have_content song4.to_s }
+    pending { should have_link song4.to_s, href: song_path(song2) }
+    it { should have_content song4.full_path }
 
   end
 end
