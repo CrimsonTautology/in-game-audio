@@ -87,6 +87,10 @@ class Song < ActiveRecord::Base
         scope.where(user_themeable: true)
       when :map_themeable
         scope.where(map_themeable: true)
+      when :user_id
+        scope.where(uploader_id: value)
+      when :directory_id
+        scope.where(directory_id: value)
       when :sort
         case value.to_sym
         when :file_size
