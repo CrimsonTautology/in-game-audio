@@ -20,8 +20,15 @@
     -Add aditional sorting and filtering options (lastplayed, timesplayed, duration, size, uploader)
     -Pagination
 
+-Comments
+    -Allow users to comment on songs
+
+-Tags
+    -Allow users to add tags to songs
+
 -Server Model
     -Tied to api key?
+    -Tied to the pall history
 
 -Pall list
     -model belongs to song, belongs to server
