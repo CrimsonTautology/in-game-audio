@@ -7,6 +7,8 @@ class Ability
     can :read, Song
     can :read, User
 
+    cannot :admin, :page
+
     #Checks for logged in users
     if user && !user.banned?
 

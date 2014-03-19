@@ -19,7 +19,6 @@ InGameAudio::Application.routes.draw do
     post 'unauthorize', on: :member
   end
 
-  root to: "directories#index"
 
   namespace :v1, defaults: {format: 'json'} do
     resources :api do
@@ -29,6 +28,14 @@ InGameAudio::Application.routes.draw do
       post 'authorize_user', on: :collection
     end
   end
+
+  root to: "pages#home"
+
+  get 'home', to: 'pages#home', as: 'home'
+  get 'help', to: 'pages#help', as: 'help'
+  get 'contact', to: 'pages#contact', as: 'contact'
+  get 'stop', to: 'pages#stop', as: 'stop'
+  get 'admin', to: 'pages#admin', as: 'admin'
 
   match "/auth/steam/callback" => "sessions#create", via: [:get, :post], as: :login
   get "/logout" => "sessions#destroy", as: :logout
