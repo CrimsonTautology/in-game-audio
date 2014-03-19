@@ -18,6 +18,22 @@ class User < ActiveRecord::Base
     offset(rand count).first
   end
 
+  def self.filter attributes
+    attributes.inject(self) do |scope, (key, value)|
+      return scope if value.blank?
+      case key.to_sym
+      when :admin
+        scope.where(admin: true)
+      when :banned
+        scope.where("banned_at > 0").order(banned_at: :desc)
+      when :uploader
+        scope.where(uploader: true)
+      else
+        all
+      end
+    end
+  end
+
   def self.create_with_steam_id(steam_id)
     return nil if steam_id.nil?
     steam = SteamId.new(steam_id.to_i)

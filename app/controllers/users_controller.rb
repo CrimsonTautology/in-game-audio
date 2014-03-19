@@ -2,6 +2,10 @@ class UsersController < ApplicationController
   before_filter :find_user, only: [:show, :edit, :update, :ban, :unban, :authorize, :unauthorize]
   load_and_authorize_resource
 
+  def index
+    @users = User.filter( params )
+  end
+
   def show
     authorize! :read, @user
 

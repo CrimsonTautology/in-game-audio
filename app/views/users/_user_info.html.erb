@@ -1,0 +1,39 @@
+<div class="row user-info">
+  <div class="col-md-8">
+    <div class="row">
+
+      <div class="col-md-2">
+        <%= image_tag(user.avatar_url, alt: "user's avatar") %>
+      </div>
+
+      <div class="col-md-4">
+        <h4><%= link_to user.nickname, user %></h4>
+
+        <p>
+          joined <%= user.created_at.to_date %>
+        </p>
+      </div><!-- col -->
+
+      <div class="col-md-4">
+
+        <p>
+          <% if user.banned? %>
+            <%= fa_icon "ban", alt: "Banned" %>
+          <% end %>
+
+          <% if user.uploader? %>
+            <%= fa_icon "upload", alt: "Uploader" %>
+          <% end %>
+
+          <% if user.admin? %>
+            <%= fa_icon "gavel", alt: "Admin" %>
+          <% end %>
+        </p>
+
+      </div><!-- col -->
+
+    </div><!-- row -->
+  </div><!-- col -->
+
+</div><!-- row -->
+
