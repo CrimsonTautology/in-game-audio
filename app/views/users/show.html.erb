@@ -1,4 +1,22 @@
-<%= link_to @user.nickname, @user.profile_url %>
-<%= image_tag(@user.avatar_url, alt: "user's avatar") %>
-<%= link_to "Uploaded songs", user_songs_path(@user) %>
-<%= link_to "Themes", user_themes_path(@user) %>
+<div><%= link_to @user.nickname, @user.profile_url %></div>
+<div><%= image_tag(@user.avatar_url, alt: "user's avatar") %></div>
+<div><%= link_to "Uploaded songs", user_songs_path(@user) %></div>
+<% if can?(:read, @user.themes) %>
+  <div><%= link_to "Themes", user_themes_path(@user) %></div>
+<% end %>
+
+<% if can?(:ban, @user) && !@user.banned?%>
+  <div><%= link_to "Ban", ban_user_path(@user), { method: :post } %>
+<% end %>
+
+<% if can?(:unban, @user) && @user.banned?%>
+  <div><%= link_to "Unban", unban_user_path(@user), { method: :post } %>
+<% end %>
+
+<% if can?(:authorize, @user) && !@user.uploader?%>
+  <div><%= link_to "Authorize", authorize_user_path(@user), { method: :post } %>
+<% end %>
+
+<% if can?(:unauthorize, @user) && @user.uploader?%>
+  <div><%= link_to "Unauthorize", unauthorize_user_path(@user), { method: :post } %>
+<% end %>

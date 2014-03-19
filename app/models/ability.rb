@@ -10,7 +10,7 @@ class Ability
     #Checks for logged in users
     if user && !user.banned?
 
-      can :manage, Theme, user_id: user.id
+      can :manage, Theme, user: {id: user.id}
 
       if user.uploader?
         can :create, Song

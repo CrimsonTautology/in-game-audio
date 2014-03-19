@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
+  before_filter :find_user, only: [:show, :edit, :update, :ban, :unban, :authorize, :unauthorize]
   load_and_authorize_resource
-  before_filter :find_user, only: [:show, :ban, :edit, :unban, :update]
 
   def show
     authorize! :read, @user
@@ -38,9 +38,27 @@ class UsersController < ApplicationController
     redirect_to(@user)
   end
 
+  def authorize
+    if !@user.uploader?
+      @user.uploader = true
+      @user.save!
+      flash[:notice] = "Authorized User"
+    else
+      flash[:alert] = "User already authorized"
+
+    end
+    redirect_to(@user)
+  end
+  def unauthorize
+    @user.uploader = false
+    @user.save!
+    flash[:notice] = "Unauthorized User"
+    redirect_to(@user)
+  end
+
   private
   def find_user
-    @user = User.find(params[:id])
+    @user = User.find_by(provider: "steam", uid: params[:id])
   end
 end
 

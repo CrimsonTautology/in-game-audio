@@ -15,8 +15,8 @@ InGameAudio::Application.routes.draw do
     resources :songs, only: [:index]
     post 'ban', on: :member
     post 'unban', on: :member
-    post 'approve', on: :member
-    post 'unapprove', on: :member
+    post 'authorize', on: :member
+    post 'unauthorize', on: :member
   end
 
   root to: "directories#index"

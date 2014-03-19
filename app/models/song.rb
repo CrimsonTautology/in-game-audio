@@ -88,7 +88,7 @@ class Song < ActiveRecord::Base
       when :map_themeable
         scope.where(map_themeable: true)
       when :user_id
-        scope.where(uploader_id: value)
+        scope.joins(:uploader).where(users: {uid: value})
       when :directory_id
         scope.where(directory_id: value)
       when :sort
