@@ -164,7 +164,7 @@ class Song < ActiveRecord::Base
         end
       end
     else
-      scoped
+      all
     end
   end
 
