@@ -112,6 +112,8 @@ class Song < ActiveRecord::Base
         when :album
           scope.order(album: :desc)
         end
+      else
+        all
       end
     end
   end
@@ -186,7 +188,7 @@ class Song < ActiveRecord::Base
       raise ActiveRecord::Rollback if invalid?
     end
   end
-  
+
 
   private
 

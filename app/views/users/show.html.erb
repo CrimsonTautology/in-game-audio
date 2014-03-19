@@ -1,0 +1,4 @@
+<%= link_to @user.nickname, @user.profile_url %>
+<%= image_tag(@user.avatar_url, alt: "user's avatar") %>
+<%= link_to "Uploaded songs", user_songs_path(@user) %>
+<%= link_to "Themes", user_themes_path(@user) %>

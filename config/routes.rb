@@ -3,11 +3,16 @@ InGameAudio::Application.routes.draw do
   resources :songs do
     get 'play', on: :member
   end
-  resources :directories
+
+  resources :directories do
+    resources :songs, only: [:index]
+  end
+
   resources :api_keys
 
   resources :users do
     resources :themes
+    resources :songs, only: [:index]
     post 'ban', on: :member
     post 'unban', on: :member
     post 'approve', on: :member
