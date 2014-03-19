@@ -62,7 +62,7 @@ class DirectoriesController < ApplicationController
       @directory = Directory.includes(:subdirectories, :songs).find(params[:id])
     end
     @subdirectories = @directory.subdirectories.order(name: :asc)
-    @songs = @directory.songs.includes(:uploaders).order(name: :asc)
+    @songs = @directory.songs.includes(:uploader).order(name: :asc)
   end
 
   def create_params
