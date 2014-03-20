@@ -1,6 +1,6 @@
 class Theme < ActiveRecord::Base
-  belongs_to :user
-  belongs_to :song
+  belongs_to :user, dependent: destroy
+  belongs_to :song, dependent: destroy
 
   attr_accessor :full_path
   validates_presence_of :user
