@@ -31,6 +31,8 @@ gem 'fog'
 gem 'streamio-ffmpeg'
 gem "ruby-audioinfo", "~> 0.4"
 
+gem 'zeroclipboard-rails'
+
 gem 'pry'
 gem 'pry-doc'
 gem 'pry-rails'
