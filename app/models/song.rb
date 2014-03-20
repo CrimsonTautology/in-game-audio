@@ -8,9 +8,9 @@ class Song < ActiveRecord::Base
   validates :name,
     uniqueness: { scope: :directory_id, message: "A directory cannot have two songs of the same name", case_sensitive: false},
     format: { with: /\A[a-z0-9_]+\z/, message: "can only be numbers, letters or underscores" }
-  validate  :name_does_not_match_directory
   validates :directory_id,
     presence: true
+  validate  :name_does_not_match_directory
   validates :uploader_id,
     presence: true
   validates :sound_fingerprint,
@@ -206,7 +206,7 @@ class Song < ActiveRecord::Base
   private
 
   def name_does_not_match_directory
-    errors.add(:base, 'Directory already exists with same name') if Directory.exists?(parent: directory, name: name)
+    errors.add(:base, 'Directory already exists with same name') if directory.nil? || Directory.exists?(parent: directory, name: name)
   end
 
   def check_if_user_themable

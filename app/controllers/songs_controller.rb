@@ -25,9 +25,11 @@ class SongsController < ApplicationController
   end
 
   def create
+    path = params[:song][:full_path]
+    category = params[:song][:directory]
     @song = Song.new(create_params)
     @song.uploader_id = current_user.id
-    @song.set_with_path_and_category params[:song][:full_path], params[:song][:directory]
+    @song.set_with_path_and_category path, category
 
 
     if @song.save
