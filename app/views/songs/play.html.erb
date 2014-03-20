@@ -2,10 +2,10 @@
 $( document ).ready(function(){
 
     //Audio player
-    var url = $("#jquery_jplayer_1").data('url');
-    var vol = $("#jquery_jplayer_1").data('volume');
+    var url = $("#audio_player").data('url');
+    var vol = $("#audio_player").data('volume');
 
-    $("#jquery_jplayer_1").jPlayer({
+    $("#audio_player").jPlayer({
       ready: function(event) {
         $(this).jPlayer("setMedia", {
           mp3: url
@@ -20,9 +20,10 @@ $( document ).ready(function(){
 </script>
 
 <div class="container">
-  <div id="jquery_jplayer_1" class="jp-jplayer"
+  <div id="audio_player" class="jp-jplayer"
     data-url="<%= @song.sound.url %>"
     data-volume="<%= @volume %>"
+    data-seek="<%= @seek %>"
     >
   </div>
 

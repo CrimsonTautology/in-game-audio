@@ -12,6 +12,7 @@ class SongsController < ApplicationController
 
   def play
     @volume = params[:volume] || 1.0
+    @seek = params[:seek] || 0
   end
 
   def new

@@ -68,6 +68,13 @@ RSpec.configure do |config|
     DatabaseCleaner.clean
   end
 
+  config.after(:all) do
+    # Get rid of the linked songs
+    if Rails.env.test? || Rails.env.cucumber?
+      FileUtils.rm_rf(Dir["#{Rails.root}/public/uploads/tmp/[^.]*"])
+    end
+  end
+
   config.expect_with :rspec do |c|
     c.syntax = :expect
   end

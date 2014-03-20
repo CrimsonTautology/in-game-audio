@@ -23,7 +23,8 @@ describe "playing a song" do
 
     shared_examples_for "valid access rights" do
       its(:status_code) { should eq 200}
-      it { should have_selector "audio#audio_player" }
+      it { should have_selector "div#audio_player" }
+      it { should have_selector("div[data-url='#{song.sound.url}']") }
     end
 
     context "not logged in" do
@@ -50,14 +51,18 @@ describe "playing a song" do
       end
 
       it_behaves_like "valid access rights"
+      it { should have_selector("div[data-volume='1.0']") }
+      it { should have_selector("div[data-seek='0']") }
     end
 
     context "with api key" do
       before do
-        visit "#{play_song_path(song)}?access_token=#{api_key.access_token}&volume=0.66"
+        visit "#{play_song_path(song)}?access_token=#{api_key.access_token}&volume=0.66&seek=75"
       end
 
       it_behaves_like "valid access rights"
+      it { should have_selector("div[data-volume='0.66']") }
+      it { should have_selector("div[data-seek='75']") }
     end
   end
 end
