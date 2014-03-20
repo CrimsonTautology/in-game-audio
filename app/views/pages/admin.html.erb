@@ -2,3 +2,23 @@
 <p>
   <%= link_to "Manage Api Keys", api_keys_path %>
 </p>
+
+<p>
+  <%= link_to "Map Themes", users_path({map_themeable: true}) %>
+</p>
+
+<p>
+  <%= link_to "User Themeable", users_path({user_themeable: true}) %>
+</p>
+
+<p>
+  <%= link_to "Admins", users_path({admin: ""}) %>
+</p>
+
+<p>
+  <%= link_to "Uploaders", users_path({uploaders: ""}) %>
+</p>
+
+<p>
+  <%= link_to "Banned Users", users_path({banned: ""}) %>
+</p>
