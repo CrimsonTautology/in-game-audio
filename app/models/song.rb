@@ -69,6 +69,14 @@ class Song < ActiveRecord::Base
     }
   end
 
+  def to_p_command
+    "!p #{full_path}"
+  end
+
+  def to_pall_command
+    "!pall #{full_path}"
+  end
+
   def self.filter attributes
     attributes.inject(self) do |scope, (key, value)|
       return scope if value.blank?

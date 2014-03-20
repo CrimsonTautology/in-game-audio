@@ -79,4 +79,12 @@ describe Song do
     specify { expect(Song.new(name: "bob", full_path: "g/bob", artist: "Bob", album: "Bob's Album").to_s).to eq "bob - Bob" }
     specify { expect(Song.new(name: "bob", full_path: "g/bob", album: "Bob's Album").to_s).to eq "bob - Bob's Album" }
   end
+
+  describe ".to_p_command" do
+    specify { expect(Song.new(name: "bob", full_path: "g/bob", album: "Bob's Album").to_p_command).to eq "!p g/bob" }
+  end
+
+  describe ".to_pall_command" do
+    specify { expect(Song.new(name: "bob", full_path: "g/bob", album: "Bob's Album").to_pall_command).to eq "!pall g/bob" }
+  end
 end
