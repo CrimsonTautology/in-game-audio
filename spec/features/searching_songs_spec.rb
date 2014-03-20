@@ -4,7 +4,23 @@ describe "searching for songs" do
 
   let!(:root) {FactoryGirl.create(:root)}
 
-  describe "GET /songs/:id" do
+  describe "GET /songs/" do
+    let!(:sub) {FactoryGirl.create(:directory, name: "foo", parent: root)}
+    let!(:song1) {FactoryGirl.create(:song, name: "fatbeats", directory: root, title: "Some Fat Beatz", album: "Fat Album", artist: "Beatmaster")}
+    let!(:song2) {FactoryGirl.create(:song, name: "namestuff", directory: sub, title: "Some Stuff", album: "", artist: "Beatmaster")}
+    before do
+      visit "/songs/"
+    end
+
+    its(:status_code) { should eq 200}
+    it { should have_link song1.to_s, href: song_path(song1)}
+    it { should have_content song1.full_path }
+
+    it { should have_link song2.to_s, href: song_path(song2) }
+    it { should have_content song2.full_path }
+  end
+
+  describe "the search bar" do
     let!(:sub) {FactoryGirl.create(:directory, name: "foo", parent: root)}
     let!(:song1) {FactoryGirl.create(:song, name: "fatbeats", directory: sub, title: "Some Fat Beatz", album: "Fat Album", artist: "Beatmaster")}
     let!(:song2) {FactoryGirl.create(:song, name: "namestuff", directory: sub, title: "Some Stuff", album: "", artist: "Beatmaster")}

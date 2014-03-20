@@ -12,6 +12,21 @@ describe "user theme song manager" do
     it {should have_link("", href: user_songs_path(user)) }
   end
 
+  describe "GET /users/" do
+    let!(:user2) {FactoryGirl.create(:user, nickname: 'another guy')}
+    before do
+      visit "/users/"
+    end
+
+    its(:status_code) { should eq 200}
+
+    it {should have_content user.nickname }
+    it {should have_link(user.nickname, href: user_path(user)) }
+
+    it {should have_content user2.nickname }
+    it {should have_link(user2.nickname, href: user_path(user2)) }
+  end
+
   describe "GET /users/:id" do
     context "not logged in" do
       before do
