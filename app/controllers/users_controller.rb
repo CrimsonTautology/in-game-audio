@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @users = User.filter( params )
+    @users = User.filter( params ).all
   end
 
   def show

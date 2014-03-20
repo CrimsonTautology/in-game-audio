@@ -4,7 +4,7 @@ class SongsController < ApplicationController
   before_filter :find_song, only: [:show, :play, :edit, :update, :destroy]
 
   def index
-    @songs = Song.includes(:uploader).filter(params)
+    @songs = Song.includes(:uploader).filter(params).all
   end
 
   def show
