@@ -47,11 +47,11 @@ class Song < ActiveRecord::Base
       end
     else
       if artist.present?
-        "#{full_path} - #{artist}"
+        "#{name} - #{artist}"
       elsif album.present?
-        "#{full_path} - #{album}"
+        "#{name} - #{album}"
       else
-        full_path
+        name
       end
     end
   end
