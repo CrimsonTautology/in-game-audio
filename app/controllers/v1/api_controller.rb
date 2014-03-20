@@ -38,8 +38,7 @@ module V1
           command: "user_theme"
         }
       else
-        songs = user.theme_songs
-        song = songs[rand songs.length]
+        song = user.theme_songs.random
         if song.nil?
           out = {
             found: false,
@@ -58,8 +57,7 @@ module V1
     end
 
     def map_theme
-      songs = Song.where(map_themeable: true)
-      song = songs[rand songs.length]
+      song = Song.where(map_themeable: true).random
 
       if song.nil?
         out = {

@@ -113,23 +113,28 @@ class Song < ActiveRecord::Base
           scope.order(album: :desc)
         end
       else
-        all
+        scope
       end
     end
+  end
+
+  def self.random
+    offset(rand count).first
   end
 
   #Return a song by it's path or a random sub song if path matches a directory
   def self.path_search path
     key = path.strip.gsub %r{^/|/$}, ""
+
+    if key == ""
+      return Song.random
+    end
+
     song = Song.find_by_full_path key
     if song
       return song
-    elsif key == ""
-      songs = Song.all
-      return songs[rand songs.length]
     elsif Directory.exists?(full_path: key + "/")
-      songs = Song.where("full_path like :q", q: "#{key}%")
-      return songs[rand songs.length]
+      return Song.where("full_path like :q", q: "#{key}%").random
     else 
       return nil
     end
@@ -166,7 +171,7 @@ class Song < ActiveRecord::Base
         end
       end
     else
-      all
+      scope
     end
   end
 

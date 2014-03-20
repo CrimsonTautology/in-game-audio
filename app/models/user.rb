@@ -20,7 +20,6 @@ class User < ActiveRecord::Base
 
   def self.filter attributes
     attributes.inject(self) do |scope, (key, value)|
-      return scope if value.blank?
       case key.to_sym
       when :admin
         scope.where(admin: true)
@@ -29,7 +28,7 @@ class User < ActiveRecord::Base
       when :uploader
         scope.where(uploader: true)
       else
-        all
+        scope
       end
     end
   end
