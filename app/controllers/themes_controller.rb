@@ -2,7 +2,7 @@ class ThemesController < ApplicationController
   before_filter :find_user
 
   load_and_authorize_resource :user
-  load_and_authorize_resource :theme, through: :user
+  load_and_authorize_resource :theme, :through => :user
 
 
   def index

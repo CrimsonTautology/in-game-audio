@@ -1,7 +1,7 @@
 <div><%= link_to @user.nickname, @user.profile_url %></div>
 <div><%= image_tag(@user.avatar_url, alt: "user's avatar") %></div>
 <div><%= link_to "Uploaded songs", user_songs_path(@user) %></div>
-<% if can?(:read, @user.themes) %>
+<% if can?(:manage, @user.themes) %>
   <div><%= link_to "Themes", user_themes_path(@user) %></div>
 <% end %>
 

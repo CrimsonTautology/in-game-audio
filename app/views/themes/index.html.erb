@@ -1,4 +1,4 @@
-<%= simple_form_for [current_user, Theme.new] do |f| %>
+<%= simple_form_for [@user, Theme.new] do |f| %>
   <%= f.input :full_path %>
   <%= f.hint "The full path of the song you use with !p (e.g. g/sub/song)" %>
   <%= f.hint "Your theme will play when you join the server.  NOTE: you may have to be a donator for it to play on some servers." %>
@@ -30,7 +30,7 @@
           <%= theme.song.duration_formated %>
         </td>
         <td>
-          <%= button_to "delete", [current_user, theme], method: :delete, data: {confirm: "Are you sure?"} %>
+          <%= button_to "delete", [@user, theme], method: :delete, data: {confirm: "Are you sure?"} %>
         </td>
       </tr>
     <% end %>
