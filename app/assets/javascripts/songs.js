@@ -1,5 +1,9 @@
 $( document ).ready(function(){
 
+    console.log("hit song");
+
+    var clip = new ZeroClipboard($(".zeroclipboard-btn"));
+
     //Uploading songs
     $("input#song_sound").change(function(){
         console.log(this.files[0]);

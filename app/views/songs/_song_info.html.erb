@@ -3,7 +3,12 @@
     <div class="row">
 
       <div class="col-md-6">
-        <h4><%= link_to song.to_s, song %> <small><%= song.full_path %></small></h4>
+        <h4>
+          <%= link_to song.to_s, song %>
+          <small><%= song.full_path %></small>
+          <%= link_to fa_icon("copy"), "#", {"data-clipboard-text" => song.to_p_command, title: "copy path", class: "btn btn-info btn-xs zeroclipboard-btn"} %>
+        </h4>
+
 
         <p>
           uploaded by <%= link_to song.uploader.nickname, song.uploader %>
