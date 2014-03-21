@@ -13,10 +13,8 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery.jplayer
-//= require turbolinks
-//= require bootstrap
-//= require id3
 //= require zeroclipboard
-//= require songs
+//= require id3
+//= require bootstrap
 //= require_tree .
 

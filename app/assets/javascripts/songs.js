@@ -1,8 +1,23 @@
 $( document ).ready(function(){
 
-    console.log("hit song");
-
+    //ZeroClipboard
     var clip = new ZeroClipboard($(".zeroclipboard-btn"));
+
+    //jPlayer
+    var url = $("#audio_player").data('url');
+    var vol = $("#audio_player").data('volume');
+
+    $("#audio_player").jPlayer({
+      ready: function(event) {
+        $(this).jPlayer("setMedia", {
+          mp3: url
+        }).jPlayer("play");
+      },
+      supplied: "mp3",
+      swfPath: "/",
+      volume: vol,
+      preload: "auto"
+    });
 
     //Uploading songs
     $("input#song_sound").change(function(){
