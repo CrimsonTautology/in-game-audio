@@ -28,8 +28,8 @@ describe "Song Directories" do
           visit directory_path(directory)
         end
 
-        it { should have_link("Edit", edit_song_path(song)) }
-        it { should have_link("Play", play_song_path(song)) }
+        it { should have_link("", edit_song_path(song)) }
+        it { should have_link("", play_song_path(song)) }
       end
     end
 
