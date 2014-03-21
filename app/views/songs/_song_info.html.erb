@@ -6,40 +6,45 @@
         <h4>
           <%= link_to song.to_s, song %>
           <small><%= song.full_path %></small>
-          <%= link_to fa_icon("copy"), "#", {"data-clipboard-text" => song.to_p_command, title: "copy path", class: "btn btn-info btn-xs zeroclipboard-btn"} %>
-        </h4>
+          <%= link_to fa_icon("copy"), "#",
+            {
+            "data-clipboard-text" => song.to_p_command,
+            title: "copy path to clipboard",
+            class: "btn btn-info btn-xs zeroclipboard-btn"
+          } %>
+      </h4>
 
 
-        <p>
-          uploaded by <%= link_to song.uploader.nickname, song.uploader %>
-        </p>
+      <p>
+        uploaded by <%= link_to song.uploader.nickname, song.uploader %>
+    </p>
 
-        <p>
-          <% if can? :edit, song %>
-            <%= link_to "Edit", edit_song_path(song) %>
-          <% end %>
+    <p>
+      <% if can? :edit, song %>
+        <%= link_to "Edit", edit_song_path(song) %>
+      <% end %>
 
-          <% if can? :play, song %>
-            <%= link_to "Play", play_song_path(song) %>
-          <% end %>
-        </p>
+      <% if can? :play, song %>
+        <%= link_to "Play", play_song_path(song) %>
+      <% end %>
+    </p>
 
-      </div><!-- col -->
+  </div><!-- col -->
 
-      <div class="col-md-6" >
-        <dl class="dl-horizontal" >
-          <dt>Uploaded</dt>
-          <dd><%= song.created_at.to_date %></dd>
+  <div class="col-md-6" >
+    <dl class="dl-horizontal" >
+      <dt>Uploaded</dt>
+      <dd><%= song.created_at.to_date %></dd>
 
-          <dt>Duration</dt>
-          <dd><%= song.duration_formated %></dd>
+      <dt>Duration</dt>
+      <dd><%= song.duration_formated %></dd>
 
-          <dt>File Size</dt>
-          <dd><%= number_to_human_size song.sound_file_size %></dd>
-        </dl>
-      </div><!-- col -->
+      <dt>File Size</dt>
+      <dd><%= number_to_human_size song.sound_file_size %></dd>
+    </dl>
+  </div><!-- col -->
 
-    </div><!-- row -->
+</div><!-- row -->
   </div><!-- col -->
 
 </div><!-- row -->
