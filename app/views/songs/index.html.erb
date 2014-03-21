@@ -1,3 +1,5 @@
 <% @songs.each do |song| %>
   <%= render 'songs/song_info', {song: song} %>
 <% end %>
+<%= will_paginate @songs, renderer: BootstrapPagination::Rails %>
+
