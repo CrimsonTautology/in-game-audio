@@ -28,7 +28,7 @@ gem 'steam-condenser', '~> 1.3.5'
 gem 'carrierwave'
 gem 'fog'
 gem 'streamio-ffmpeg'
-gem "ruby-audioinfo", "~> 0.4"
+gem "ruby-audioinfo", git: "https://github.com/CrimsonTautology/ruby-audioinfo"
 
 gem 'zeroclipboard-rails'
 
