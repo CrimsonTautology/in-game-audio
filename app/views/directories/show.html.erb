@@ -19,10 +19,6 @@
   <div><%= link_to "Delete this directory", @directory, method: :delete, data: {confirm: "Are you sure?"} %></div>
 <% end %>
 
-<% unless @directory.root? %>
-  <%= render 'directories/directory_info', {path_name: "..", description: "Go up a level", directory: @directory.parent } %>
-<% end %>
-
 <% @subdirectories.each do |sub| %>
   <%= render 'directories/directory_info', {path_name: sub.path_name, description: sub.description, directory: sub } %>
 <% end %>
