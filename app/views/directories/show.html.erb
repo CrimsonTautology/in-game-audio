@@ -8,7 +8,7 @@
   <div><%= link_to "Create new directory", new_directory_path %></div>
 <% end %>
 
-<% if false %>
+<% if can?(:destroy, @directory) %>
   <div><%= link_to "Delete this directory", @directory, method: :delete, data: {confirm: "Are you sure?"} %></div>
 <% end %>
 

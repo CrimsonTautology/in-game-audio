@@ -55,7 +55,7 @@ class SongsController < ApplicationController
 
   def destroy
     @song.destroy
-    redirect_to songs_path, notice: "Deleted #{@song.full_path}"
+    redirect_to directory_path(@song.directory), notice: "Deleted #{@song.full_path}"
   end
 
   private

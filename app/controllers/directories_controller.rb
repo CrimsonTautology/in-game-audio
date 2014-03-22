@@ -43,14 +43,14 @@ class DirectoriesController < ApplicationController
   def destroy
     if @directory.root?
       flash[:error] = "Cannot delete root directory"
-      redirec_to directories_path
-    elsif @directory.songs.count > 0
+      redirect_to directories_path
+    elsif @directory.songs.count > 0 || @directory.subdirectories.count > 0
       flash[:error] = "Cannot delete non-empty directory"
-      redirec_to @directory
+      redirect_to @directory
     else
       @directory.destroy
-      flash[:notice] = "Delted #{@directory.full_path}"
-      redirec_to directory_path(@directory.parent)
+      flash[:notice] = "Deleted #{@directory.full_path}"
+      redirect_to directory_path(@directory.parent)
     end
   end
 
