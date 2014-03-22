@@ -1,4 +1,11 @@
-<h1><%= @directory.full_path %></h1>
+<% unless @directory.root? %>
+  <ol class="breadcrumb" >
+    <% @directory.path_to_root.drop(1).reverse.each do |p| %>
+      <li><%= link_to (p.description.blank? ? p.name : p.description), p %></li>
+    <% end %>
+    <li class="active"><%= (@directory.description.blank? ? @directory.name : @directory.description) %></li>
+  </ol>
+<% end %>
 
 <% if can?(:update, @directory) %>
   <div><%= link_to "Edit this directory", edit_directory_path(@directory)%></div>

@@ -52,6 +52,16 @@ class Directory < ActiveRecord::Base
     end
   end
 
+  def path_to_root
+    out = [self]
+    current = self.parent
+    while !current.nil? do
+      out << current
+      current = current.parent
+    end
+    out
+  end
+
   private
   def name_does_not_match_song
     errors.add(:base, 'Song already exists with same name') if Song.exists?(directory_id: parent, name: name)
