@@ -1,4 +1,10 @@
-<h1><%= @song.full_path %></h1>
+  <ol class="breadcrumb" >
+    <% @song.directory.path_to_root.reverse.each do |p| %>
+      <li><%= link_to (p.description.blank? ? p.name : p.description), p %></li>
+    <% end %>
+    <li class="active"><%= @song.to_s %></li>
+  </ol>
+<h3><%= @song.full_path %></h3>
 
 <% if can?(:play, @song) %>
   <%= link_to "Listen to this song", play_song_path(@song)%>
