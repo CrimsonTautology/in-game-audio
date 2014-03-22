@@ -5,7 +5,7 @@ describe "Song Directories" do
 
   shared_examples_for "a directory page" do
     its(:status_code) { should eq 200}
-    it { should have_content(directory.full_path)}
+    it { should have_content(directory.description.blank? ? directory.name : directory.description)}
 
     it { should_not have_link("Edit this directory", edit_directory_path(directory)) }
     it { should_not have_link("Create new directory", new_directory_path) }
@@ -68,7 +68,7 @@ describe "Song Directories" do
 
     specify { expect(directory).to_not be_root }
 
-    it { should have_link("..", href: directory_path(directory.parent))}
+    it { should have_link((directory.parent.description.blank? ? directory.parent.name : directory.parent.description), href: directory_path(directory.parent))}
 
     context "as admin" do
       before do
@@ -78,7 +78,7 @@ describe "Song Directories" do
 
       it { should have_link("Edit this directory", edit_directory_path(directory)) }
       it { should have_link("Create new directory", new_directory_path) }
-      it { should_not have_link("Delete this directory", directory_path(directory)) }
+      it { should have_link("Delete this directory", directory_path(directory)) }
     end
   end
 
