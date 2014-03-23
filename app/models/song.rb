@@ -106,6 +106,10 @@ class Song < ActiveRecord::Base
           scope.order(sound_file_size: :desc)
         when :duration
           scope.order(duration: :desc)
+        when :updated
+          scope.order(updated_at: :desc)
+        when :created
+          scope.order(created_at: :desc)
         when :play_count
           scope.order(play_count: :desc)
         when :uploader
