@@ -45,7 +45,8 @@ describe "editing songs" do
       end
 
       context "song already existing" do
-        let!(:existing_song) {FactoryGirl.create(:song, name: "new", directory: sub2)}
+        let!(:uploader) {FactoryGirl.create(:uploader, id: 666)} #FIXME Why isn't factory girl getting a unique id?
+        let!(:existing_song) {FactoryGirl.create(:song, name: "new", directory: sub2, uploader: uploader)}
         before do
           visit edit_song_path song
           fill_in "Name", with: "new"
