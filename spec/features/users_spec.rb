@@ -46,7 +46,7 @@ describe "user theme song manager" do
       end
 
       it_behaves_like "a user page"
-      pending {should have_link( "", href: user_themes_path(user)) }
+      it {should have_link( "", href: user_themes_path(user)) }
       it {should_not have_link( "", href: ban_user_path(user)) }
       it {should_not have_link( "", href: authorize_user_path(user)) }
     end

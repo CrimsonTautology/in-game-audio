@@ -1,3 +1,5 @@
+<% content_for :title, "New Song" %>
+
 <%= simple_form_for @song, url: songs_path, html: { multipart: true } do |f| %>
   <%= f.error_notification %>
 

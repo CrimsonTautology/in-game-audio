@@ -1,3 +1,5 @@
+<% content_for :title, @song.full_path %>
+
 <div class="container">
   <div id="audio_player" class="jp-jplayer"
     data-url="<%= @song.sound.url %>"

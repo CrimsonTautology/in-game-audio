@@ -1,7 +1,9 @@
+<% content_for :title, @user.nickname %>
+
 <div><%= link_to @user.nickname, @user.profile_url %></div>
 <div><%= image_tag(@user.avatar_url, alt: "user's avatar") %></div>
 <div><%= link_to "Uploaded songs", user_songs_path(@user) %></div>
-<% if can?(:manage, @user.themes) %>
+<% if current_user && (current_user.id == @user.id || current_user.admin?) %>
   <div><%= link_to "Themes", user_themes_path(@user) %></div>
 <% end %>
 

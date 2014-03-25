@@ -25,7 +25,7 @@ describe "viewing song information" do
       it { should have_content(song.album) }
       it { should have_content(song.artist) }
       it { should have_content(song.duration_formated) }
-      it { should have_content("Song has been played #{song.play_count} times") }
+      it { should have_content("Play Count #{song.play_count}") }
     end
 
     context "not logged in" do
