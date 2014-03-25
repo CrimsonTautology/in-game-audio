@@ -16,7 +16,7 @@
 <h3>Playing Audio</h3>
 
 <p>
-  Audio is played with <kbd>!p</kbd> command.  Calling <kbd>!p</kbd> by itself will play a <%= link_to "random sound", songs_path %> to yourself. You can also call <kbd>!p</kbd> with a category to play a random sound in that category: <kbd>!p r</kbd>  will play a random song in <%= link_to "the rock category", directory_path(Directory.find_by(name: "r", parent: Directory.root)) %>. This works with subdirectories of a category as well.  To play a specific song, give the category it is in followed by a forward slash '/' and then the name.  For example to play "bob" in the "g" category you would type <kbd>!p g/bob</kbd>.
+  Audio is played with <kbd>!p</kbd> command.  Calling <kbd>!p</kbd> by itself will play a <%= link_to "random sound", songs_path %> to yourself. You can also call <kbd>!p</kbd> with a category to play a random sound in that category: <kbd>!p r</kbd>  will play a random song in <%= link_to "the rock category", @rock || root_path %>. This works with subdirectories of a category as well.  To play a specific song, give the category it is in followed by a forward slash '/' and then the name.  For example to play "bob" in the "g" category you would type <kbd>!p g/bob</kbd>.
 </p>
 
 <p>
