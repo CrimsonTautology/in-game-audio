@@ -3,6 +3,7 @@ class PagesController < ApplicationController
   end
 
   def help
+    @rock = Directory.find_by(name: "r", parent: Directory.root)
   end
 
   def contact
