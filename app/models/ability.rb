@@ -12,14 +12,14 @@ class Ability
     #Checks for logged in users
     if user && !user.banned?
 
-      can :manage, Theme, user: {id: user.id}
+      cannot :manage, Theme
+      can :manage, Theme, user_id: user.id
 
       if user.uploader?
         can :create, Song
         can :manage, Song, uploader_id: user.id
         cannot :map_themeable, Song
         cannot :user_themeable, Song
-        #cannot :update, Song, :user_themeable
       end
 
       if user.admin?

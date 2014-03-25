@@ -1,9 +1,6 @@
 class ThemesController < ApplicationController
   before_filter :find_user
-
-  load_and_authorize_resource :user
-  load_and_authorize_resource :theme, :through => :user
-
+  before_filter :authorization
 
   def index
     @themes = @user.themes.includes(:song)
@@ -34,5 +31,10 @@ class ThemesController < ApplicationController
 
   def find_user
     @user = User.find_by(provider: "steam", uid: params[:user_id])
+  end
+
+  def authorization
+    #FIXME I can not get cancan to work niceley with this
+    head :forbidden unless current_user && (@user.id == current_user.id || current_user.admin?)
   end
 end

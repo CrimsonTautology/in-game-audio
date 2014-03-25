@@ -19,16 +19,25 @@ describe "user theme song manager" do
 
     context "as different user" do
       before do
-        login user
-        other = FactoryGirl.create(:user)
-        visit user_themes_path(other)
+        login FactoryGirl.create(:user)
+        visit user_themes_path(user)
       end
 
       its(:status_code) { should eq 403}
 
     end
 
-    context "with no themes" do
+    context "as admin" do
+      before do
+        login FactoryGirl.create(:admin)
+        visit user_themes_path(user)
+      end
+
+      its(:status_code) { should eq 200}
+
+    end
+
+    context "as same user with no themes" do
       before do
         login user
         visit user_themes_path(user)
