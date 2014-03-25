@@ -6,18 +6,24 @@ $( document ).ready(function(){
     //jPlayer
     var url = $("#audio_player").data('url');
     var vol = $("#audio_player").data('volume');
+    var seek= $("#audio_player").data('seek');
 
     $("#audio_player").jPlayer({
       ready: function(event) {
         $(this).jPlayer("setMedia", {
           mp3: url
-        }).jPlayer("play");
+        }).jPlayer("play", seek);
       },
       supplied: "mp3",
       swfPath: "/",
       volume: vol,
       preload: "auto"
     });
+
+    //URL Anchor Listener
+    window.hashchange(hashchanged);
+    hashchanged();
+
 
     //Uploading songs
     $("input#song_sound").change(function(){
@@ -207,3 +213,13 @@ $( document ).ready(function(){
 
 
 });
+
+function hashchanged(){
+    //change volume or position without reloading page
+    var hash = window.location.hash
+
+    $("#audio_player").jPlayer("volume", hash);
+
+    //TODO add seek functionality
+    //$("#audio_player").jPlayer("play", seek);
+}
