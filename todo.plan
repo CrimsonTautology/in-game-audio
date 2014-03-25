@@ -3,22 +3,18 @@
 
 -Admin Page
     -Add/remove admins
-    -Add/remove uploaders
-    -Add/remove bans
-    -Add/remove map themes
+    +Add/remove uploaders
+    +Add/remove bans
+    +Add/remove map themes
 
 -User Page
-    -List of songs that have been uploaded
+    +List of songs that have been uploaded
     +Place to add/remove user themes
-    -Admin control to set ban, uploader, admin flags
-
--Stop song page
-    -blank page to act as way to stop music from playing in game
 
 -Search Songs
-    -Add link on nav bar to liast all songs
+    +Add link on nav bar to liast all songs
     -Add aditional sorting and filtering options (lastplayed, timesplayed, duration, size, uploader)
-    -Pagination
+    +Pagination
 
 -Comments
     -Allow users to comment on songs
@@ -35,3 +31,19 @@
     -List most recent palls by server
     -Clear after x months
     -Show on front page
+
+-Cookies
+    -Remember user
+
+-Help page
+    -Setup plugin for server
+    -How to get authorized
+    -How to upload
+        -sub directories
+    -How to play
+        -p
+        -pall for donators
+        -stop
+        -vol
+        -plist
+    -Set themes (mention 10 second limmit)
