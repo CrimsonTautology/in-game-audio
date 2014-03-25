@@ -1,3 +1,65 @@
 <h1>Help Page</h1>
 
-<p>TODO</p>
+<p>
+  Currently Adobe Flash Player must be installed for users to hear the music; although an HTML5/Javascript based solution may be possible in the future.
+</p>
+
+<h3>Installation</h3>
+
+<p>
+  For information on how to install and configure the sourcemod plugin read the instructions in the <a href="https://github.com/CrimsonTautology/sm_in_game_audio/blob/master/README.md" >README file</a>.
+</p>
+<p>
+  Once you have a plugin installed you need to configure the settings such that the url is set to <kbd><%= root_url %></kbd>.  You will also need to set an api key;  if you do not have one ask the website owner to give you one.
+</p>
+
+<h3>Playing Audio</h3>
+
+<p>
+  Audio is played with <kbd>!p</kbd> command.  Calling <kbd>!p</kbd> by itself will play a <%= link_to "random sound", songs_path %> to yourself. You can also call <kbd>!p</kbd> with a category to play a random sound in that category: <kbd>!p r</kbd>  will play a random song in <%= link_to "the rock category", directory_path(Directory.find_by(name: "r", parent: Directory.root)) %>. This works with subdirectories of a category as well.  To play a specific song, give the category it is in followed by a forward slash '/' and then the name.  For example to play "bob" in the "g" category you would type <kbd>!p g/bob</kbd>.
+</p>
+
+<p>
+  Remember: <kbd>!p [category]/[name]</kbd>.
+</p>
+
+<p>
+  <kbd>!pall</kbd> behaves the same as <kbd>!p</kbd> with the exception that it will play for all players on the server besides just you.  This may be a donator perk for some servers, so you may have to become a donator before you can use it.
+</p>
+
+<p>
+  <kbd>!stop</kbd> stops the currently playing audio.
+</p>
+
+<p>
+  <kbd>!vol</kbd> is used to control the playback volume.  Call <kbd>!vol [0-10]</kbd> to your volume from 10 loudest, to 0 muted.
+</p>
+
+<p>
+  <kbd>!nopall</kbd> will disable any audio that plays to all users; this includes the map change music and donator intros.  You can still play to yourself with <kbd>!p</kbd>.  Type <kbd>!yespall</kbd> to re-enable palls.
+</p>
+
+<p>
+  <kbd>!plist</kbd> will popup a browser you can use to view the current audio list.
+</p>
+
+<h3>Uploading Audio</h3>
+
+<p>
+  Before you can upload audio to the website you need to be authorized by a server or community first.  The quickest way to do this is to join a server running the IGA sourcemod plugin and type <kbd>!authorize_iga</kbd> into the chatbox.  You will then be authorized to upload files to our server.
+</p>
+
+<p>
+  To upload audio to our server visit <%= link_to "the upload page", new_song_path %>.  Select a file to upload, give it a name and choose a category.  Remember you will have to type the name out every time to play the audio on the server so keep it short yet descriptive.  Also please try to use the correct category.  
+</p>
+
+<p>
+  If you are uploading a bunch of related files, (e.g. a soundtrack) you can create a subdirectory by using a forward slash '/' in the name.  For example <kbd>80s/dangerzone</kbd> with a category of <kbd>r</kbd> will put dangerzone in the 80s subdirectory in the r category.  This would then be called from the server with <kbd>!p r/80s/dangerzone</kbd>.
+</p>
+
+<p>
+  Files must be no more than 10 megabytes. Currently we only accept mp3, wav and ogg files.  After the file is uploaded it goes through a conversion process to reduce it's size and audio quality.  The file name should only be in lower case letters, numbers or underscores (or forward slashes '/' if you are creating a subdirectory).  
+</p>
+
+<p>Handles all calls to the web server and plays the music for players.  Also controls the user's preferences such as whether they have pall enabled and the volume</p>
+
