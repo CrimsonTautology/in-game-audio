@@ -40,6 +40,13 @@ footer {
     height: 63px;
 }
 
+//Fix empty dl values not beign displayed correctly
+.dl-horizontal > dd:after {
+  display: table;
+  content: "";
+  clear: both;
+}
+
 /* miscellaneous */
 
 .debug_dump {
