@@ -18,9 +18,9 @@ $( document ).ready(function(){
     });
 
     //URL Anchor Listener
-    window.hashchange(hashchanged);
-    hashchanged();
-}
+    window.onhashchange = hashchanged;
+    //hashchanged();
+});
 
 function hashchanged(){
     //change volume or position without reloading page
