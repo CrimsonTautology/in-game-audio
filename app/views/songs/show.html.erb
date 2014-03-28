@@ -1,7 +1,7 @@
 <% content_for :title, @song.full_path %>
 
 <ol class="breadcrumb" >
-  <% @song.directory.path_to_root.reverse.each do |p| %>
+  <% @song.directory.path_to_root.reverse_each do |p| %>
     <li><%= link_to (p.description.blank? ? p.name : p.description), p %></li>
   <% end %>
   <li class="active"><%= @song.to_s %></li>

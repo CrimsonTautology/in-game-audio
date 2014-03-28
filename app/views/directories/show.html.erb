@@ -1,6 +1,6 @@
 <% unless @directory.root? %>
   <ol class="breadcrumb" >
-    <% @directory.path_to_root.drop(1).reverse.each do |p| %>
+    <% @directory.path_to_root.drop(1).reverse_each do |p| %>
       <li><%= link_to (p.description.blank? ? p.name : p.description), p %></li>
     <% end %>
     <li class="active"><%= (@directory.description.blank? ? @directory.name : @directory.description) %></li>
