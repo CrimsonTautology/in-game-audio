@@ -18,7 +18,7 @@ $( document ).ready(function(){
     });
 
     //URL Anchor Listener
-    window.onhashchange = hashchanged;
+    //window.onhashchange = hashchanged;
     //hashchanged();
 });
 
