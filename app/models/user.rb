@@ -82,6 +82,12 @@ class User < ActiveRecord::Base
     uid.parameterize
   end
 
+  def generate_remember_me_token
+    begin
+      self.remember_me_token = SecureRandom.hex
+    end while User.exists?(remember_me_token: remember_me_token)
+  end
+
   private
   def check_if_head_admin
     if provider == "steam" && uid == ENV['STEAM_HEAD_ADMIN_ID']

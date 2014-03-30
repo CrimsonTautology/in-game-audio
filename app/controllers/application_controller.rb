@@ -14,8 +14,10 @@ class ApplicationController < ActionController::Base
   def current_ability
     @current_ability ||= Ability.new(current_user, params[:access_token])
   end
+
   def current_user
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
+    @current_user ||= User.find_by(remember_me_token: cookies.signed[:remember_me_token]) if cookies.signed[:remember_me_token]
   end
 
 end
