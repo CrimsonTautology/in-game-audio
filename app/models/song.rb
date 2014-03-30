@@ -159,15 +159,15 @@ class Song < ActiveRecord::Base
       if Rails.configuration.database_configuration[Rails.env]["database"].eql? "postgresql"
         case type
         when :name
-          where("name @@ :q", q: query)
+          where("name ilike :q", q: "%#{query}%")
         when :title
-          where("title @@ :q", q: query)
+          where("title ilike :q", q: "%#{query}%")
         when :album
-          where("album @@ :q", q: query)
+          where("album ilike :q", q: "%#{query}%")
         when :artist
-          where("artist @@ :q", q: query)
+          where("artist ilike :q", q: "%#{query}%")
         else
-          where("name @@ :q OR title @@ :q OR album @@ :q OR artist @@ :q", q: query)
+          where("name ilike :q OR title ilike :q OR album ilike :q OR artist ilike :q", q: "%#{query}%")
         end
       else
         case type
