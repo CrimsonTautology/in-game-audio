@@ -35,7 +35,7 @@ gem "ruby-audioinfo", git: "https://github.com/CrimsonTautology/ruby-audioinfo"
 gem 'zeroclipboard-rails'
 
 gem 'pry'
-gem 'pry-doc', '~> 0.6'
+gem 'pry-doc', '~> 0.5.1'
 gem 'pry-rails'
 
 # Gems used only for assets and not required
