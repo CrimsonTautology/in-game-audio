@@ -312,7 +312,7 @@ DEPENDENCIES
   omniauth-steam
   pg
   pry
-  pry-doc
+  pry-doc (~> 0.6)
   pry-rails
   rails (= 4.0.0)
   rails_12factor
