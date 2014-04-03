@@ -1,5 +1,27 @@
-<% @songs.each do |song| %>
-  <%= render 'songs/song_info', {song: song} %>
-<% end %>
-<%= will_paginate @songs, renderer: BootstrapPagination::Rails %>
+<div class="row" >
 
+  <div class="col-md-10">
+    <% @songs.each do |song| %>
+      <%= render 'songs/song_info', {song: song} %>
+    <% end %>
+    <%= will_paginate @songs, renderer: BootstrapPagination::Rails %>
+  </div> <!-- col -->
+
+  <div class="col-md-2">
+    <div id="song-orders" class="panel panel-default text-center">
+      <div class="panel-heading">Order By</div>
+      <div class="panel-body">
+        <span><%= link_to "Name", params.merge(sort: "name", page: nil),{ title: "Name", class: "label label-primary"} %></span>
+        <span><%= link_to "Full Path", params.merge(sort: "full_path", page: nil),{ title: "Full Path", class: "label label-primary"} %></span>
+        <span><%= link_to "Title", params.merge(sort: "title", page: nil),{ title: "Title", class: "label label-primary"} %></span>
+        <span><%= link_to "Artist", params.merge(sort: "artist", page: nil),{ title: "Artist", class: "label label-primary"} %></span>
+        <span><%= link_to "Album", params.merge(sort: "album", page: nil),{ title: "Album", class: "label label-primary"} %></span>
+        <span><%= link_to "File Size", params.merge(sort: "file_size", page: nil),{ title: "File Size", class: "label label-primary"} %></span>
+        <span><%= link_to "Duration", params.merge(sort: "duration", page: nil),{ title: "Duration", class: "label label-primary"} %></span>
+        <span><%= link_to "Newest", params.merge(sort: "created", page: nil),{ title: "Newest", class: "label label-primary"} %></span>
+        <span><%= link_to "Uploader", params.merge(sort: "uploader", page: nil),{ title: "Uploader", class: "label label-primary"} %></span>
+      </div>
+    </div>
+  </div> <!-- col -->
+
+</div> <!-- row -->

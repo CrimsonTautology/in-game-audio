@@ -116,15 +116,15 @@ class Song < ActiveRecord::Base
         when :uploader
           scope.order(uploader_id: :desc)
         when :name
-          scope.order(name: :desc)
+          scope.order(name: :asc)
         when :full_path
-          scope.order(full_path: :desc)
+          scope.order(full_path: :asc)
         when :title
-          scope.order(title: :desc)
+          scope.order(title: :asc)
         when :artist
-          scope.order(artist: :desc)
+          scope.order(artist: :asc)
         when :album
-          scope.order(album: :desc)
+          scope.order(album: :asc)
         end
       else
         scope
