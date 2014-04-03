@@ -8,7 +8,6 @@ describe "playing a song" do
 
   describe "GET /songs/play/:id" do
     let!(:sub) {FactoryGirl.create(:directory, name: "foo", parent: root)}
-    let!(:api_key) {FactoryGirl.create(:api_key)}
     let!(:song) do
       FactoryGirl.create(:song,
         name: "fatbeats",
@@ -20,6 +19,7 @@ describe "playing a song" do
         play_count: 7
       )
     end
+    let!(:play_event) {FactoryGirl.create(:play_event, song: song)}
 
     shared_examples_for "valid access rights" do
       its(:status_code) { should eq 200}
@@ -55,14 +55,34 @@ describe "playing a song" do
       it { should have_selector("div[data-seek='0']") }
     end
 
-    context "with api key" do
+    context "with valid play event token" do
       before do
-        visit "#{play_song_path(song)}?access_token=#{api_key.access_token}&volume=0.66&seek=75"
+        visit "#{play_song_path(song)}?access_token=#{play_event.access_token}&volume=0.66&seek=75"
       end
 
       it_behaves_like "valid access rights"
       it { should have_selector("div[data-volume='0.66']") }
       it { should have_selector("div[data-seek='75']") }
+    end
+
+    context "with invalid play event token" do
+      before do
+        play_event.invalidated_at = Time.now - 1.hour
+        play_event.save
+        visit "#{play_song_path(song)}?access_token=#{play_event.access_token}&volume=0.66&seek=75"
+      end
+
+      its(:status_code) { should eq 403}
+    end
+
+    context "with valid play event token but different song" do
+      before do
+        play_event.song_id = song.id + 1
+        play_event.save
+        visit "#{play_song_path(song)}?access_token=#{play_event.access_token}&volume=0.66&seek=75"
+      end
+
+      its(:status_code) { should eq 403}
     end
   end
 end

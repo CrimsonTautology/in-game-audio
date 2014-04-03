@@ -38,6 +38,12 @@ FactoryGirl.define do
     name "Test Server"
   end
 
+  factory :play_event do
+    song
+    type_of "p"
+
+  end
+
   factory :user do
     nickname "FooBar"
     uid

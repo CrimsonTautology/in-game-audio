@@ -31,7 +31,11 @@ class Ability
     #Checks for the api system
     if access_token && ApiKey.authenticate(access_token)
       can :manage, :api
-      can :play, Song
+    end
+
+    #Checks for a registered play-event through the api
+    if access_token && play_event = PlayEvent.authenticate(access_token)
+      can :play, Song, id: play_event.song_id
     end
 
   end
