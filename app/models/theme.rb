@@ -5,6 +5,7 @@ class Theme < ActiveRecord::Base
   attr_accessor :full_path
   validates_presence_of :user
   validates_presence_of :song
+  validates_uniqueness_of :song_id, scope: :user_id
   validate :song_is_user_themeable
 
   private
