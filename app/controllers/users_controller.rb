@@ -7,6 +7,7 @@ class UsersController < ApplicationController
   end
 
   def show
+    @user.check_for_account_update
     authorize! :read, @user
 
   end
@@ -62,7 +63,7 @@ class UsersController < ApplicationController
 
   private
   def find_user
-    @user = User.find_by(provider: "steam", uid: params[:id])
+    @user = User.find_by(provider: "steam", uid: params[:id]) || User.create_with_steam_id(params[:id])
   end
 end
 

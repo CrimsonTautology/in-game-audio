@@ -6,8 +6,6 @@ class User < ActiveRecord::Base
 
   scope :admins, -> {where admin: true}
 
-  after_find :check_for_account_update
-
   validates :nickname, presence: true
   validates :uid, presence: true
   validates :uid, uniqueness: true
