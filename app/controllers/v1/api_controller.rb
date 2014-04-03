@@ -7,23 +7,31 @@ module V1
     before_filter :check_uid, only: [:user_theme, :authorize_user]
     before_filter :check_user, only: [:authorize_user]
     before_filter :check_map, only: [:map_theme]
+
+    before_filter :get_pall
+    before_filter :get_force
+
     respond_to :json
 
     def query_song
       song = Song.path_search @path
-      pall = params["pall"] == 'true' || params["pall"] == "1"
-      force = params["force"] == 'true' || params["force"] == "1"
+
       if song.nil?
         out = {
           found: false,
           command: "query_song"
         }
       else
+        #Create a play event for this song
+        play_event = PlayEvent.create(song: song, type_of: (@pall ? "pall" : "p") )
+        play_event.save
+
         out = {
           found: true,
           command: "query_song",
-          pall: pall,
-          force: force,
+          pall: @pall,
+          force: @force,
+          access_token: play_event.access_token
         }.merge song.to_json_api
       end
       render json: out
@@ -45,11 +53,16 @@ module V1
             command: "user_theme"
           }
         else
+          #Create a play event for this song
+          play_event = PlayEvent.create(song: song, type_of: "user" )
+          play_event.save
+
           out = {
             found: true,
             command: "user_theme",
             pall: true,
-            force: false,
+            force: @force,
+            access_token: play_event.access_token
           }.merge song.to_json_api
         end
       end
@@ -65,11 +78,15 @@ module V1
           command: "map_theme"
         }
       else
+        play_event = PlayEvent.create(song: song, type_of: "map" )
+        play_event.save
+
         out = {
           found: true,
           command: "map_theme",
           pall: true,
-          force: true,
+          force: @force,
+          access_token: play_event.access_token
         }.merge song.to_json_api
       end
       render json: out
@@ -111,6 +128,14 @@ module V1
     def check_map
       @map = params["map"]
       head :bad_request unless @map
+    end
+
+    def get_pall
+      @pall = params["pall"] == 'true' || params["pall"] == "1"
+    end
+
+    def get_force
+      @force = params["force"] == 'true' || params["force"] == "1"
     end
 
   end

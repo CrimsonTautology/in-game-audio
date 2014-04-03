@@ -58,11 +58,39 @@ describe "POST /v1/api" do
         expect(json['song_id']).to eq song.id.to_s
       end
 
+      it "returns a play_event token if a match is found for a p" do
+        post route,
+          access_token: api_key.access_token,
+          path: "foo/jazz",
+          pall: false
+        access_token = json['access_token']
+        expect(PlayEvent.find_by(access_token: access_token, type_of: "p", song: song)).to_not be_nil
+      end
+
+      it "returns a play_event token if a match is found for a pall" do
+        post route,
+          access_token: api_key.access_token,
+          path: "foo/jazz",
+          pall: true
+        access_token = json['access_token']
+        expect(PlayEvent.find_by(access_token: access_token, type_of: "pall", song: song)).to_not be_nil
+      end
+
       it "returns false if a match was not found" do
         post route,
           access_token: api_key.access_token,
           path: "baz/jazz"
         expect(json['found']).to eq(false)
+      end
+
+      it "passes back if it was a pall or forced" do
+        post route,
+          access_token: api_key.access_token,
+          path: "foo/jazz",
+          pall: true,
+          force: true
+        expect(json['pall']).to eq(true)
+        expect(json['force']).to eq(true)
       end
 
     end
@@ -107,6 +135,14 @@ describe "POST /v1/api" do
         expect(json['found']).to eq(false)
       end
 
+      it "returns a play_event token if a match is found" do
+        post route,
+          access_token: api_key.access_token,
+          uid: theme.user.uid
+        access_token = json['access_token']
+        expect(PlayEvent.find_by(access_token: access_token, type_of: "user", song: song)).to_not be_nil
+      end
+
     end
 
   end #user_theme
@@ -138,6 +174,14 @@ describe "POST /v1/api" do
           access_token: api_key.access_token,
           map: "cp_test"
         expect(json['found']).to eq(false)
+      end
+
+      it "returns a play_event token if a match is found" do
+        post route,
+          access_token: api_key.access_token,
+          map: "cp_test"
+        access_token = json['access_token']
+        expect(PlayEvent.find_by(access_token: access_token, type_of: "map", song: song)).to_not be_nil
       end
 
     end
