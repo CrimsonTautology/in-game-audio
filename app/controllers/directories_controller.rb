@@ -10,7 +10,7 @@ class DirectoriesController < ApplicationController
 
   def new
     @directory = Directory.new
-    @directories = Directory.order(full_path: :asc).all
+    @directories = Directory.order(full_path: :asc).to_a
   end
 
   def edit
