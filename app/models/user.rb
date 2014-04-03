@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
   has_many :uploaded_songs, foreign_key: "uploader_id", class_name: "Song"
   has_many :themes
   has_many :theme_songs, through: :themes, source: :song
+  has_many :play_events
 
   scope :admins, -> {where admin: true}
 

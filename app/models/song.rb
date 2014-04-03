@@ -5,6 +5,7 @@ class Song < ActiveRecord::Base
   #process_in_background :sound
 
   has_many :themes
+  has_many :play_events
 
   validates :name,
     uniqueness: { scope: :directory_id, message: "A directory cannot have two songs of the same name", case_sensitive: false},
