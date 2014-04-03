@@ -1,3 +1,5 @@
+#this model serves two purposes:  to provide an authentication session to
+#play a song through the site and to keep a history of played songs
 class PlayEvent < ActiveRecord::Base
   validates :type_of, inclusion: { in: %w(p pall map user)}, presence: true
   validates :song, presence: true
