@@ -4,7 +4,7 @@
   <%= f.hint "Your theme will play when you join the server.  NOTE: you may have to be a donator for it to play on some servers." %>
   <%= f.hint "The duration of the song must be 10 or fewer seconds in length." %>
   <%= f.hint "Multiple songs can be uploaded; one will be chosen randomly when you join." %>
-  <%= f.submit "Add New Theme" %>
+  <%= f.submit "Add New Theme", class: "btn btn-success" %>
 <% end %>
 
 <% if @themes.count > 0 %>
@@ -30,7 +30,7 @@
           <%= theme.song.duration_formated %>
         </td>
         <td>
-          <%= button_to "delete", [@user, theme], method: :delete, data: {confirm: "Are you sure?"} %>
+          <%= button_to "delete", [@user, theme],{ method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-success" } %>
         </td>
       </tr>
     <% end %>

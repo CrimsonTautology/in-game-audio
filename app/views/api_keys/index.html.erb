@@ -1,6 +1,6 @@
 <%= simple_form_for ApiKey.new do |f| %>
   <%= f.input :name %>
-  <%= f.submit "Add New Key" %>
+  <%= f.submit "Add New Key", class: "btn btn-success" %>
 <% end %>
 
 <% if @api_keys.count > 0 %>
