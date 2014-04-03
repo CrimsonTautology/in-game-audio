@@ -3,6 +3,8 @@ require 'spec_helper'
 describe "Song Directories" do
   subject { page }
 
+  let!(:root) {FactoryGirl.create(:root)}
+
   describe "GET /" do
     before do
       visit root_path
