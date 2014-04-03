@@ -68,7 +68,7 @@ describe "playing a song" do
     context "with invalid play event token" do
       before do
         play_event.invalidated_at = Time.now - 1.hour
-        play_event.save
+        play_event.save!
         visit "#{play_song_path(song)}?access_token=#{play_event.access_token}&volume=0.66&seek=75"
       end
 
@@ -77,8 +77,8 @@ describe "playing a song" do
 
     context "with valid play event token but different song" do
       before do
-        play_event.song_id = song.id + 1
-        play_event.save
+        play_event.song = FactoryGirl.create(:song, directory: root)
+        play_event.save!
         visit "#{play_song_path(song)}?access_token=#{play_event.access_token}&volume=0.66&seek=75"
       end
 

@@ -35,7 +35,9 @@ class Ability
 
     #Checks for a registered play-event through the api
     if access_token && play_event = PlayEvent.authenticate(access_token)
-      can :play, Song, id: play_event.song_id
+      can :play, Song do |song|
+        song.id == play_event.song_id
+      end
     end
 
   end
