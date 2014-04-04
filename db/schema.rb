@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140403125445) do
+ActiveRecord::Schema.define(version: 20140404143542) do
 
   create_table "api_keys", force: true do |t|
     t.string   "name"
@@ -42,10 +42,12 @@ ActiveRecord::Schema.define(version: 20140403125445) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "api_key_id"
   end
 
-  add_index "play_events", ["song_id"], name: "index_play_events_on_song_id", using: :btree
-  add_index "play_events", ["user_id"], name: "index_play_events_on_user_id", using: :btree
+  add_index "play_events", ["api_key_id"], name: "index_play_events_on_api_key_id"
+  add_index "play_events", ["song_id"], name: "index_play_events_on_song_id"
+  add_index "play_events", ["user_id"], name: "index_play_events_on_user_id"
 
   create_table "songs", force: true do |t|
     t.string   "name",                               null: false

@@ -1,5 +1,6 @@
 class ApiKey < ActiveRecord::Base
   validates :name, presence: true
+  has_many :play_events
 
   before_create :generate_access_token
 

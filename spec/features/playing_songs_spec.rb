@@ -67,7 +67,7 @@ describe "playing a song" do
 
     context "with invalid play event token" do
       before do
-        play_event.invalidated_at = Time.now - 1.hour
+        play_event.invalidated_at = 1.hour.ago
         play_event.save!
         visit "#{play_song_path(song)}?access_token=#{play_event.access_token}&volume=0.66&seek=75"
       end

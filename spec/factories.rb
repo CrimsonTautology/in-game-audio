@@ -40,8 +40,8 @@ FactoryGirl.define do
 
   factory :play_event do
     song
+    api_key
     type_of "p"
-
   end
 
   factory :user do
