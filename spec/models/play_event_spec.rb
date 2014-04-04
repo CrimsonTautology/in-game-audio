@@ -14,12 +14,12 @@ describe PlayEvent do
   its(:access_token){ should_not be_nil }
 
   it "will validate fresh events" do
-    play_event.invalidated_at = Time.now + 1.hour
+    play_event.invalidated_at = 1.hour.since
     expect(PlayEvent.authenticate(play_event.access_token)).to_not be_nil 
   end
 
   it "will not validate old events" do
-    play_event.invalidated_at = Time.now - 1.hour
+    play_event.invalidated_at = 1.hour.ago
     play_event.save
     expect(PlayEvent.authenticate(play_event.access_token)).to be_nil 
   end

@@ -21,7 +21,7 @@ class PlayEvent < ActiveRecord::Base
   end
 
   def self.trending
-    includes(:song).where(type_of: %W{p pall}).where('created_at >= ?', Time.now - 2.weeks).group(:song_id).order("count(song_id) desc")
+    includes(:song).where(type_of: %W{p pall}).where('created_at >= ?', 2.weeks.ago).group(:song_id).order("count(song_id) desc")
   end
 
   private
@@ -33,6 +33,6 @@ class PlayEvent < ActiveRecord::Base
   end
 
   def invalidate_in_an_hour
-    self.invalidated_at = Time.now + 1.hour
+    self.invalidated_at = 1.hour.since
   end
 end
