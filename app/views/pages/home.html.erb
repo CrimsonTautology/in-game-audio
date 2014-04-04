@@ -41,7 +41,7 @@
           <% @recently_played.each do |played| %>
             <li>
               <%= link_to played.song.to_s, played.song %>
-              <% if played.uploader %> by <%= link_to played.user.nickname, played.user %> <% end %>
+              <% if played.user %> by <%= link_to played.user.nickname, played.user %> <% end %>
               <% if played.api_key %> at <%= played.api_key.name %> <% end %>
               <small><%= time_ago_in_words played.created_at %> ago</small>
             </li>
