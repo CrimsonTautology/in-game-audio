@@ -3,9 +3,11 @@
 class PlayEvent < ActiveRecord::Base
   validates :type_of, inclusion: { in: %w(p pall map user)}, presence: true
   validates :song, presence: true
+  validates :api_key, presence: true
 
   belongs_to :song
   belongs_to :user
+  belongs_to :api_key
 
   before_create :generate_access_token
   before_create :invalidate_in_an_hour

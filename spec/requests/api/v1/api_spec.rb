@@ -69,7 +69,7 @@ describe "POST /v1/api" do
           pall: false,
           uid: user.uid
         access_token = json['access_token']
-        expect(PlayEvent.find_by(access_token: access_token, type_of: "p", song: song)).to_not be_nil
+        expect(PlayEvent.find_by(access_token: access_token, type_of: "p", song: song, user: user, api_key: api_key)).to_not be_nil
       end
 
       it "returns a play_event token if a match is found for a pall" do
@@ -79,7 +79,7 @@ describe "POST /v1/api" do
           pall: true,
           uid: user.uid
         access_token = json['access_token']
-        expect(PlayEvent.find_by(access_token: access_token, type_of: "pall", song: song)).to_not be_nil
+        expect(PlayEvent.find_by(access_token: access_token, type_of: "pall", song: song, user: user, api_key: api_key)).to_not be_nil
       end
 
       it "returns false if a match was not found" do
@@ -148,7 +148,7 @@ describe "POST /v1/api" do
           access_token: api_key.access_token,
           uid: theme.user.uid
         access_token = json['access_token']
-        expect(PlayEvent.find_by(access_token: access_token, type_of: "user", song: song)).to_not be_nil
+        expect(PlayEvent.find_by(access_token: access_token, type_of: "user", song: song, api_key: api_key)).to_not be_nil
       end
 
     end
@@ -189,7 +189,7 @@ describe "POST /v1/api" do
           access_token: api_key.access_token,
           map: "cp_test"
         access_token = json['access_token']
-        expect(PlayEvent.find_by(access_token: access_token, type_of: "map", song: song)).to_not be_nil
+        expect(PlayEvent.find_by(access_token: access_token, type_of: "map", song: song, api_key: api_key)).to_not be_nil
       end
 
     end

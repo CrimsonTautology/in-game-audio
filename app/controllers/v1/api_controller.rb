@@ -23,7 +23,7 @@ module V1
         }
       else
         #Create a play event for this song
-        play_event = PlayEvent.create(song: song, type_of: (@pall ? "pall" : "p"), user: @user )
+        play_event = PlayEvent.create(song: song, type_of: (@pall ? "pall" : "p"), user: @user, api_key: @api_key )
         play_event.save
 
         out = {
@@ -54,7 +54,7 @@ module V1
           }
         else
           #Create a play event for this song
-          play_event = PlayEvent.create(song: song, type_of: "user" )
+          play_event = PlayEvent.create(song: song, type_of: "user", api_key: @api_key )
           play_event.save
 
           out = {
@@ -78,7 +78,7 @@ module V1
           command: "map_theme"
         }
       else
-        play_event = PlayEvent.create(song: song, type_of: "map" )
+        play_event = PlayEvent.create(song: song, type_of: "map", api_key: @api_key )
         play_event.save
 
         out = {

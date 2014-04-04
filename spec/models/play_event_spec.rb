@@ -4,7 +4,8 @@ describe PlayEvent do
   let!(:root) {FactoryGirl.create(:root)}
   let!(:song) {FactoryGirl.create(:song, directory: root)}
   let!(:user) {FactoryGirl.create(:user)}
-  let!(:play_event) {PlayEvent.create(song: song, type_of: "pall", user: user)}
+  let!(:api_key) {FactoryGirl.create(:api_key)}
+  let!(:play_event) {PlayEvent.create(song: song, type_of: "pall", user: user, api_key: api_key)}
 
   subject { play_event }
 
