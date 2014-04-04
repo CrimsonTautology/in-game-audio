@@ -53,9 +53,9 @@
       <h2>Trending</h2>
       <p>
         <ul>
-          <% @trending.each do |trend| %>
+          <% @trending.each do |song| %>
             <li>
-              <%= link_to trend.song.to_s, trend.song %>
+              <%= link_to song.to_s, song %>
             </li>
           <% end %>
         </ul>

@@ -21,7 +21,7 @@ class PlayEvent < ActiveRecord::Base
   end
 
   def self.trending
-    includes(:song).where(type_of: %W{p pall}).where('created_at >= ?', 2.weeks.ago).group(:song_id).order("count(song_id) desc")
+    select("song_id, count(id) as play_count").includes(:song).where(type_of: %W{p pall}).where('created_at >= ?', 2.weeks.ago).group(:song_id).order("play_count desc")
   end
 
   private
