@@ -52,6 +52,13 @@
     <div class="col-md-4">
       <h2>Trending</h2>
       <p>
+        <ul>
+          <% @trending.each do |trend| %>
+            <li>
+              <%= link_to trend.song.to_s, trend.song %>
+            </li>
+          <% end %>
+        </ul>
       </p>
     </div><!-- col -->
 

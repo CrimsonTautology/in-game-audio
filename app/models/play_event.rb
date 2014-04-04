@@ -16,6 +16,14 @@ class PlayEvent < ActiveRecord::Base
     PlayEvent.where(access_token: access_token).where("invalidated_at > ?", Time.now).limit(1).first
   end
 
+  def self.recent_palls
+    includes(:song, :user, :api_key).where(type_of: "pall").order(created_at: :desc)
+  end
+
+  def self.trending
+    includes(:song).where(type_of: %W{p pall}).where('created_at >= ?', Time.now - 2.weeks).group(:song_id).order("count(song_id) desc")
+  end
+
   private
 
   def generate_access_token
