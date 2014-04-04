@@ -28,7 +28,7 @@
             <li>
               <%= link_to upload.to_s, upload %>
               <small><%= time_ago_in_words upload.created_at %> ago</small>
-              by <%= link_to upload.uploader.nickname, upload.uploader %>
+              <% if upload.uploader %> by <%= link_to upload.uploader.nickname, upload.uploader %> <% end %>
             </li>
           <% end %>
         </ul>
@@ -41,8 +41,8 @@
           <% @recently_played.each do |played| %>
             <li>
               <%= link_to played.song.to_s, played.song %>
-              by <%= link_to played.user.nickname, played.user %>
-              at <%= played.api_key.name %>
+              <% if played.uploader %> by <%= link_to played.user.nickname, played.user %> <% end %>
+              <% if played.api_key %> at <%= played.api_key.name %> <% end %>
               <small><%= time_ago_in_words played.created_at %> ago</small>
             </li>
           <% end %>
