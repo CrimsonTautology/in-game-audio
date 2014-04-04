@@ -15,3 +15,45 @@
     <%= link_to "Available Audio", songs_path({sort: "created"}), {class: "btn btn-primary btn-lg", role: "button"} %>
   </p>
 </div>
+
+
+<div class="container">
+  <div class="row">
+
+    <div class="col-md-4">
+      <h2>Recently Uploaded</h2>
+      <p>
+        <ul>
+          <% @recently_uploaded.each do |upload| %>
+            <li>
+              <%= link_to upload.to_s, upload %>
+              <small><%= time_ago_in_words upload.created_at %> ago</small>
+              by <%= link_to upload.uploader.nickname, upload.uploader %>
+            </li>
+          <% end %>
+        </ul>
+      </p>
+    </div><!-- col -->
+
+    <div class="col-md-4">
+      <h2>Recently Played</h2>
+      <p>
+          <% @recently_played.each do |played| %>
+            <li>
+              <%= link_to played.song.to_s, played.song %>
+              by <%= link_to played.user.nickname, played.user %>
+              at <%= played.api_key.name %>
+              <small><%= time_ago_in_words played.created_at %> ago</small>
+            </li>
+          <% end %>
+      </p>
+    </div><!-- col -->
+
+    <div class="col-md-4">
+      <h2>Trending</h2>
+      <p>
+      </p>
+    </div><!-- col -->
+
+  </div><!-- row -->
+</div><!-- container -->
