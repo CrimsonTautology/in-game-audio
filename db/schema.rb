@@ -30,9 +30,9 @@ ActiveRecord::Schema.define(version: 20140403125445) do
     t.string   "description"
   end
 
-  add_index "directories", ["full_path"], name: "index_directories_on_full_path"
-  add_index "directories", ["parent_id", "name"], name: "index_directories_on_parent_id_and_name"
-  add_index "directories", ["root"], name: "index_directories_on_root"
+  add_index "directories", ["full_path"], name: "index_directories_on_full_path", using: :btree
+  add_index "directories", ["parent_id", "name"], name: "index_directories_on_parent_id_and_name", using: :btree
+  add_index "directories", ["root"], name: "index_directories_on_root", using: :btree
 
   create_table "play_events", force: true do |t|
     t.string   "access_token"
@@ -44,8 +44,8 @@ ActiveRecord::Schema.define(version: 20140403125445) do
     t.datetime "updated_at"
   end
 
-  add_index "play_events", ["song_id"], name: "index_play_events_on_song_id"
-  add_index "play_events", ["user_id"], name: "index_play_events_on_user_id"
+  add_index "play_events", ["song_id"], name: "index_play_events_on_song_id", using: :btree
+  add_index "play_events", ["user_id"], name: "index_play_events_on_user_id", using: :btree
 
   create_table "songs", force: true do |t|
     t.string   "name",                               null: false
@@ -69,10 +69,10 @@ ActiveRecord::Schema.define(version: 20140403125445) do
     t.string   "sound_content_type"
   end
 
-  add_index "songs", ["directory_id", "name"], name: "index_songs_on_directory_id_and_name"
-  add_index "songs", ["full_path"], name: "index_songs_on_full_path"
-  add_index "songs", ["title", "album", "artist"], name: "index_songs_on_title_and_album_and_artist"
-  add_index "songs", ["uploader_id"], name: "index_songs_on_uploader_id"
+  add_index "songs", ["directory_id", "name"], name: "index_songs_on_directory_id_and_name", using: :btree
+  add_index "songs", ["full_path"], name: "index_songs_on_full_path", using: :btree
+  add_index "songs", ["title", "album", "artist"], name: "index_songs_on_title_and_album_and_artist", using: :btree
+  add_index "songs", ["uploader_id"], name: "index_songs_on_uploader_id", using: :btree
 
   create_table "themes", force: true do |t|
     t.integer  "user_id"
@@ -81,8 +81,8 @@ ActiveRecord::Schema.define(version: 20140403125445) do
     t.datetime "updated_at"
   end
 
-  add_index "themes", ["song_id"], name: "index_themes_on_song_id"
-  add_index "themes", ["user_id"], name: "index_themes_on_user_id"
+  add_index "themes", ["song_id"], name: "index_themes_on_song_id", using: :btree
+  add_index "themes", ["user_id"], name: "index_themes_on_user_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "provider"
@@ -98,6 +98,6 @@ ActiveRecord::Schema.define(version: 20140403125445) do
     t.string   "remember_me_token"
   end
 
-  add_index "users", ["remember_me_token"], name: "index_users_on_remember_me_token"
+  add_index "users", ["remember_me_token"], name: "index_users_on_remember_me_token", using: :btree
 
 end
