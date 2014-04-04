@@ -45,9 +45,9 @@ ActiveRecord::Schema.define(version: 20140404143542) do
     t.integer  "api_key_id"
   end
 
-  add_index "play_events", ["api_key_id"], name: "index_play_events_on_api_key_id"
-  add_index "play_events", ["song_id"], name: "index_play_events_on_song_id"
-  add_index "play_events", ["user_id"], name: "index_play_events_on_user_id"
+  add_index "play_events", ["api_key_id"], name: "index_play_events_on_api_key_id", using: :btree
+  add_index "play_events", ["song_id"], name: "index_play_events_on_song_id", using: :btree
+  add_index "play_events", ["user_id"], name: "index_play_events_on_user_id", using: :btree
 
   create_table "songs", force: true do |t|
     t.string   "name",                               null: false
