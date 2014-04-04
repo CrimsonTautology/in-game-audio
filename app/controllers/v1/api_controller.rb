@@ -4,9 +4,9 @@ module V1
     authorize_resource class: false
     before_filter :check_api_key
     before_filter :check_path, only: [:query_song]
-    before_filter :check_uid, only: [:user_theme, :authorize_user]
-    before_filter :check_user, only: [:authorize_user]
-    before_filter :check_map, only: [:map_theme]
+    before_filter :check_uid,  only: [:query_song, :user_theme, :authorize_user]
+    before_filter :check_user, only: [:query_song, :authorize_user]
+    before_filter :check_map,  only: [:map_theme]
 
     before_filter :get_pall
     before_filter :get_force
@@ -23,7 +23,7 @@ module V1
         }
       else
         #Create a play event for this song
-        play_event = PlayEvent.create(song: song, type_of: (@pall ? "pall" : "p") )
+        play_event = PlayEvent.create(song: song, type_of: (@pall ? "pall" : "p"), user: @user )
         play_event.save
 
         out = {
@@ -106,8 +106,8 @@ module V1
 
     private
     def check_api_key
-      api_key = ApiKey.authenticate(params[:access_token])
-      head :unauthorized unless api_key
+      @api_key = ApiKey.authenticate(params[:access_token])
+      head :unauthorized unless @api_key
     end
 
     def check_path

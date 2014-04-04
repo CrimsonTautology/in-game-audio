@@ -36,10 +36,12 @@ describe "POST /v1/api" do
     let!(:root) {FactoryGirl.create(:root)}
     let!(:sub) {FactoryGirl.create(:directory, name: "foo", parent: root)}
     let!(:song) {FactoryGirl.create(:song, name: "jazz", directory: sub)}
+    let!(:user) {FactoryGirl.create(:user, uid: "309134131")}
     route = "/v1/api/query_song"
 
     it_should_behave_like "ApiController", route, {
       path: "foo/bar",
+      uid: "309134131"
     }
 
     context "with valid access_token" do
@@ -48,13 +50,15 @@ describe "POST /v1/api" do
       it "returns the song id if it matches correctly" do
         post route,
           access_token: api_key.access_token,
-          path: "foo/jazz"
+          path: "foo/jazz",
+          uid: user.uid
         expect(json['song_id']).to eq song.id.to_s
       end
       it "returns a random sub song if it maches a directory" do
         post route,
           access_token: api_key.access_token,
-          path: "foo"
+          path: "foo",
+          uid: user.uid
         expect(json['song_id']).to eq song.id.to_s
       end
 
@@ -62,7 +66,8 @@ describe "POST /v1/api" do
         post route,
           access_token: api_key.access_token,
           path: "foo/jazz",
-          pall: false
+          pall: false,
+          uid: user.uid
         access_token = json['access_token']
         expect(PlayEvent.find_by(access_token: access_token, type_of: "p", song: song)).to_not be_nil
       end
@@ -71,7 +76,8 @@ describe "POST /v1/api" do
         post route,
           access_token: api_key.access_token,
           path: "foo/jazz",
-          pall: true
+          pall: true,
+          uid: user.uid
         access_token = json['access_token']
         expect(PlayEvent.find_by(access_token: access_token, type_of: "pall", song: song)).to_not be_nil
       end
@@ -79,7 +85,8 @@ describe "POST /v1/api" do
       it "returns false if a match was not found" do
         post route,
           access_token: api_key.access_token,
-          path: "baz/jazz"
+          path: "baz/jazz",
+          uid: user.uid
         expect(json['found']).to eq(false)
       end
 
@@ -88,7 +95,8 @@ describe "POST /v1/api" do
           access_token: api_key.access_token,
           path: "foo/jazz",
           pall: true,
-          force: true
+          force: true,
+          uid: user.uid
         expect(json['pall']).to eq(true)
         expect(json['force']).to eq(true)
       end
