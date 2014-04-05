@@ -23,7 +23,7 @@ doc/
 /public/assets/**
 
 # Ignore vim locks
-*.sw*
+.*.sw*
 *~
 .project
 .DB_Store
