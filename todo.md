@@ -14,7 +14,7 @@
 
 - [ ] Search Songs
     - [x] Add link on nav bar to liast all songs
-    - [ ] Add aditional sorting and filtering options (lastplayed, timesplayed, duration, size, uploader)
+    - [x] Add aditional sorting and filtering options (lastplayed, timesplayed, duration, size, uploader)
     - [x] Pagination
 
 - [ ] Comments
@@ -28,11 +28,11 @@
     - [ ] Tied to the pall history
     - [ ] Linked to a steam community.  If a users logs in and is part of that community they are auto-approved to upload
 
-- [ ] Pall list
-    - [ ] model belongs to song, belongs to server
-    - [ ] List most recent palls by server
+- [x] Pall list
+    - [x] model belongs to song, belongs to server
+    - [x] List most recent palls by server
     - [ ] Clear after x months
-    - [ ] Show on front page
+    - [x] Show on front page
 
 - [x] Cookies
     - [x] Remember user
