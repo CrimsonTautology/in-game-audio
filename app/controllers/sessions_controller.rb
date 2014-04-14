@@ -16,6 +16,7 @@ class SessionsController < ApplicationController
 
   def destroy
     session[:user_id] = nil
+    cookies.signed[:remember_me_token] = nil
     redirect_to root_url, notice: "Signed out!"
   end
 end
