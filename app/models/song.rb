@@ -148,7 +148,7 @@ class Song < ActiveRecord::Base
     if song
       return song
     elsif Directory.exists?(full_path: key + "/")
-      return Song.where("full_path like :q", q: "#{key}%").random
+      return Song.where("full_path like :q", q: "#{key}/%").random
     else 
       return nil
     end
