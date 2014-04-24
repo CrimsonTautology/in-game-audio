@@ -157,7 +157,7 @@ class Song < ActiveRecord::Base
   def self.search(query, type=nil)
     #Use postgre text search
     if query.present?
-      if Rails.configuration.database_configuration[Rails.env]["database"].eql? "postgresql"
+      if Rails.configuration.database_configuration[Rails.env]["adapter"].eql? "postgresql"
         case type
         when :name
           where("name ilike :q", q: "%#{query}%")
