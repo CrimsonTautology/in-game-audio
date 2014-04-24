@@ -26,6 +26,7 @@ InGameAudio::Application.routes.draw do
       post 'user_theme', on: :collection
       post 'map_theme', on: :collection
       post 'authorize_user', on: :collection
+      post 'search_song', on: :collection
     end
   end
 

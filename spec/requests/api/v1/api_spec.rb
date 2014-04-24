@@ -215,5 +215,40 @@ describe "POST /v1/api" do
       end
     end
   end #authorize_user
+
+  describe "/search_song" do
+    route = "/v1/api/search_song"
+    let!(:root) {FactoryGirl.create(:root)}
+    let!(:sub) {FactoryGirl.create(:directory, name: "foo", parent: root)}
+    let!(:song) {FactoryGirl.create(:song, name: "jazz", directory: sub)}
+    let!(:sub2) {FactoryGirl.create(:directory, name: "bar", parent: root)}
+    let!(:song2) {FactoryGirl.create(:song, name: "jazz", directory: sub2)}
+    let!(:song3) {FactoryGirl.create(:song, name: "funk", directory: sub2)}
+    let!(:song4) {FactoryGirl.create(:song, name: "soul", title: "Jazzy Tunes", directory: sub2)}
+
+    it_should_behave_like "ApiController", route, {
+      search: "jaz",
+    }
+
+    context "with valid access_token" do
+      let!(:api_key) {FactoryGirl.create(:api_key)}
+
+      it "returns list of matching songs" do
+        post route,
+          access_token: api_key.access_token,
+          search: "jaz"
+        expect(json['found']).to eq(true)
+        expect(json['songs'].count).to eq(3)
+      end
+
+      it "returns found=false if nothing matches" do
+        post route,
+          access_token: api_key.access_token,
+          search: "crapnothingmatchestothis"
+        expect(json['found']).to eq(false)
+      end
+
+    end
+  end #search_song
 end
 

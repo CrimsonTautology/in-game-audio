@@ -3,10 +3,11 @@ module V1
     skip_before_filter :verify_authenticity_token
     authorize_resource class: false
     before_filter :check_api_key
-    before_filter :check_path, only: [:query_song]
-    before_filter :check_uid,  only: [:query_song, :user_theme, :authorize_user]
-    before_filter :check_user, only: [:query_song, :authorize_user]
-    before_filter :check_map,  only: [:map_theme]
+    before_filter :check_path,   only: [:query_song]
+    before_filter :check_search, only: [:search_song]
+    before_filter :check_uid,    only: [:query_song, :user_theme, :authorize_user]
+    before_filter :check_user,   only: [:query_song, :authorize_user]
+    before_filter :check_map,    only: [:map_theme]
 
     before_filter :get_pall
     before_filter :get_force
@@ -103,6 +104,29 @@ module V1
       render json: out
     end
 
+    def search_song
+      songs = Song.search(@search)
+
+      if songs.empty?
+        out = {
+          found: false,
+          command: "search_song"
+        }
+      else
+        out = {
+          found: true,
+          songs: songs.map{ |s| {
+            description: s.to_s,
+            full_path: s.full_path,
+            id: s.id
+          }},
+          command: "search_song"
+        }
+      end
+
+      render json: out
+    end
+
 
     private
     def check_api_key
@@ -113,6 +137,11 @@ module V1
     def check_path
       @path = params["path"]
       head :bad_request unless @path
+    end
+
+    def check_search
+      @path = params["search"]
+      head :bad_request unless @search
     end
 
     def check_uid
