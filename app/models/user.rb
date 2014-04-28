@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
   validates :provider, presence: true
 
   before_save :check_if_head_admin
+  before_create :become_uploader #Allow new users to upload automatically for now
 
   def self.random
     offset(rand count).first
@@ -93,5 +94,10 @@ class User < ActiveRecord::Base
       self.admin = true
     end
   end
+
+  def become_uploader
+    self.uploader = true
+  end
+
 
 end
