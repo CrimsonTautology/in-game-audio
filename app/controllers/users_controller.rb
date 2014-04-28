@@ -8,6 +8,7 @@ class UsersController < ApplicationController
 
   def show
     @user.check_for_account_update
+    @history = PlayEvent.where(user: @user, created_at: 2.months.ago..Time.now, type_of: %W{p pall}).group_by_day(:created_at).count
     authorize! :read, @user
 
   end

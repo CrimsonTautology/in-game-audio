@@ -8,6 +8,7 @@ class SongsController < ApplicationController
   end
 
   def show
+    @history = PlayEvent.where(song: @song, created_at: 2.months.ago..Time.now, type_of: %W{p pall}).group_by_day(:created_at).count
   end
 
   def play

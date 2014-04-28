@@ -22,3 +22,5 @@
 <% if can?(:unauthorize, @user) && @user.uploader?%>
   <div><%= link_to "Unauthorize", unauthorize_user_path(@user), { method: :post } %>
 <% end %>
+
+<div><%= line_chart @history %></div>
