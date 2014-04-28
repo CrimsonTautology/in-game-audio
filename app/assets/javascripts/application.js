@@ -12,8 +12,6 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require highcharts.js
-//= require chartkick
 //= require zeroclipboard
 //= require soundmanager2-jsmin.js
 //= require id3
