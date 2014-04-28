@@ -20,4 +20,8 @@ class PagesController < ApplicationController
   def admin
     authorize! :admin, :page
   end
+
+  def statistics
+    
+  end
 end

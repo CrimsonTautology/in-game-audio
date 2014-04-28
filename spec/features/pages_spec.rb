@@ -53,4 +53,13 @@ describe "Song Directories" do
       its(:status_code) { should eq 200}
     end
   end
+
+  describe "GET /statistics" do
+    before do
+      visit statistics_path
+    end
+
+    its(:status_code) { should eq 200}
+  end
+
 end
