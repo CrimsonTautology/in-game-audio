@@ -51,7 +51,7 @@ describe "playing a song" do
       end
 
       it_behaves_like "valid access rights"
-      it { should have_selector("div[data-volume='1.0']") }
+      it { should have_selector("div[data-volume='100']") }
       it { should have_selector("div[data-seek='0']") }
     end
 
@@ -61,7 +61,7 @@ describe "playing a song" do
       end
 
       it_behaves_like "valid access rights"
-      it { should have_selector("div[data-volume='0.66']") }
+      it { should have_selector("div[data-volume='66']") }
       it { should have_selector("div[data-seek='75']") }
     end
 
