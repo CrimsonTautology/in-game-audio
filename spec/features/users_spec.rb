@@ -60,7 +60,7 @@ describe "user theme song manager" do
       it_behaves_like "a user page"
       it {should have_link( "", href: user_themes_path(user)) }
       it {should have_link( "", href: ban_user_path(user)) }
-      it {should have_link( "", href: authorize_user_path(user)) }
+      it {should have_link( "", href: unauthorize_user_path(user)) }
 
       it "let's you ban and unban users" do
         click_on "Ban"
@@ -70,10 +70,10 @@ describe "user theme song manager" do
       end
 
       it "let's you authorize and unauthorize users" do
-        click_on "Authorize"
-        expect(user.reload).to be_uploader
         click_on "Unauthorize"
         expect(user.reload).to_not be_uploader
+        click_on "Authorize"
+        expect(user.reload).to be_uploader
       end
     end
   end

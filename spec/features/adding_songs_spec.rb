@@ -96,9 +96,12 @@ describe "adding songs" do
       its(:status_code) { should eq 403}
     end
 
-    context "logged in" do
+    context "logged in not as unauthorized user" do
       before do
-        login FactoryGirl.create(:user)
+        user = FactoryGirl.create(:user) 
+        user.uploader = false
+        user.save
+        login user
         visit new_song_path
       end
       its(:status_code) { should eq 403}
@@ -107,7 +110,7 @@ describe "adding songs" do
 
     context "logged in as uploader" do
       before do
-        login FactoryGirl.create(:admin)
+        login FactoryGirl.create(:user)
         visit new_song_path
       end
 
