@@ -140,7 +140,7 @@ module V1
     end
 
     def check_search
-      @path = params["search"]
+      @search = params["search"]
       head :bad_request unless @search
     end
 
