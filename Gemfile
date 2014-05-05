@@ -34,8 +34,8 @@ gem "ruby-audioinfo", git: "https://github.com/CrimsonTautology/ruby-audioinfo"
 
 gem 'zeroclipboard-rails'
 
-gem 'chartkick'
-gem 'groupdate'
+#gem 'chartkick'
+#gem 'groupdate'
 
 gem 'pry'
 gem 'pry-doc', '~> 0.5.1'

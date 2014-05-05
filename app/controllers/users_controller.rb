@@ -8,21 +8,6 @@ class UsersController < ApplicationController
 
   def show
     @user.check_for_account_update
-    limit = 1.month.ago..Time.now
-    @history =  [
-      {
-        name: "Uploads",
-        data: Song.where(uploader: @user, created_at: limit).group_by_day(:created_at).count
-      },
-      {
-        name: "Plays",
-        data: PlayEvent.where(user: @user, type_of: "p", created_at: limit).group_by_day(:created_at).count
-      },
-      {
-        name: "Playalls",
-        data: PlayEvent.where(user: @user, type_of: "pall", created_at: limit).group_by_day(:created_at).count
-      }
-    ]
     authorize! :read, @user
 
   end
