@@ -88,6 +88,11 @@ class User < ActiveRecord::Base
     end while User.exists?(remember_me_token: remember_me_token)
   end
 
+  def self.authenticate_login_token login_token
+    return nil if login_token.empty?
+    User.where(login_token: login_token).where("login_token_invalidated_at > ?", Time.now).limit(1).first
+  end
+
   private
   def check_if_head_admin
     if provider == "steam" && uid == ENV['STEAM_HEAD_ADMIN_ID']
