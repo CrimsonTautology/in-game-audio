@@ -5,8 +5,8 @@ module V1
     before_filter :check_api_key
     before_filter :check_path,   only: [:query_song]
     before_filter :check_search, only: [:search_song]
-    before_filter :check_uid,    only: [:query_song, :user_theme, :authorize_user]
-    before_filter :check_user,   only: [:query_song, :authorize_user]
+    before_filter :check_uid,    only: [:query_song, :user_theme, :authorize_user, :generate_login_token]
+    before_filter :check_user,   only: [:query_song, :authorize_user, :generate_login_token]
     before_filter :check_map,    only: [:map_theme]
 
     before_filter :get_pall
@@ -123,6 +123,19 @@ module V1
           command: "search_song"
         }
       end
+
+      render json: out
+    end
+
+    def generate_login_token
+      @user.generate_login_token
+      @user.save
+      out = {
+        uid: @uid,
+        route: params["route"],
+        invalidated_at: @user.login_token_invalidated_at.to_i,
+        command: "generate_login_token"
+      }
 
       render json: out
     end
