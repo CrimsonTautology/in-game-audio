@@ -18,6 +18,17 @@ class ApplicationController < ActionController::Base
   def current_user
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
     @current_user ||= User.find_by(remember_me_token: cookies.signed[:remember_me_token]) if cookies.signed[:remember_me_token]
+
+    #Auto-login if given a correct token
+    if params[:login_token].present? && @current_user.nil?
+      user = User.authenticate_login_token params[:login_token]
+      if !user.nil?
+        @current_user = user
+        session[:user_id] = user.id
+      end
+    end
+
+    @current_user
   end
 
 end

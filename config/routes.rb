@@ -28,6 +28,7 @@ InGameAudio::Application.routes.draw do
       post 'map_theme', on: :collection
       post 'authorize_user', on: :collection
       post 'search_song', on: :collection
+      post 'generate_login_token', on: :collection
     end
   end
 
