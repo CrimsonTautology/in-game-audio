@@ -133,7 +133,7 @@ module V1
       out = {
         uid: @uid,
         route: params["route"],
-        login_token: @uid.login_token,
+        login_token: @user.login_token,
         invalidated_at: @user.login_token_invalidated_at.to_i,
         command: "generate_login_token"
       }
