@@ -2,11 +2,11 @@
 
 <script>
   $( document ).ready(function() {
-    document.getElementById('audio_player').volume = <%= @volume %>;
+    document.getElementById('audio_player_html5').volume = <%= @volume %>;
   });
 </script>
 
-<audio id="audio_player" src="<%= @song.sound.url %>" controls autoplay preload="none">
+<audio id="audio_player_html5" src="<%= @song.sound.ogg.url %>" controls autoplay preload="none">
   <p>Browser does not support this audio player</p>
 </audio>
 
