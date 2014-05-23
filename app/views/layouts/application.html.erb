@@ -37,14 +37,14 @@
                 <% end %>
               </li>
               <%= navbar_list_item "Song List", directories_path %>
-              <%= navbar_list_item "Add Song", new_song_path, can?(:create, Song) %>
-              <%= navbar_list_item "Admin", admin_path, can?(:admin, :page) %>
+              <%= navbar_list_item "Add Song", new_song_path, [], can?(:create, Song) %>
+              <%= navbar_list_item "Admin", admin_path, %W{visible-lg}, can?(:admin, :page) %>
               <% if current_user %>
-                <%= navbar_list_item "Donator Intros", user_themes_path(current_user) %>
+                <%= navbar_list_item "Donator Intros", user_themes_path(current_user), %W{visible-lg} %>
                 <%= navbar_list_item "Log Out", logout_path %>
                 <%= navbar_list_item image_tag(current_user.avatar_icon_url, alt: "avatar"), user_path(current_user) %>
               <%else %>
-                <%= navbar_list_item image_tag("sits_small.png", alt: "Sign in with Steam"), "/auth/steam" %>
+                <%= navbar_list_item image_tag("sits_small.png", alt: "Sign in with Steam"), "/auth/steam", %W{visible-lg} %>
               <% end %>
             </ul>
           </div><!-- collapse -->
