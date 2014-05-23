@@ -2,10 +2,6 @@
 
 <audio id="audio_demo"></audio>
 
-<div id="how_to_play">
-  To play this on the server type "!p <span id="how_to_play_command"></span>" into chat.
-</div>
-
 <%= simple_form_for @song, url: songs_path, html: { multipart: true } do |f| %>
   <%= f.error_notification %>
 
@@ -17,7 +13,13 @@
 
   <%= f.input :category, collection: @categories, label: "Category", prompt: "Select a category", label_method: :to_label, required: true %>
 
-  <%= f.input :add_as_theme, as: :boolean, label: "Also add this song as one of my donator intros." %>
+  <%= f.input :add_as_theme, as: :boolean %>
+  <%= f.hint "Add this song as one of my donator intros." %>
 
   <%= f.button :submit, class: "btn btn-success" %>
 <% end %>
+
+<div id="how_to_play" class="alert alert-info">
+  To play this on the server type <strong>!p <span id="how_to_play_command"></span></strong> into the game chat.
+</div>
+
