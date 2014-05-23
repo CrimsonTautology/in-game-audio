@@ -75,6 +75,20 @@ describe "adding songs" do
 
       end
 
+      context "when uploading as theme" do
+        before do
+          visit new_song_path
+          fill_in "Name", with: "pop/yay"
+          select "n/", from: "Category"
+          attach_file "Sound", Rails.root.join('spec', 'fixtures', 'files', 'theme.mp3')
+          find(:css, "#song_add_as_theme").set(true)
+          click_button "Create Song"
+        end
+
+        it_behaves_like "a successful upload", "n/pop/yay"
+        specify { expect(Theme.last.song.full_path).to eq("n/pop/yay") }
+      end
+
     end
 
     shared_examples_for "a successful upload" do |full_path|

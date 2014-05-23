@@ -32,14 +32,21 @@ class SongsController < ApplicationController
   end
 
   def create
-    path = params[:song][:full_path]
-    category = params[:song][:directory]
+    path = params[:song][:path]
+    category = params[:song][:category]
     @song = Song.new(create_params)
-    @song.uploader_id = current_user.id
+    @song.uploader = current_user
     @song.set_with_path_and_category path, category
 
 
     if @song.save
+
+      #Check if we should add this song as a theme
+      @song.reload
+      if params[:song][:add_as_theme]
+        Theme.create(user: current_user, song: @song)
+      end
+
       flash[:notice] = "Successfully uploaded #{@song.full_path}."
       redirect_to @song
     else
@@ -67,7 +74,7 @@ class SongsController < ApplicationController
 
   private
   def create_params
-    params.require(:song).permit(:full_path, :sound)
+    params.require(:song).permit(:sound)
   end
 
   def update_params

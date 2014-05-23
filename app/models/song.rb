@@ -1,6 +1,11 @@
 class Song < ActiveRecord::Base
   belongs_to :directory
   belongs_to :uploader, class_name: "User"
+
+  attr_accessor :add_as_theme
+  attr_accessor :path
+  attr_accessor :category
+
   mount_uploader :sound, SongUploader
   #process_in_background :sound
 
