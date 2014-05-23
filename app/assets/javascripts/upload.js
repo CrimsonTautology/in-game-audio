@@ -1,10 +1,11 @@
 $( document ).ready(function(){
     //Uploading songs
 
-    $("input#song_sound").change(function(){
-        //Scan the uploaded file and auto fill settings
-        id3(this.files[0], function(err, tags) {
+    $("input#song_sound").change(function(e){
+        var file = e.currentTarget.files[0];
 
+        //Scan the uploaded file and auto fill settings
+        id3(file, function(err, tags) {
             $("#title").html(tags["title"]);
             $("#artist").html(tags["artist"]);
             $("#album").html(tags["album"]);
@@ -12,23 +13,66 @@ $( document ).ready(function(){
             $("#comment").html(tags["artist"]);
             var genre  = tags["v1"]["genre"];
             $("#genre").html( genre );
-            setCategory(genreHash[genre]["dir"]);
-            setSubDirectory(genreHash[genre]["sub"]);
+
+            var genre_info = genreHash[genre]
+            if(typeof genre_info !== 'undefined'){
+                setCategory(genreHash[genre]["dir"]);
+                setSubDirectory(genreHash[genre]["sub"]);
+            }
         });
+
+
+        //Use a hidden audio control to determine duration of uploaded song
+        audio_url = URL.createObjectURL(file);
+        $("#audio_demo").prop("src", audio_url);
+    });
+
+    $("#audio_demo").on("canplaythrough", function(e){
+        var seconds = e.currentTarget.duration;
+
+        //Disable "add as theme" checkbox if duration > 10 seconds
+        if(seconds > 10){
+            $("#song_add_as_theme").prop("checked", false);
+            $("#song_add_as_theme").prop("disabled", true);
+        }else{
+            $("#song_add_as_theme").prop("disabled", false);
+        }
+    });
+
+    $("#song_path").change(function(){
+        buildHowToPlayCommand();
+    });
+
+    $("#song_category").change(function(){
+        buildHowToPlayCommand();
     });
 });
 
+function buildHowToPlayCommand(){
+    var category = $("#song_category option:selected").text().replace(/\/ .*/, "/").trim();
+    var path = $("#song_path").val().trim();
+
+    //If both are filled in show the command to play
+    if (category != '' && path != ''){
+        $("#how_to_play").show();
+        $("#how_to_play_command").html(category + path);
+
+    }else{
+        $("#how_to_play").hide();
+    }
+}
+
 function setCategory( key ){
     if (key != null){
-        $("select#song_directory option").filter(function() {
+        $("select#song_category option").filter(function() {
             return $(this).text().substring(0, key.length) === key
         }).prop('selected', true);
     }
 }
 
 function setSubDirectory( key ){
-    if (key != null && $("input#song_full_path").val() == ""){
-        $("input#song_full_path").val(key);
+    if (key != null && $("input#song_path").val() == ""){
+        $("input#song_path").val(key);
     }
 
 }

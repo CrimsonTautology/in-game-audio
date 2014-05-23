@@ -1,5 +1,11 @@
 <% content_for :title, "New Song" %>
 
+<audio id="audio_demo"></audio>
+
+<div id="how_to_play">
+  To play this on the server type "!p <span id="how_to_play_command"></span>" into chat.
+</div>
+
 <%= simple_form_for @song, url: songs_path, html: { multipart: true } do |f| %>
   <%= f.error_notification %>
 
