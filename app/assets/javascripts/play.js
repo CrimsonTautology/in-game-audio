@@ -18,6 +18,11 @@ $( document ).ready(function(){
         }
     });
 
+    //HTML5 Player
+    var player_html5 = $("#audio_player_html5");
+    var vol = player_html5.data('volume');
+    player_html5.prop("volume", vol);
+
     //URL Anchor Listener
     //window.onhashchange = hashchanged;
     //hashchanged();
