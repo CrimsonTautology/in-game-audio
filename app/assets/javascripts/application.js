@@ -13,7 +13,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require zeroclipboard
-//= require soundmanager2-jsmin.js
 //= require id3
 //= require bootstrap
 //= require_tree .
