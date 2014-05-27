@@ -1,11 +1,9 @@
-<% content_for :title, @song.full_path %>
+<script src="//api.html5media.info/1.1.8/html5media.min.js"></script>
 
-<div class="container">
-  <div id="audio_player" class="jp-jplayer"
-    data-url="<%= @song.sound.url %>"
-    data-volume="<%= @volume %>"
-    data-seek="<%= @seek %>"
-    >
-  </div>
+<audio id="audio_player" controls autoplay preload="none">
+  <source src="<%= @song.sound.ogg.url %>" type="audio/ogg" />
+  <source src="<%= @song.sound.url %>" type="audio/mpeg" />
+  <p>Browser does not support this audio player</p>
+</audio>
 
-</div>
+

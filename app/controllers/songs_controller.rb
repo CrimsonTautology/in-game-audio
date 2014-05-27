@@ -12,14 +12,7 @@ class SongsController < ApplicationController
 
   def play
     @volume = params[:volume] || "1.0"
-    @volume = (@volume.to_f * 100).to_i
     @seek = params[:seek] || 0
-  end
-
-  def play_html5
-    @volume = params[:volume] || "1.0"
-    @seek = params[:seek] || 0
-    render :layout => false
   end
 
   def new

@@ -5,18 +5,8 @@ $( document ).ready(function(){
     var vol = player.data('volume');
     var seek= player.data('seek');
 
-    soundManager.setup({
-        url: '/swf/',
-        flashVersion: 8, // optional: shiny features (default = 8)
-        preferFlash: true,
-        onready: function() {
-            soundManager.createSound({
-                id: 'play',
-                url: url,
-                volume: vol
-            }).play();
-        }
-    });
+    player.prop("volume", vol);
+
 
     //URL Anchor Listener
     //window.onhashchange = hashchanged;
