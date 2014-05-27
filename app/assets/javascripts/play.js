@@ -7,7 +7,6 @@ $( document ).ready(function(){
 
     player.prop("volume", vol);
 
-
     //URL Anchor Listener
     window.onhashchange = hashchanged;
     hashchanged();
