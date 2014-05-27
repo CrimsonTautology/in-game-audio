@@ -23,8 +23,9 @@ describe "playing a song" do
 
     shared_examples_for "valid access rights" do
       its(:status_code) { should eq 200}
-      it { should have_selector "div#audio_player" }
-      it { should have_selector("div[data-url='#{song.sound.url}']") }
+      it { should have_selector "audio#audio_player" }
+      it { should have_selector("source[src='#{song.sound.url}']") }
+      it { should have_selector("source[src='#{song.sound.ogg.url}']") }
     end
 
     context "not logged in" do
@@ -51,8 +52,8 @@ describe "playing a song" do
       end
 
       it_behaves_like "valid access rights"
-      it { should have_selector("div[data-volume='100']") }
-      it { should have_selector("div[data-seek='0']") }
+      it { should have_selector("audio[data-volume='1.0']") }
+      it { should have_selector("audio[data-seek='0']") }
     end
 
     context "with valid play event token" do
@@ -61,8 +62,8 @@ describe "playing a song" do
       end
 
       it_behaves_like "valid access rights"
-      it { should have_selector("div[data-volume='66']") }
-      it { should have_selector("div[data-seek='75']") }
+      it { should have_selector("audio[data-volume='0.66']") }
+      it { should have_selector("audio[data-seek='75']") }
     end
 
     context "with invalid play event token" do
