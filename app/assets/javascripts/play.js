@@ -9,16 +9,14 @@ $( document ).ready(function(){
 
 
     //URL Anchor Listener
-    //window.onhashchange = hashchanged;
-    //hashchanged();
+    window.onhashchange = hashchanged;
+    hashchanged();
 });
 
 function hashchanged(){
     //change volume or position without reloading page
+    var player = $("#audio_player");
     var hash = window.location.hash
 
-        $("#audio_player").jPlayer("volume", hash);
-
-    //TODO add seek functionality
-    //$("#audio_player").jPlayer("play", seek);
+    player.prop("volume", vol);
 }
