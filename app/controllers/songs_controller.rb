@@ -13,6 +13,9 @@ class SongsController < ApplicationController
   def play
     @volume = params[:volume] || "1.0"
     @seek = params[:seek] || 0
+
+    #Convert to logrithmic scale
+    @volume = (@volume.to_f ** 4.0).to_s
   end
 
   def new
