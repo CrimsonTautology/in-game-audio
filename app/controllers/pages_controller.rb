@@ -2,7 +2,7 @@ class PagesController < ApplicationController
   def home
     limit = params["limit"] || 25
     @recently_uploaded = Song.includes(:uploader).order(created_at: :desc).limit(limit)
-    @recently_played = PlayEvent.recent_palls.limit(limit)
+    @recently_played = PlayEvent.recently_played.limit(limit)
     @trending = PlayEvent.trending.limit(limit).map(&:song)
   end
 
