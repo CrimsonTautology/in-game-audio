@@ -29,9 +29,9 @@ module ApplicationHelper
     "active" if current_page?(path)
   end
 
-  def navbar_list_item text, path, extra=[], display=true
+  def navbar_list_item text, path, display=true
     if display
-      content_tag(:li, class: extra.push(active_page(path)).join(" ") )  do
+      content_tag(:li, class: active_page(path) )  do
         link_to text, path
       end
     end
