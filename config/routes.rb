@@ -39,7 +39,6 @@ InGameAudio::Application.routes.draw do
   get 'contact', to: 'pages#contact', as: 'contact'
   get 'stop', to: 'pages#stop', as: 'stop'
   get 'admin', to: 'pages#admin', as: 'admin'
-  get 'statistics', to: 'pages#statistics', as: 'statistics'
 
   match "/auth/steam/callback" => "sessions#create", via: [:get, :post], as: :login
   get "/logout" => "sessions#destroy", as: :logout
