@@ -15,7 +15,7 @@ class SongsController < ApplicationController
     @seek = params[:seek] || 0
 
     #Convert to logrithmic scale
-    @volume = (@volume.to_f ** 4.0).to_s
+    @volume = (@volume.to_f ** 4.0).round(5).to_s
   end
 
   def new
