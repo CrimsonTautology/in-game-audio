@@ -13,7 +13,7 @@
 
   <%= f.input :category, collection: @categories, label: "Category", prompt: "Select a category", label_method: :to_label, required: true %>
 
-  <%= f.input :add_as_theme, as: :boolean %>
+  <%= f.input :add_as_theme, as: :boolean, value: "1" %>
   <%= f.hint "Add this song as one of my donator intros." %>
 
   <%= f.button :submit, class: "btn btn-success" %>

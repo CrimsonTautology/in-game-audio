@@ -39,7 +39,7 @@ class SongsController < ApplicationController
 
       #Check if we should add this song as a theme
       @song.reload
-      if params[:song][:add_as_theme]
+      if params[:song][:add_as_theme] == "1"
         Theme.create(user: current_user, song: @song)
       end
 

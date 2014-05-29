@@ -89,6 +89,20 @@ describe "adding songs" do
         specify { expect(Theme.last.song.full_path).to eq("n/pop/yay") }
       end
 
+      context "when uploading as themeable song but not checking the box" do
+        before do
+          visit new_song_path
+          fill_in "Name", with: "pop/yay"
+          select "n/", from: "Category"
+          attach_file "Sound", Rails.root.join('spec', 'fixtures', 'files', 'theme.mp3')
+          find(:css, "#song_add_as_theme").set(false)
+          click_button "Create Song"
+        end
+
+        it_behaves_like "a successful upload", "n/pop/yay"
+        specify { expect(Theme.count).to eq(0) }
+      end
+
     end
 
     shared_examples_for "a successful upload" do |full_path|
