@@ -251,30 +251,5 @@ describe "POST /v1/api" do
     end
   end #search_song
 
-  describe "/generate_login_token" do
-    route = "/v1/api/generate_login_token"
-    let!(:user) {FactoryGirl.create(:user, uid: "67890", provider: "steam")}
-
-    it_should_behave_like "ApiController", route, {
-      uid: "67890"
-    }
-
-    context "with valid access_token" do
-      let!(:api_key) {FactoryGirl.create(:api_key)}
-
-      it "generates a new valid login token for the user" do
-        original = user.login_token
-        post route,
-          access_token: api_key.access_token,
-          route: "songs/new",
-          uid: user.uid
-        user.reload
-        expect(user.login_token).to_not be_nil
-        expect(user.login_token).to_not eql original
-        expect(user.login_token_invalidated_at).to be > Time.now
-      end
-    end
-  end #generate_login_token
-
 end
 

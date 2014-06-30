@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140515132708) do
+ActiveRecord::Schema.define(version: 20140630173420) do
 
   create_table "api_keys", force: true do |t|
     t.string   "name"
@@ -92,17 +92,14 @@ ActiveRecord::Schema.define(version: 20140515132708) do
     t.string   "nickname"
     t.string   "avatar_url"
     t.string   "avatar_icon_url"
-    t.boolean  "uploader",                   default: false
-    t.boolean  "admin",                      default: false
+    t.boolean  "uploader",          default: false
+    t.boolean  "admin",             default: false
     t.datetime "banned_at"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "remember_me_token"
-    t.string   "login_token"
-    t.datetime "login_token_invalidated_at"
   end
 
-  add_index "users", ["login_token"], name: "index_users_on_login_token"
   add_index "users", ["remember_me_token"], name: "index_users_on_remember_me_token"
 
 end
