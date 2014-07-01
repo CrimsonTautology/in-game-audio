@@ -160,7 +160,8 @@ class Song < ActiveRecord::Base
   end
 
   def self.search(query, type=nil)
-    #Use postgre text search
+    #TODO clean this up
+    #Use postgre text search if we're on postgre
     if query.present?
       if Rails.configuration.database_configuration[Rails.env]["adapter"].eql? "postgresql"
         case type
@@ -172,6 +173,8 @@ class Song < ActiveRecord::Base
           where("album ilike :q", q: "%#{query}%")
         when :artist
           where("artist ilike :q", q: "%#{query}%")
+        when :name_and_title
+          where("name ilike :q OR title ilike :q", q: "%#{query}%")
         else
           where("name ilike :q OR title ilike :q OR album ilike :q OR artist ilike :q", q: "%#{query}%")
         end
@@ -185,6 +188,8 @@ class Song < ActiveRecord::Base
           where("album like :q", q: "%#{query}%")
         when :artist
           where("artist like :q", q: "%#{query}%")
+        when :name_and_title
+          where("name like :q OR title like :q", q: "%#{query}%")
         else
           where("name like :q OR title like :q OR album like :q OR artist like :q", q: "%#{query}%")
         end
