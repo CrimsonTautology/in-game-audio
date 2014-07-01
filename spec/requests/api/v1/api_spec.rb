@@ -44,6 +44,11 @@ describe "POST /v1/api" do
       uid: "309134131"
     }
 
+    it_should_behave_like "ApiController", route, {
+      song_id: "7",
+      uid: "309134131"
+    }
+
     context "with valid access_token" do
       let!(:api_key) {FactoryGirl.create(:api_key)}
 
@@ -101,9 +106,26 @@ describe "POST /v1/api" do
         expect(json['force']).to eq(true)
       end
 
+      it "returns a specific song by id" do
+        post route,
+          access_token: api_key.access_token,
+          song_id: song.id.to_s,
+          uid: user.uid
+        expect(json['song_id']).to eq song.id.to_s
+      end
+
+      it "song by id ignores path argument" do
+        post route,
+          access_token: api_key.access_token,
+          path: "baz/jazz",
+          song_id: song.id.to_s,
+          uid: user.uid
+        expect(json['song_id']).to eq song.id.to_s
+      end
+
     end
 
-  end
+  end #query_song
 
   describe "/user_theme" do
     let!(:root) {FactoryGirl.create(:root)}

@@ -3,7 +3,7 @@ module V1
     skip_before_filter :verify_authenticity_token
     authorize_resource class: false
     before_filter :check_api_key
-    before_filter :check_path,   only: [:query_song]
+    before_filter :check_path_or_song_id,   only: [:query_song]
     before_filter :check_search, only: [:search_song]
     before_filter :check_uid,    only: [:query_song, :user_theme, :authorize_user]
     before_filter :check_user,   only: [:query_song, :authorize_user]
@@ -15,7 +15,13 @@ module V1
     respond_to :json
 
     def query_song
-      song = Song.path_search @path
+
+      #Song_id takes priority over a path search
+      if @song_id
+        song = Song.find_by_id @song_id.to_i
+      else
+        song = Song.path_search @path
+      end
 
       if song.nil?
         out = {
@@ -116,10 +122,10 @@ module V1
         out = {
           found: true,
           songs: songs.map{ |s| {
-            description: s.to_s,
-            full_path: s.full_path,
-            id: s.id
-          }},
+          description: s.to_s,
+          full_path: s.full_path,
+          id: s.id
+        }},
           command: "search_song"
         }
       end
@@ -133,9 +139,10 @@ module V1
       head :unauthorized unless @api_key
     end
 
-    def check_path
+    def check_path_or_song_id
       @path = params["path"]
-      head :bad_request unless @path
+      @song_id = params["song_id"]
+      head :bad_request unless @path || @song_id
     end
 
     def check_search
