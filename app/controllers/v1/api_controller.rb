@@ -39,7 +39,7 @@ module V1
             songs: songs.map{ |s| {
               description: s.to_s,
               full_path: s.full_path,
-              id: s.id
+              song_id: s.id
             }},
             command: "search_song"
           }
@@ -148,10 +148,10 @@ module V1
         out = {
           found: true,
           songs: songs.map{ |s| {
-          description: s.to_s,
-          full_path: s.full_path,
-          id: s.id
-        }},
+            description: s.to_s,
+            full_path: s.full_path,
+            song_id: s.id
+          }},
           command: "search_song"
         }
       end
