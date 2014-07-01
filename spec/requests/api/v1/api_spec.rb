@@ -123,6 +123,17 @@ describe "POST /v1/api" do
         expect(json['song_id']).to eq song.id.to_s
       end
 
+      it "returns a list of songs whose name or title matches path if a song is not found" do
+        FactoryGirl.create(:song, name: "crap", title: "new jazz", directory: sub)
+        post route,
+          access_token: api_key.access_token,
+          path: "jazz",
+          uid: user.uid
+        expect(json['found']).to eq(false)
+        expect(json['multiple']).to eq(true)
+        expect(json['songs'].count).to eq(2)
+      end
+
     end
 
   end #query_song
@@ -244,7 +255,6 @@ describe "POST /v1/api" do
     let!(:sub) {FactoryGirl.create(:directory, name: "foo", parent: root)}
     let!(:song) {FactoryGirl.create(:song, name: "jazz", directory: sub)}
     let!(:sub2) {FactoryGirl.create(:directory, name: "bar", parent: root)}
-    let!(:song2) {FactoryGirl.create(:song, name: "jazz", directory: sub2)}
     let!(:song3) {FactoryGirl.create(:song, name: "funk", directory: sub2)}
     let!(:song4) {FactoryGirl.create(:song, name: "soul", title: "Jazzy Tunes", directory: sub2)}
 

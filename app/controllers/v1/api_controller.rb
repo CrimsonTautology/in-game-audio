@@ -24,10 +24,35 @@ module V1
       end
 
       if song.nil?
-        out = {
-          found: false,
-          command: "query_song"
-        }
+        #A direct result was not found via path; try finding songs that have path in their name or title
+        songs = []
+        songs = Song.search(@path, :name_and_title).limit(16) if @path
+
+        unless songs.empty?
+          #return list back for user to choose which one
+          out = {
+            found: false,
+            multiple: true,
+            command: "query_song",
+            pall: @pall,
+            force: @force,
+            songs: songs.map{ |s| {
+              description: s.to_s,
+              full_path: s.full_path,
+              id: s.id
+            }},
+            command: "search_song"
+          }
+
+        else
+          #Still nothing matches
+          out = {
+            found: false,
+            multiple: false,
+            command: "query_song"
+          }
+        end
+
       else
         #Create a play event for this song
         play_event = PlayEvent.create(song: song, type_of: (@pall ? "pall" : "p"), user: @user, api_key: @api_key )
@@ -35,6 +60,7 @@ module V1
 
         out = {
           found: true,
+          multiple: false,
           command: "query_song",
           pall: @pall,
           force: @force,
