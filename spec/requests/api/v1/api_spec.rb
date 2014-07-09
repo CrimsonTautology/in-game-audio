@@ -270,7 +270,6 @@ describe "POST /v1/api" do
           access_token: api_key.access_token,
           search: "jaz"
         expect(json['found']).to eq(true)
-        expect(json['songs'].count).to eq(3)
       end
 
       it "returns found=false if nothing matches" do
