@@ -35,7 +35,7 @@ describe SongUploader do
 
     its(:sound_fingerprint) { should_not be_blank }
     its(:sound_file_size) { should > (1) }
-    its(:sound_content_type) { should eq "audio/mp3" }
+    its(:sound_content_type) { should eq "audio/mpeg" }
 
   end
 
@@ -58,7 +58,7 @@ describe SongUploader do
 
     its(:sound_fingerprint) { should_not be_blank }
     its(:sound_file_size) { should > (1) }
-    its(:sound_content_type) { should eq "audio/mp3" }
+    its(:sound_content_type) { should eq "audio/ogg" }
 
   end
 
@@ -81,7 +81,30 @@ describe SongUploader do
 
     its(:sound_fingerprint) { should_not be_blank }
     its(:sound_file_size) { should > (1) }
-    its(:sound_content_type) { should eq "audio/mp3" }
+    its(:sound_content_type) { should eq "audio/x-wav" }
+
+  end
+
+  describe "extracing non-standard wav file details" do
+    subject { song }
+    before do
+      @file = File.new(Rails.root.join('spec', 'fixtures', 'files', 'its electric.wav'))
+      uploader.store! @file
+    end
+
+    after do
+      @file.close
+      uploader.remove!
+    end
+
+    its(:title) { should be_nil }
+    its(:album) { should be_nil }
+    its(:artist) { should be_nil }
+    its(:duration) { should be_within(0.1).of(2.0) }
+
+    its(:sound_fingerprint) { should_not be_blank }
+    its(:sound_file_size) { should > (1) }
+    its(:sound_content_type) { should eq "audio/x-wav" }
 
   end
 end

@@ -117,6 +117,20 @@ describe "adding songs" do
         specify { expect(Theme.count).to eq(0) }
       end
 
+      context "when uploading a wav file" do
+        before do
+          visit new_song_path
+          fill_in "Name", with: "themes/electric"
+          select "n/", from: "Category"
+          attach_file "Sound", Rails.root.join('spec', 'fixtures', 'files', 'its electric.wav')
+          find(:css, "#song_add_as_theme").set(true)
+          click_button "Create Song"
+        end
+
+        it_behaves_like "a successful upload", "n/themes/electric"
+        specify { expect(Theme.last.song.full_path).to eq("n/themes/electric") }
+      end
+
     end
 
     shared_examples_for "a successful upload" do |full_path|
