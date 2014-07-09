@@ -62,7 +62,7 @@ describe "playing a song" do
       end
 
       it_behaves_like "valid access rights"
-      it { should have_selector("audio[data-volume='0.66']") }
+      it { should have_selector("audio[data-volume='0.18975']") }
       it { should have_selector("audio[data-seek='75']") }
     end
 
