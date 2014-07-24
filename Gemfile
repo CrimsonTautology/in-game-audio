@@ -26,8 +26,6 @@ gem 'omniauth-steam'
 gem 'steam-condenser', '~> 1.3.5'
 
 gem 'carrierwave'
-#gem 'sidekiq'
-#gem 'carrierwave_backgrounder'
 gem 'fog'
 gem 'streamio-ffmpeg'
 gem "ruby-audioinfo", git: "https://github.com/CrimsonTautology/ruby-audioinfo"
@@ -49,15 +47,15 @@ group :development, :test do
 end
 
 group :development do
-  gem 'fuubar'
-  gem 'rspec-rails'
+  gem 'fuubar', '1.3.2'
+  gem 'rspec-rails', '2.14.2'
   gem 'guard-rspec'
   gem 'better_errors'
 end
 
 group :test do
   gem 'rake'
-  gem 'capybara', '2.1.0'
+  gem 'capybara', '~> 2.1.0'
   gem 'factory_girl_rails', '4.2.1'
   gem 'database_cleaner', '1.0.1'
 end
