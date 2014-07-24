@@ -8,4 +8,10 @@ describe Theme do
 
   specify { expect(Theme.new(user: user, song: invalid_song)).to_not be_valid }
   specify { expect(Theme.new(user: user, song: valid_song)).to be_valid }
+
+  it "auto deletes if the song is deleted" do
+    new_song = FactoryGirl.create(:song, directory: root, user_themeable: true)
+    theme = Theme.create(user: user, song: new_song)
+    expect{ new_song.destroy }.to change(Theme, :count).by(-1)
+  end
 end

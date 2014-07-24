@@ -9,7 +9,7 @@ class Song < ActiveRecord::Base
   mount_uploader :sound, SongUploader
   #process_in_background :sound
 
-  has_many :themes
+  has_many :themes, dependent: :destroy
   has_many :play_events
 
   validates :name,
