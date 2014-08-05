@@ -10,7 +10,7 @@ The back website for the [In Game Audio](https://github.com/CrimsonTautology/sm_
 * [postgresql](http://www.postgresql.org/)
 * A game server running [Sourcemod](http://www.sourcemod.net) and the [sm_in_game_audio](https://github.com/CrimsonTautology/sm_in_game_audio) plugin.
 * A [Google Storage for Developers](http://gs-signup-redirect.appspot.com/) account. Get your credentials [here](https://storage.cloud.google.com/m)
-* [FFMEG](http://www.ffmpeg.org/) with OGG Vorbis support.
+* [FFMPEG](http://www.ffmpeg.org/) with OGG Vorbis support.
 
 ## Instalation
 * Make sure you have the requirements
