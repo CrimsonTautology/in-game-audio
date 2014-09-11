@@ -32,7 +32,7 @@ class Song < ActiveRecord::Base
 
 
   before_save :update_full_path
-  before_save :check_if_user_themable
+  before_save :check_if_user_themeable
 
 
   def update_full_path
@@ -225,7 +225,7 @@ class Song < ActiveRecord::Base
     errors.add(:base, 'Directory already exists with same name') if directory.nil? || Directory.exists?(parent: directory, name: name)
   end
 
-  def check_if_user_themable
+  def check_if_user_themeable
     unless user_themeable
       self.user_themeable = duration <= 10.0
     end

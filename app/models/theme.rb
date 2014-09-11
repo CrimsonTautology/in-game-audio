@@ -10,7 +10,7 @@ class Theme < ActiveRecord::Base
 
   private
   def song_is_user_themeable
-    errors.add(:base, 'Song is not user themable') unless song.user_themeable
+    errors.add(:base, 'Song is not user themeable') unless song.user_themeable
   end
 
 end
