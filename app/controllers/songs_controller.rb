@@ -74,9 +74,9 @@ class SongsController < ApplicationController
   end
 
   def update_params
-    authorize! :map_themeable, @song unless params[:song][:map_themeable].nil?
+    authorize! :map_themeable, @song unless params[:song][:map_themeable].nil? && params[:song][:halloween_themeable].nil? && params[:song][:christmas_themeable].nil?
     authorize! :user_themeable, @song unless params[:song][:user_themeable].nil?
-    params.require(:song).permit(:name, :directory_id, :title, :artist, :album, :map_themeable, :user_themeable)
+    params.require(:song).permit(:name, :directory_id, :title, :artist, :album, :map_themeable, :user_themeable, :halloween_themeable, :christmas_themeable)
   end
 
   def find_song

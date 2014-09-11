@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140630173420) do
+ActiveRecord::Schema.define(version: 20140911132316) do
 
   create_table "api_keys", force: true do |t|
     t.string   "name"
@@ -50,17 +50,17 @@ ActiveRecord::Schema.define(version: 20140630173420) do
   add_index "play_events", ["user_id"], name: "index_play_events_on_user_id"
 
   create_table "songs", force: true do |t|
-    t.string   "name",                               null: false
-    t.integer  "directory_id",                       null: false
+    t.string   "name",                                null: false
+    t.integer  "directory_id",                        null: false
     t.string   "title"
     t.string   "album"
     t.string   "artist"
-    t.float    "duration",           default: 0.0
+    t.float    "duration",            default: 0.0
     t.integer  "uploader_id"
-    t.integer  "play_count",         default: 0
+    t.integer  "play_count",          default: 0
     t.string   "file_hash"
-    t.boolean  "map_themeable",      default: false
-    t.boolean  "user_themeable",     default: false
+    t.boolean  "map_themeable",       default: false
+    t.boolean  "user_themeable",      default: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "sound_fingerprint"
@@ -69,10 +69,14 @@ ActiveRecord::Schema.define(version: 20140630173420) do
     t.string   "sound_file_name"
     t.integer  "sound_file_size"
     t.string   "sound_content_type"
+    t.boolean  "halloween_themeable", default: false
+    t.boolean  "christmas_themeable", default: false
   end
 
+  add_index "songs", ["christmas_themeable"], name: "index_songs_on_christmas_themeable"
   add_index "songs", ["directory_id", "name"], name: "index_songs_on_directory_id_and_name"
   add_index "songs", ["full_path"], name: "index_songs_on_full_path"
+  add_index "songs", ["halloween_themeable"], name: "index_songs_on_halloween_themeable"
   add_index "songs", ["title", "album", "artist"], name: "index_songs_on_title_and_album_and_artist"
   add_index "songs", ["uploader_id"], name: "index_songs_on_uploader_id"
 

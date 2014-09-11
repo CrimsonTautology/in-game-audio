@@ -11,6 +11,8 @@
 
   <% if can? :map_themeable, @song %>
     <%= f.input :map_themeable %>
+    <%= f.input :halloween_themeable %>
+    <%= f.input :christmas_themeable %>
   <% end %>
   <% if can? :user_themeable, @song %>
     <%= f.input :user_themeable %>

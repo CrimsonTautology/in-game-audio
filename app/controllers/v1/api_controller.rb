@@ -103,7 +103,17 @@ module V1
     end
 
     def map_theme
-      song = Song.where(map_themeable: true).random
+      halloween = Date.new(Time.now.year, 10, 31)
+      christmas = Date.new(Time.now.year, 12, 25)
+      if (halloween-2.weeks..halloween+1.week).cover?(Time.now)
+        #It's Halloween season
+        song = Song.where(halloween_themeable: true).random
+      elsif (christmas-2.weeks..christmas+1.week).cover?(Time.now)
+        #It's Christmas time
+        song = Song.where(christmas_themeable: true).random
+      else
+        song = Song.where(map_themeable: true).random
+      end
 
       if song.nil?
         out = {
@@ -148,10 +158,10 @@ module V1
         out = {
           found: true,
           songs: songs.map{ |s| {
-            description: s.to_s,
-            full_path: s.full_path,
-            song_id: s.id
-          }},
+          description: s.to_s,
+          full_path: s.full_path,
+          song_id: s.id
+        }},
           command: "search_song"
         }
       end
