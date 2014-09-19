@@ -17,5 +17,5 @@ function hashchanged(){
     var player = $("#audio_player");
     var hash = window.location.hash
 
-    player.prop("volume", vol);
+    player.prop("volume", hash);
 }
