@@ -75,6 +75,19 @@ describe "adding songs" do
 
       end
 
+      context "submiting a valid song file; but having caps in path" do
+        before do
+          visit new_song_path
+          fill_in "Name", with: "PoP/YaY"
+          select "n/", from: "Category"
+          attach_file "Sound", Rails.root.join('spec', 'fixtures', 'files', 'test.mp3')
+          click_button "Create Song"
+        end
+
+        it_behaves_like "a successful upload", "n/pop/yay"
+
+      end
+
       context "when uploading as theme" do
         before do
           visit new_song_path
