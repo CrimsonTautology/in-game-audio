@@ -75,7 +75,7 @@ describe "adding songs" do
 
       end
 
-      context "submiting a valid song file; but having caps in path" do
+      context "submiting a valid song file; but having caps in name" do
         before do
           visit new_song_path
           fill_in "Name", with: "PoP/YaY"
@@ -85,6 +85,71 @@ describe "adding songs" do
         end
 
         it_behaves_like "a successful upload", "n/pop/yay"
+
+      end
+
+      context "submiting a valid song file; but having spaces in name" do
+        before do
+          visit new_song_path
+          fill_in "Name", with: "pop/good day"
+          select "n/", from: "Category"
+          attach_file "Sound", Rails.root.join('spec', 'fixtures', 'files', 'test.mp3')
+          click_button "Create Song"
+        end
+
+        it_behaves_like "a successful upload", "n/pop/goodday"
+
+      end
+
+      context "submiting a valid song file; but having parenthesis in name" do
+        before do
+          visit new_song_path
+          fill_in "Name", with: "pop/hitsong(1)"
+          select "n/", from: "Category"
+          attach_file "Sound", Rails.root.join('spec', 'fixtures', 'files', 'test.mp3')
+          click_button "Create Song"
+        end
+
+        it_behaves_like "a successful upload", "n/pop/hitsong1"
+
+      end
+
+      context "submiting a valid song file; but having square brackets in name" do
+        before do
+          visit new_song_path
+          fill_in "Name", with: "pop/song[2]"
+          select "n/", from: "Category"
+          attach_file "Sound", Rails.root.join('spec', 'fixtures', 'files', 'test.mp3')
+          click_button "Create Song"
+        end
+
+        it_behaves_like "a successful upload", "n/pop/song2"
+
+      end
+
+      context "submiting a valid song file; but having dashes in name" do
+        before do
+          visit new_song_path
+          fill_in "Name", with: "pop/song-artist"
+          select "n/", from: "Category"
+          attach_file "Sound", Rails.root.join('spec', 'fixtures', 'files', 'test.mp3')
+          click_button "Create Song"
+        end
+
+        it_behaves_like "a successful upload", "n/pop/songartist"
+
+      end
+
+      context "submiting a valid song file; but having underscores in name" do
+        before do
+          visit new_song_path
+          fill_in "Name", with: "pop/song_artist_album"
+          select "n/", from: "Category"
+          attach_file "Sound", Rails.root.join('spec', 'fixtures', 'files', 'test.mp3')
+          click_button "Create Song"
+        end
+
+        it_behaves_like "a successful upload", "n/pop/song_artist_album"
 
       end
 

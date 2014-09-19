@@ -28,7 +28,7 @@ class SongsController < ApplicationController
   end
 
   def create
-    path = params[:song][:path].downcase
+    path = params[:song][:path].downcase.tr("-\s\t()[]", "")
     category = params[:song][:category]
     @song = Song.new(create_params)
     @song.uploader = current_user
