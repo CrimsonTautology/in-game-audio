@@ -9,7 +9,7 @@ $( document ).ready(function(){
 
     //URL Anchor Listener
     window.onhashchange = hashchanged;
-    hashchanged();
+    //hashchanged();
 });
 
 function hashchanged(){
