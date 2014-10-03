@@ -48,4 +48,4 @@
         - [x] stop
         - [x] vol
         - [x] plist
-    - [ ] Set themes (mention 10 second limmit)
+    - [x] Set themes (mention 10 second limmit)
