@@ -26,7 +26,7 @@ module V1
       if song.nil?
         #A direct result was not found via path; try finding songs that have path in their name or title
         songs = []
-        songs = Song.search(@path, :name_and_title).limit(16) if @path
+        songs = Song.search(@path, :name_and_title).limit(128) if @path
 
         unless songs.empty?
           #return list back for user to choose which one
