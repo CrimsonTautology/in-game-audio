@@ -1,3 +1,5 @@
+require 'json'
+
 class User < ActiveRecord::Base
   has_many :uploaded_songs, foreign_key: "uploader_id", class_name: "Song"
   has_many :themes
@@ -35,13 +37,18 @@ class User < ActiveRecord::Base
 
   def self.create_with_steam_id(steam_id)
     return nil if steam_id.nil?
-    steam = SteamId.new(steam_id.to_i)
+
+    WebApi.api_key = ENV['STEAM_API_KEY']
+    json = JSON.parse(WebApi.json "ISteamUser", "GetPlayerSummaries", 2, {steamids: steam_id.to_s})
+    steam = json["response"]["players"][0]
+    return nil if steam.nil?
+
     create! do |user|
       user.provider = "steam"
-      user.uid = steam.steam_id64.to_s
-      user.nickname = steam.nickname
-      user.avatar_url = steam.medium_avatar_url
-      user.avatar_icon_url = steam.icon_url
+      user.uid = steam["steamid"].to_s
+      user.nickname = steam["personaname"]
+      user.avatar_url = steam["avatarmedium"]
+      user.avatar_icon_url = steam["avatar"]
     end
   end
 
