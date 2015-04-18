@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby "1.9.3"
+ruby '1.9.3'
 
 gem 'rails', '4.0.0'
 
@@ -7,15 +7,15 @@ gem 'pg'
 
 gem 'thin'
 
-gem "font-awesome-rails"
+gem 'font-awesome-rails'
 gem 'jquery-rails'
 
 gem 'jbuilder', '~> 1.2'
 
-gem "analytics-ruby"
-gem "bcrypt"
-gem "bourbon"
-gem "cancancan", '~> 1.7'
+gem 'analytics-ruby'
+gem 'bcrypt'
+gem 'bourbon'
+gem 'cancancan', '~> 1.7'
 gem 'simple_form'
 
 gem 'will_paginate', '~> 3.0'
@@ -30,7 +30,7 @@ gem 'carrierwave'
 #gem 'carrierwave_backgrounder'
 gem 'fog'
 gem 'streamio-ffmpeg'
-gem "ruby-audioinfo", git: "https://github.com/CrimsonTautology/ruby-audioinfo"
+gem 'ruby-audioinfo'
 
 gem 'zeroclipboard-rails'
 
