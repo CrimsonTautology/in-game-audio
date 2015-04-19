@@ -5,7 +5,7 @@ gem 'rails', '4.0.0'
 
 gem 'pg'
 
-gem 'thin'
+gem 'unicorn'
 
 gem 'font-awesome-rails'
 gem 'jquery-rails'
