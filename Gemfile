@@ -30,7 +30,7 @@ gem 'carrierwave'
 #gem 'carrierwave_backgrounder'
 gem 'fog'
 gem 'streamio-ffmpeg'
-gem 'ruby-audioinfo'
+gem 'ruby-audioinfo', git: 'https://github.com/CrimsonTautology/ruby-audioinfo'
 
 gem 'zeroclipboard-rails'
 

@@ -1,3 +1,16 @@
+GIT
+  remote: https://github.com/CrimsonTautology/ruby-audioinfo
+  revision: ec5acdddfa0bf77544adc2eb5cc2e6f1d2802ae3
+  specs:
+    ruby-audioinfo (0.4)
+      apetag (>= 1.1.4)
+      flacinfo-rb (>= 0.4)
+      moumar-wmainfo-rb (>= 0.7)
+      mp4info (>= 1.7.3)
+      ruby-mp3info (>= 0.8)
+      ruby-ogginfo (>= 0.6.13)
+      wavefile (>= 0.6.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -77,7 +90,7 @@ GEM
       railties (>= 3.0.0)
     ffi (1.9.3)
     ffi (1.9.3-x86-mingw32)
-    flacinfo-rb (0.4)
+    flacinfo-rb (1.0)
     fog (1.21.0)
       fog-brightbox
       fog-core (~> 1.21, >= 1.21.1)
@@ -217,14 +230,7 @@ GEM
       rspec-core (~> 2.14.0)
       rspec-expectations (~> 2.14.0)
       rspec-mocks (~> 2.14.0)
-    ruby-audioinfo (0.4)
-      apetag (>= 1.1.4)
-      flacinfo-rb (>= 0.4)
-      moumar-wmainfo-rb (>= 0.7)
-      mp4info (>= 1.7.3)
-      ruby-mp3info (>= 0.8)
-      ruby-ogginfo (>= 0.7)
-    ruby-mp3info (0.8.3)
+    ruby-mp3info (0.8.6)
     ruby-ogginfo (0.7.2)
     ruby-openid (2.5.0)
     ruby-progressbar (1.4.2)
@@ -269,6 +275,7 @@ GEM
       kgio (~> 2.6)
       rack
       raindrops (~> 0.7)
+    wavefile (0.6.0)
     will_paginate (3.0.5)
     will_paginate-bootstrap (1.0.0)
       will_paginate (>= 3.0.3)
@@ -310,7 +317,7 @@ DEPENDENCIES
   rails_12factor
   rake
   rspec-rails
-  ruby-audioinfo
+  ruby-audioinfo!
   sass-rails (~> 4.0.0)
   simple_form
   sqlite3
