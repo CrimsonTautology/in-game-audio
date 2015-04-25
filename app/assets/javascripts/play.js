@@ -17,7 +17,6 @@ function hashchanged(){
     var player = $('#audio_player');
     var hash = window.location.hash;
 
-
     if(hash.lastIndexOf('#v=', 0) === 0){
         //We're changing volume
         var newVolume = parseVolume(hash);
