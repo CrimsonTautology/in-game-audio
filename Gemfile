@@ -15,7 +15,7 @@ gem 'jbuilder', '~> 1.2'
 gem 'analytics-ruby'
 gem 'bcrypt'
 gem 'bourbon'
-gem 'cancancan', '~> 1.7'
+gem 'cancancan', '1.7.1'
 gem 'simple_form'
 
 gem 'will_paginate', '~> 3.0'
