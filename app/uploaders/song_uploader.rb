@@ -27,7 +27,7 @@ class SongUploader < CarrierWave::Uploader::Base
 
   # Add a white list of extensions which are allowed to be uploaded.
   def extension_white_list
-    %w(mp3 mp4 ogg wav)
+    %w(mp3 mp4 ogg wav m4a)
   end
 
 
