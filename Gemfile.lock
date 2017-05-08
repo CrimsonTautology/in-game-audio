@@ -295,9 +295,9 @@ DEPENDENCIES
   bcrypt
   better_errors
   bourbon
-  cancancan (~> 1.7)
+  cancancan (= 1.7.1)
   capybara (= 2.1.0)
-  carrierwave
+  carrierwave (= 0.10.0)
   coffee-rails (~> 4.0.0)
   database_cleaner (= 1.0.1)
   factory_girl_rails (= 4.2.1)
