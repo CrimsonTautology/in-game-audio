@@ -25,7 +25,7 @@ gem 'omniauth-openid'
 gem 'omniauth-steam'
 gem 'steam-condenser', '~> 1.3.5'
 
-gem 'carrierwave'
+gem 'carrierwave', '0.10.0'
 #gem 'sidekiq'
 #gem 'carrierwave_backgrounder'
 gem 'fog'
