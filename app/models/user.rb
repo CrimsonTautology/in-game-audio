@@ -26,7 +26,7 @@ class User < ActiveRecord::Base
       when :admin
         scope.where(admin: true)
       when :banned
-        scope.where("banned_at NOT NULL").order(banned_at: :desc)
+        scope.where.not(banned_at: nil).order(banned_at: :desc)
       when :uploader
         scope.where(uploader: true)
       else
