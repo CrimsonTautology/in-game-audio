@@ -35,6 +35,8 @@ describe "viewing song information" do
 
       it_behaves_like "valid access rights"
       it { should_not have_link("Ban", ban_song_path(song)) }
+      it { should_not have_link("Download mp3", song.sound.url) }
+      it { should_not have_link("Download ogg", song.sound.ogg.url) }
     end
 
     context "logged in" do
@@ -44,6 +46,8 @@ describe "viewing song information" do
       end
       it_behaves_like "valid access rights"
       it { should_not have_link("Ban", ban_song_path(song)) }
+      it { should_not have_link("Download mp3", song.sound.url) }
+      it { should_not have_link("Download ogg", song.sound.ogg.url) }
     end
 
 
@@ -57,6 +61,8 @@ describe "viewing song information" do
       it { should have_link("Edit this song", edit_song_path(song)) }
       it { should have_link("Listen to this song", play_song_path(song)) }
       it { should have_link("Ban this song", ban_song_path(song)) }
+      it { should have_link("Download mp3", song.sound.url) }
+      it { should have_link("Download ogg", song.sound.ogg.url) }
 
       it "let's you ban and unban songs" do
         click_on "Ban this song"

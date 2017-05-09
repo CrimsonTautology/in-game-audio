@@ -23,6 +23,10 @@
         <% if can? :play, song %>
           <%= link_to fa_icon("play"), play_song_path(song), { title: "play", class: "btn btn-warning btn-xs" } %>
         <% end %>
+
+        <% if is_admin? %>
+          <%= link_to fa_icon("download"), song.sound.url, { title: "download mp3", class: "btn btn-warning btn-xs" } %>
+        <% end %>
       </p>
 
     </div><!-- col -->

@@ -28,6 +28,11 @@
   <div><%= link_to "Unban this song", unban_song_path(@song), { method: :post } %>
 <% end %>
 
+<% if is_admin?%>
+  <div><%= link_to "Download mp3", @song.sound.url %>
+  <div><%= link_to "Download ogg", @song.sound.ogg.url %>
+<% end %>
+
 
 <dl class="dl-horizontal" >
   <dt>Uploaded</dt>
