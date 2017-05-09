@@ -3,6 +3,8 @@ InGameAudio::Application.routes.draw do
   resources :songs do
     get 'play', on: :member
     get 'play_html5', on: :member
+    post 'ban', on: :member
+    post 'unban', on: :member
   end
 
   resources :directories do

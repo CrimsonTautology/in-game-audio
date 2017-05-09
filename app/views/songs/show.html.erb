@@ -20,6 +20,15 @@
   <div><%= link_to "Delete this song", @song, method: :delete, data: {confirm: "Are you sure?"} %></div>
 <% end %>
 
+<% if can?(:ban, @song) && !@song.banned?%>
+  <div><%= link_to "Ban this song", ban_song_path(@song), { method: :post } %>
+<% end %>
+
+<% if can?(:unban, @song) && @song.banned?%>
+  <div><%= link_to "Unban this song", unban_song_path(@song), { method: :post } %>
+<% end %>
+
+
 <dl class="dl-horizontal" >
   <dt>Uploaded</dt>
   <dd><%= @song.created_at %></dd>

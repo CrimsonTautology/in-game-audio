@@ -1,7 +1,7 @@
 class SongsController < ApplicationController
   load_and_authorize_resource
 
-  before_filter :find_song, only: [:show, :play, :edit, :update, :destroy]
+  before_filter :find_song, only: [:show, :play, :edit, :update, :destroy, :ban, :unban]
 
   def index
     @songs = Song.includes(:uploader).filter(params)
@@ -68,6 +68,25 @@ class SongsController < ApplicationController
   def destroy
     @song.destroy
     redirect_to directory_path(@song.directory), notice: "Deleted #{@song.full_path}"
+  end
+
+  def ban
+    if !@song.banned?
+      @song.banned_at = Time.now
+      @song.save!
+      flash[:notice] = "Banned Song"
+    else
+      flash[:alert] = "Song already banned"
+    end
+
+    redirect_to @song
+  end
+
+  def unban
+    @song.banned_at = nil
+    @song.save!
+    flash[:notice] = "Unbanned Song"
+    redirect_to @song
   end
 
   private

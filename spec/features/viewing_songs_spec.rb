@@ -34,6 +34,7 @@ describe "viewing song information" do
       end
 
       it_behaves_like "valid access rights"
+      it { should_not have_link("Ban", ban_song_path(song)) }
     end
 
     context "logged in" do
@@ -42,6 +43,7 @@ describe "viewing song information" do
         visit song_path song
       end
       it_behaves_like "valid access rights"
+      it { should_not have_link("Ban", ban_song_path(song)) }
     end
 
 
@@ -54,6 +56,15 @@ describe "viewing song information" do
       it_behaves_like "valid access rights"
       it { should have_link("Edit this song", edit_song_path(song)) }
       it { should have_link("Listen to this song", play_song_path(song)) }
+      it { should have_link("Ban this song", ban_song_path(song)) }
+
+      it "let's you ban and unban songs" do
+        click_on "Ban this song"
+        expect(song.reload).to be_banned
+        click_on "Unban this song"
+        expect(song.reload).to_not be_banned
+      end
+
     end
   end
 end
