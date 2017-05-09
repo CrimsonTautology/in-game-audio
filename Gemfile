@@ -55,7 +55,8 @@ end
 group :development do
   gem 'fuubar'
   gem 'rspec-rails', '2.14.2'
-  #gem 'guard-rspec', '4.2.8'
+  gem 'guard', '2.6.0'
+  gem 'guard-rspec', '4.2.8'
   gem 'better_errors', '1.1.0'
 end
 
