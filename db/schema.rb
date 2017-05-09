@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140911132316) do
+ActiveRecord::Schema.define(version: 20170509135525) do
 
   create_table "api_keys", force: true do |t|
     t.string   "name"
@@ -71,8 +71,10 @@ ActiveRecord::Schema.define(version: 20140911132316) do
     t.string   "sound_content_type"
     t.boolean  "halloween_themeable", default: false
     t.boolean  "christmas_themeable", default: false
+    t.datetime "banned_at"
   end
 
+  add_index "songs", ["banned_at"], name: "index_songs_on_banned_at"
   add_index "songs", ["christmas_themeable"], name: "index_songs_on_christmas_themeable"
   add_index "songs", ["directory_id", "name"], name: "index_songs_on_directory_id_and_name"
   add_index "songs", ["full_path"], name: "index_songs_on_full_path"
