@@ -43,6 +43,41 @@ describe "Song Directories" do
       it { should have_content(sub2.description)}
 
     end
+
+    context "with banned songs" do
+      let!(:song) {FactoryGirl.create(:banned_song, name: "badsong", directory: directory)}
+
+      before do
+        visit directory_path(directory)
+      end
+
+      it { should_not have_link(song.name, href: song_path(song))}
+      it { should_not have_link("Edit", edit_song_path(song)) }
+      it { should_not have_link("Play", play_song_path(song)) }
+
+      context "as normal user" do
+        before do
+          login FactoryGirl.create(:user)
+          visit directory_path(directory)
+        end
+
+        it { should_not have_link(song.name, href: song_path(song))}
+        it { should_not have_link("Edit", edit_song_path(song)) }
+        it { should_not have_link("Play", play_song_path(song)) }
+
+      end
+
+      context "as admin" do
+        before do
+          login FactoryGirl.create(:admin)
+          visit directory_path(directory)
+        end
+
+        it { should have_link(song.name, href: song_path(song))}
+        it { should have_link("", edit_song_path(song)) }
+        it { should have_link("", play_song_path(song)) }
+      end
+    end
   end
 
   shared_examples_for "a root directory page" do

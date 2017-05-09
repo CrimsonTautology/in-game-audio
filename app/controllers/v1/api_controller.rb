@@ -18,15 +18,15 @@ module V1
 
       #Song_id takes priority over a path search
       if @song_id
-        song = Song.find_by_id @song_id.to_i
+        song = Song.unhidden.find_by_id @song_id.to_i
       else
-        song = Song.path_search @path
+        song = Song.unhidden.path_search @path
       end
 
       if song.nil?
         #A direct result was not found via path; try finding songs that have path in their name or title
         songs = []
-        songs = Song.search(@path, :name_and_title).limit(128) if @path
+        songs = Song.unhidden.search(@path, :name_and_title).limit(128) if @path
 
         unless songs.empty?
           #return list back for user to choose which one
@@ -107,12 +107,12 @@ module V1
       christmas = Date.new(Time.now.year, 12, 25)
       if (halloween-2.weeks..halloween+1.week).cover?(Time.now)
         #It's Halloween season
-        song = Song.where(halloween_themeable: true).random
+        song = Song.unhidden.where(halloween_themeable: true).random
       elsif (christmas-2.weeks..christmas+1.week).cover?(Time.now)
         #It's Christmas time
-        song = Song.where(christmas_themeable: true).random
+        song = Song.unhidden.where(christmas_themeable: true).random
       else
-        song = Song.where(map_themeable: true).random
+        song = Song.unhidden.where(map_themeable: true).random
       end
 
       if song.nil?
@@ -147,7 +147,7 @@ module V1
     end
 
     def search_song
-      songs = Song.search(@search)
+      songs = Song.unhidden.search(@search)
 
       if songs.empty?
         out = {

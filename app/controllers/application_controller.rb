@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  helper_method :current_user
+  helper_method :current_user, :is_signed_in?, :is_admin?
 
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to root_path, alert: exception.message, status: 403
@@ -20,6 +20,14 @@ class ApplicationController < ActionController::Base
     @current_user ||= User.find_by(remember_me_token: cookies.signed[:remember_me_token]) if cookies.signed[:remember_me_token]
 
     @current_user
+  end
+
+  def is_signed_in?
+    !!current_user
+  end
+
+  def is_admin?
+    is_signed_in? ? current_user.admin? : false
   end
 
 end

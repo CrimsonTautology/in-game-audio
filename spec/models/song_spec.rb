@@ -87,4 +87,12 @@ describe Song do
   describe ".to_pall_command" do
     specify { expect(Song.new(name: "bob", full_path: "g/bob", album: "Bob's Album").to_pall_command).to eq "!pall g/bob" }
   end
+
+  it "can be banned" do
+    song.banned_at = Time.now
+    song.save
+    song.reload
+    expect(song).to be_banned
+  end
+
 end

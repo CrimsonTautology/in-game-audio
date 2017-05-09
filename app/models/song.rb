@@ -84,6 +84,10 @@ class Song < ActiveRecord::Base
     "!pall #{full_path}"
   end
 
+  def banned?
+    banned_at
+  end
+
   def self.filter attributes
     attributes.inject(self) do |scope, (key, value)|
       return scope if value.blank?
@@ -102,6 +106,8 @@ class Song < ActiveRecord::Base
         scope.where(user_themeable: true)
       when :map_themeable
         scope.where(map_themeable: true)
+      when :banned
+        scope.where.not(banned_at: nil)
       when :user_id
         scope.joins(:uploader).where(users: {uid: value})
       when :directory_id
@@ -116,6 +122,8 @@ class Song < ActiveRecord::Base
           scope.order(updated_at: :desc)
         when :created
           scope.order(created_at: :desc)
+        when :banned
+          scope.order(banned_at: :desc)
         when :play_count
           scope.order(play_count: :desc)
         when :uploader
@@ -139,6 +147,10 @@ class Song < ActiveRecord::Base
 
   def self.random
     offset(rand count).first
+  end
+
+  def self.unhidden
+    where(banned_at: nil)
   end
 
   #Return a song by it's path or a random sub song if path matches a directory

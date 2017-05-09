@@ -8,6 +8,7 @@ describe "searching for songs" do
     let!(:sub) {FactoryGirl.create(:directory, name: "foo", parent: root)}
     let!(:song1) {FactoryGirl.create(:song, name: "fatbeats", directory: root, title: "Some Fat Beatz", album: "Fat Album", artist: "Beatmaster")}
     let!(:song2) {FactoryGirl.create(:song, name: "namestuff", directory: sub, title: "Some Stuff", album: "", artist: "Beatmaster")}
+    let!(:banned_song) {FactoryGirl.create(:banned_song, name: "badjazz", directory: sub, title: "Bad Jazz", album: "", artist: "Beatmaster")}
     before do
       visit "/songs/"
     end
@@ -18,6 +19,9 @@ describe "searching for songs" do
 
     it { should have_link song2.to_s, href: song_path(song2) }
     it { should have_content song2.full_path }
+
+    it { should_not have_link banned_song.to_s, href: song_path(banned_song) }
+    it { should_not have_content banned_song.full_path }
   end
 
   describe "the search bar" do
@@ -26,6 +30,7 @@ describe "searching for songs" do
     let!(:song2) {FactoryGirl.create(:song, name: "namestuff", directory: sub, title: "Some Stuff", album: "", artist: "Beatmaster")}
     let!(:song3) {FactoryGirl.create(:song, name: "foo", directory: sub, title: "Foo Master", album: "stuffington", artist: "Bob")}
     let!(:song4) {FactoryGirl.create(:song, name: "bar", directory: sub, title: "Bar Master", album: "steave", artist: "Mr. Stuff")}
+    let!(:banned_song) {FactoryGirl.create(:banned_song, name: "badstuff", directory: sub, title: "Bad Stuff", album: "", artist: "Stuffmaster")}
 
     before do
       visit directories_path
@@ -45,6 +50,9 @@ describe "searching for songs" do
 
     it { should have_link song4.to_s, href: song_path(song4) }
     it { should have_content song4.full_path }
+
+    it { should_not have_link banned_song.to_s, href: song_path(banned_song) }
+    it { should_not have_content banned_song.full_path }
 
   end
 end

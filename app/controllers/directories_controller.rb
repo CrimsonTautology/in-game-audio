@@ -63,6 +63,7 @@ class DirectoriesController < ApplicationController
     end
     @subdirectories = @directory.subdirectories.order(name: :asc)
     @songs = @directory.songs.includes(:uploader).order(name: :asc)
+    @songs = @songs.unhidden unless is_admin?
   end
 
   def create_params

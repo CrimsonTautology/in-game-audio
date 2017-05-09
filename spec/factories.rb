@@ -24,6 +24,10 @@ FactoryGirl.define do
     sound_content_type "audio/mp3"
     sound_file_size 320214
     sound_fingerprint
+
+    factory :banned_song do
+      banned_at Time.now
+    end
   end
 
   sequence :sound_file_name do |n|

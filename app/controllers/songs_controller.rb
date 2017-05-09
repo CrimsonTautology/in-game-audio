@@ -4,7 +4,9 @@ class SongsController < ApplicationController
   before_filter :find_song, only: [:show, :play, :edit, :update, :destroy]
 
   def index
-    @songs = Song.includes(:uploader).filter(params).paginate(page: params[:page], per_page: 32)
+    @songs = Song.includes(:uploader).filter(params)
+    @songs = @songs.unhidden unless is_admin?
+    @songs = @songs.paginate(page: params[:page], per_page: 32)
   end
 
   def show
