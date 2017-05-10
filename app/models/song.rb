@@ -91,6 +91,11 @@ class Song < ActiveRecord::Base
     banned_at
   end
 
+  def has_profanity?
+    checks = [name, title, artist, album, sound_file_name]
+    checks.any? {|check| WordFilter.has_profanity? check}
+  end
+
   def self.filter attributes
     attributes.inject(self) do |scope, (key, value)|
       return scope if value.blank?
@@ -248,10 +253,7 @@ class Song < ActiveRecord::Base
   end
 
   def ban_if_has_profanity
-    #Fields of the song to check
-    checks = [name, title, artist, album, sound_file_name]
-
-    if checks.any? {|check| WordFilter.has_profanity? check}
+    if has_profanity?
       self.banned_at = Time.now
     end
   end
