@@ -45,6 +45,11 @@ class SongsController < ApplicationController
         Theme.create(user: current_user, song: @song)
       end
 
+      #Alert user that song needs admin approval
+      if @song.banned?
+        flash[:error] = "Song requires admin approval."
+      end
+
       flash[:notice] = "Successfully uploaded #{@song.full_path}."
       redirect_to @song
     else
