@@ -13,6 +13,7 @@ describe Song do
   its(:directory) { should eq sub }
   its(:full_path) { should eq "foo/jazz"}
   its(:duration_formated) { should eq "00:20:34"}
+  it { should_not be_banned }
 
   it "updates full_path if parent directory changes name" do
     sub.reload
@@ -93,6 +94,21 @@ describe Song do
     song.save
     song.reload
     expect(song).to be_banned
+  end
+
+  it "auto bans songs with profanity in name" do
+    bad_song = FactoryGirl.create(:song, name: "fgt", directory: sub, duration: 1234.5)
+    expect(bad_song).to be_banned
+  end
+
+  it "auto bans songs with profanity in filename" do
+    bad_song = FactoryGirl.create(:song, name: "baz", directory: sub, duration: 1234.5, sound_file_name: "bad_filename-fgt_")
+    expect(bad_song).to be_banned
+  end
+
+  it "auto bans songs with profanity in title" do
+    bad_song = FactoryGirl.create(:song, name: "baz", directory: sub, duration: 1234.5, title: "FGT")
+    expect(bad_song).to be_banned
   end
 
 end
