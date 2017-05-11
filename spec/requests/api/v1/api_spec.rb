@@ -235,6 +235,15 @@ describe "POST /v1/api" do
         expect(PlayEvent.find_by(access_token: access_token, type_of: "map", song: song, api_key: api_key)).to_not be_nil
       end
 
+      it "return a specific song if there is a map theme record" do
+        match_song = FactoryGirl.create(:song, directory: sub, map_themeable: false) 
+        FactoryGirl.create(:map_theme, song: match_song, map: "cp_match")
+        post route,
+          access_token: api_key.access_token,
+          map: "cp_match"
+        expect(json['song_id']).to eq match_song.id.to_s
+      end
+
     end
   end #map_theme
 

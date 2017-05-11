@@ -105,7 +105,11 @@ module V1
     def map_theme
       halloween = Date.new(Time.now.year, 10, 31)
       christmas = Date.new(Time.now.year, 12, 25)
-      if (halloween-2.weeks..halloween+1.week).cover?(Time.now)
+      map_theme = MapTheme.find_by(map: @map)
+      if (map_theme)
+        #Found a matching map theme
+        song = map_theme.song
+      elsif (halloween-2.weeks..halloween+1.week).cover?(Time.now)
         #It's Halloween season
         song = Song.unhidden.where(halloween_themeable: true).random
       elsif (christmas-2.weeks..christmas+1.week).cover?(Time.now)
