@@ -12,6 +12,7 @@ class Song < ActiveRecord::Base
   #process_in_background :sound
 
   has_many :themes, dependent: :destroy
+  has_many :map_themes, dependent: :destroy
   has_many :play_events
 
   validates :name,

@@ -1,29 +1,26 @@
-<h1>Listing map_themes</h1>
+<%= simple_form_for MapTheme.new do |f| %>
+  <%= f.input :map %>
+  <%= f.input :full_path %>
+  <%= f.submit "Add New Map Theme", class: "btn btn-success" %>
+<% end %>
 
-<table>
+<% if @map_theme.count > 0 %>
+<table class="table table-hover table-striped" >
   <thead>
     <tr>
       <th>Map</th>
       <th>Song</th>
       <th></th>
-      <th></th>
-      <th></th>
     </tr>
   </thead>
-
   <tbody>
-    <% @map_themes.each do |map_theme| %>
-      <tr>
-        <td><%= map_theme.map %></td>
-        <td><%= map_theme.song %></td>
-        <td><%= link_to 'Show', map_theme %></td>
-        <td><%= link_to 'Edit', edit_map_theme_path(map_theme) %></td>
-        <td><%= link_to 'Destroy', map_theme, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
+  <% @map_theme.each do |mt| %>
+    <tr>
+      <td><%= mt.map %></td>
+      <td><%= "#{mt.song.to_s} (#{mt.song.full_path})" %></td>
+      <td><%= button_to "delete", mt, method: :delete, data: {confirm: "Are you sure?"} %></td>
+    </tr>
+  <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Map theme', new_map_theme_path %>
+<% end %>

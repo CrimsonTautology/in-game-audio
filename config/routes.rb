@@ -1,6 +1,5 @@
 InGameAudio::Application.routes.draw do
 
-  resources :map_themes
 
   resources :songs do
     get 'play', on: :member
@@ -14,6 +13,8 @@ InGameAudio::Application.routes.draw do
   end
 
   resources :api_keys
+
+  resources :map_themes
 
   resources :users do
     resources :themes
