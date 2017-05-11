@@ -2,7 +2,7 @@ class MapThemesController < ApplicationController
   authorize_resource
 
   def index
-    @map_themes = MapTheme.order(map: :desc)
+    @map_themes = MapTheme.order(map: :asc)
   end
 
   def create
