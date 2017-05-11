@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170509135525) do
+ActiveRecord::Schema.define(version: 20170511152202) do
 
   create_table "api_keys", force: true do |t|
     t.string   "name"
@@ -33,6 +33,16 @@ ActiveRecord::Schema.define(version: 20170509135525) do
   add_index "directories", ["full_path"], name: "index_directories_on_full_path"
   add_index "directories", ["parent_id", "name"], name: "index_directories_on_parent_id_and_name"
   add_index "directories", ["root"], name: "index_directories_on_root"
+
+  create_table "map_themes", force: true do |t|
+    t.string   "map"
+    t.integer  "song_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "map_themes", ["map"], name: "index_map_themes_on_map", unique: true
+  add_index "map_themes", ["song_id"], name: "index_map_themes_on_song_id"
 
   create_table "play_events", force: true do |t|
     t.string   "access_token"
