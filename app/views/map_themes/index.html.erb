@@ -17,7 +17,7 @@
   <% @map_themes.each do |mt| %>
     <tr>
       <td><%= mt.map %></td>
-      <td><%= "#{mt.song.to_s} (#{mt.song.full_path})" %></td>
+      <td><%= link_to "#{mt.song.to_s} (#{mt.song.full_path})", mt.song %></td>
       <td><%= button_to "delete", mt, method: :delete, data: {confirm: "Are you sure?"} %></td>
     </tr>
   <% end %>
