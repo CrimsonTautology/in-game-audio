@@ -73,4 +73,13 @@ FactoryGirl.define do
     song
   end
 
+  sequence :map do |n|
+    "cp_dustbowl_b#{n}"
+  end
+
+  factory :map_theme do
+    map
+    song
+  end
+
 end

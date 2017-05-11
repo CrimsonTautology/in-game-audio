@@ -1,0 +1,29 @@
+<h1>Listing map_themes</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Map</th>
+      <th>Song</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @map_themes.each do |map_theme| %>
+      <tr>
+        <td><%= map_theme.map %></td>
+        <td><%= map_theme.song %></td>
+        <td><%= link_to 'Show', map_theme %></td>
+        <td><%= link_to 'Edit', edit_map_theme_path(map_theme) %></td>
+        <td><%= link_to 'Destroy', map_theme, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Map theme', new_map_theme_path %>

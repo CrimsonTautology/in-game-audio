@@ -1,5 +1,7 @@
 InGameAudio::Application.routes.draw do
 
+  resources :map_themes
+
   resources :songs do
     get 'play', on: :member
     get 'play_html5', on: :member
