@@ -3,7 +3,7 @@ require 'spec_helper'
 describe MapTheme do
   let!(:root) { FactoryGirl.create(:root)}
   let!(:song) { FactoryGirl.create(:song, name: "valid", directory: root)}
-  let!(:existing_map_theme) { FactoryGirl.create(:map_theme, map: "koth_existing") }
+  let!(:existing_map_theme) { FactoryGirl.create(:map_theme, map: "koth_existing", song: song) }
 
   specify { expect(MapTheme.new(map: "pl_badwater", song: song)).to be_valid }
 
@@ -13,7 +13,7 @@ describe MapTheme do
 
   it "auto deletes if the song is deleted" do
     new_song = FactoryGirl.create(:song, directory: root)
-    map_theme = MapTheme.create(song: new_song)
+    map_theme = MapTheme.create(map: "arena_map", song: new_song)
     expect{ new_song.destroy }.to change(MapTheme, :count).by(-1)
   end
 end

@@ -18,9 +18,9 @@ describe "map theme song manager" do
 
     context "logged in as admin" do
       let!(:user) { FactoryGirl.create(:admin) }
-      let(:song) { FactoryGirl.create(:song, name: "allthefoo") }
-      let(:another_song) { FactoryGirl.create(:song, name: "allthebaz") }
-      let(:map_theme) { FactoryGirl.create(:map_theme, song: song) }
+      let!(:song) { FactoryGirl.create(:song, name: "allthefoo", directory: root) }
+      let!(:map_theme) { FactoryGirl.create(:map_theme, song: song) }
+      let!(:another_song) { FactoryGirl.create(:song, name: "allthebaz", directory: root) }
       
       before do
         login user
@@ -33,10 +33,18 @@ describe "map theme song manager" do
 
       it "lets you add new map themes" do
         fill_in "Map", with: "koth_ashville"
-        fill_in "Song", with: another_song.full_path
+        fill_in "Full path", with: another_song.full_path
         click_on "Add New Map Theme"
         expect(page).to have_content(another_song.full_path)
         expect(page).to have_content("koth_ashville")
+      end
+
+      it "prevents you from uploading themes with nonexistant songs" do
+        fill_in "Map", with: "koth_fake"
+        fill_in "Full path", with: "g/badpath"
+        click_on "Add New Map Theme"
+        expect(page).to_not have_content("g/badpath")
+        expect(page).to_not have_content("koth_fake")
       end
 
       it "lets you delete map themes" do
