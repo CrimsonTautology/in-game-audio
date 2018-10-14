@@ -1,7 +1,16 @@
+<!-- 
+  NOTE: this is a workaround for chrome disabling autoplay
+  see: https://developers.google.com/web/updates/2017/09/autoplay-policy-changes
+-->
+<iframe
+  src="/silence.mp3"
+  allow="autoplay"
+  style="display:none"
+  id="audio_auto" >
+</iframe>
+
 <audio id="audio_player" data-volume="<%= @volume %>" data-seek="<%= @seek %>" controls autoplay preload>
   <source src="<%= @song.sound.ogg.url %>" type="audio/ogg" />
   <source src="<%= @song.sound.url %>" type="audio/mpeg" />
   <p>Browser does not support this audio player</p>
 </audio>
-
-
