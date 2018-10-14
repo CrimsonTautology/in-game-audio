@@ -1,9 +1,6 @@
-require 'carrierwave/processing/mime_types'
 require 'audioinfo'
 
 class SongUploader < CarrierWave::Uploader::Base
-  include CarrierWave::MimeTypes
-
 
   process :extract_original_file_details
 
@@ -17,7 +14,6 @@ class SongUploader < CarrierWave::Uploader::Base
 
   process :convert_to_mp3
   process :extract_converted_file_details
-  process :set_content_type
 
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:
@@ -26,7 +22,7 @@ class SongUploader < CarrierWave::Uploader::Base
   end
 
   # Add a white list of extensions which are allowed to be uploaded.
-  def extension_white_list
+  def extension_whitelist
     %w(mp3 mp4 ogg wav m4a)
   end
 
@@ -50,10 +46,6 @@ class SongUploader < CarrierWave::Uploader::Base
 
   def full_filename(for_file)
     model.sound_file_name + '.mp3'
-  end
-
-  def set_content_type(*args)
-    self.file.instance_variable_set(:@content_type, "audio/mp3")
   end
 
   def convert_to_mp3

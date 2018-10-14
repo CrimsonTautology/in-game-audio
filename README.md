@@ -5,7 +5,7 @@
 The back website for the [In Game Audio](https://github.com/CrimsonTautology/sm_in_game_audio) sourcemod plugin.  Allows a person to upload songs which can then be played back in game through the HTML5 MOTD browser.
 
 ## Requirements
-* Ruby 1.9
+* Ruby 2.0
 * A [Steam Web API Key](http://steamcommunity.com/dev)
 * [postgresql](http://www.postgresql.org/)
 * A game server running [Sourcemod](http://www.sourcemod.net) and the [sm_in_game_audio](https://github.com/CrimsonTautology/sm_in_game_audio) plugin.

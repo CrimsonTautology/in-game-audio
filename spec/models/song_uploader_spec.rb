@@ -77,7 +77,7 @@ describe SongUploader do
     its(:title) { should be_nil }
     its(:album) { should be_nil }
     its(:artist) { should be_nil }
-    its(:duration) { should be_within(0.1).of(6.0) }
+    its(:duration) { should be_within(0.1).of(6.3) }
 
     its(:sound_fingerprint) { should_not be_blank }
     its(:sound_file_size) { should > (1) }
@@ -100,7 +100,7 @@ describe SongUploader do
     its(:title) { should be_nil }
     its(:album) { should be_nil }
     its(:artist) { should be_nil }
-    its(:duration) { should be_within(0.1).of(2.0) }
+    its(:duration) { should be_within(0.1).of(2.4) }
 
     its(:sound_fingerprint) { should_not be_blank }
     its(:sound_file_size) { should > (1) }
