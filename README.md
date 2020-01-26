@@ -26,9 +26,9 @@ The back website for the [In Game Audio](https://github.com/CrimsonTautology/sm_
 * Start the webserver: `thin start`
 
 ## Usage
-Go [here](http://iga.crimsontautology.com/directories) to find a song you want to play.
+Go [here](http://iga.serverisnotcrash.com/directories) to find a song you want to play.
 
-Every song on that site can be played with the `!p` chat command.  Calling `!p` by itself will play a random song to yourself. You can also call `!p` with a category to play a random song in that category: `!p r` will play a random song in [the rock category](http://iga.crimsontautology.com/directories/70). This works with subdirectories of a category as well.  To play a specific song, give the category it is in followed by a forward slash '/' and then the name.  For example to play ["takefive"](http://iga.crimsontautology.com/songs/153) in the ["j"](http://iga.crimsontautology.com/directories/60) category you would type `!p j/takefive` into the in-game chat-box.
+Every song on that site can be played with the `!p` chat command.  Calling `!p` by itself will play a random song to yourself. You can also call `!p` with a category to play a random song in that category: `!p r` will play a random song in [the rock category](http://iga.serverisnotcrash.com/directories/70). This works with subdirectories of a category as well.  To play a specific song, give the category it is in followed by a forward slash '/' and then the name.  For example to play ["takefive"](http://iga.serverisnotcrash.com/songs/153) in the ["j"](http://iga.serverisnotcrash.com/directories/60) category you would type `!p j/takefive` into the in-game chat-box.
 
 ![Example](http://i.imgur.com/VuiWlgF.gif)
 
