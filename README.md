@@ -1,3 +1,6 @@
+# DEPRECATED
+This will no longer work due to changes to the in-game Chromium web browser.
+
 # In Game Audio
 
 [![Build Status](https://travis-ci.org/CrimsonTautology/in_game_audio.png?branch=master)](https://travis-ci.org/CrimsonTautology/in_game_audio)
