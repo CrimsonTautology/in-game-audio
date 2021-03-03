@@ -5,13 +5,13 @@ This will no longer work due to changes to the in-game Chromium web browser.
 
 [![Build Status](https://travis-ci.org/CrimsonTautology/in_game_audio.png?branch=master)](https://travis-ci.org/CrimsonTautology/in_game_audio)
 
-The back website for the [In Game Audio](https://github.com/CrimsonTautology/sm_in_game_audio) sourcemod plugin.  Allows a person to upload songs which can then be played back in game through the HTML5 MOTD browser.
+The back website for the [In Game Audio](https://github.com/CrimsonTautology/sm-in-game-audio) sourcemod plugin.  Allows a person to upload songs which can then be played back in game through the HTML5 MOTD browser.
 
 ## Requirements
 * Ruby 2.0
 * A [Steam Web API Key](http://steamcommunity.com/dev)
 * [postgresql](http://www.postgresql.org/)
-* A game server running [Sourcemod](http://www.sourcemod.net) and the [sm_in_game_audio](https://github.com/CrimsonTautology/sm_in_game_audio) plugin.
+* A game server running [Sourcemod](http://www.sourcemod.net) and the [sm-in-game-audio](https://github.com/CrimsonTautology/sm-in-game-audio) plugin.
 * A [Google Storage for Developers](http://gs-signup-redirect.appspot.com/) account. Get your credentials [here](https://storage.cloud.google.com/m)
 * [FFMPEG](http://www.ffmpeg.org/) with OGG Vorbis support.
 
